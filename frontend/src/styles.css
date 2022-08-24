@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgba(0, 0, 0, 0.842);}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(255, 255, 255);}
 
 .v-align{
     vertical-align: middle;
 }
 
 .green{
-    background-color: rgba(0, 128, 0, 0.473);
+    background-color: rgb(0, 110, 0);
 }
