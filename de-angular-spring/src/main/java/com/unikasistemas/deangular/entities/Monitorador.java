@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.unikasistemas.deangular.enums.TipoPessoa;
+
 
 @Entity
 @Table(name = "monitoradores")
@@ -23,7 +23,7 @@ public class Monitorador implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private TipoPessoa tipo;
+    private String tipo;
     
     private String nome = null;
     private String cpf = null;
@@ -45,11 +45,11 @@ public class Monitorador implements Serializable {
 
     public Monitorador(){}
 
-    public Monitorador(Long id,TipoPessoa tipoP, String identificacao, String cadastro, String email, String registro, Instant dataNascimento, Boolean ativo){
+    public Monitorador(Long id,String tipoP, String identificacao, String cadastro, String email, String registro, Instant dataNascimento, Boolean ativo){
             this.id = id;
             this.tipo = tipoP;
             
-            if(tipoP.equals(TipoPessoa.FISICA)){
+            if(tipoP.equals("Física")){
                 this.nome = identificacao;
                 this.cpf = cadastro;
                 this.rg = registro;
@@ -73,11 +73,11 @@ public class Monitorador implements Serializable {
         this.id = id;
     }
 
-    public TipoPessoa getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoPessoa tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -115,34 +115,34 @@ public class Monitorador implements Serializable {
 
     @JsonIgnore
     public String getIdentificacao(){
-        if(tipo.equals(TipoPessoa.FISICA)) return nome;
+        if(tipo.equals("Física")) return nome;
         else return razaoSocial;
     }
 
     public void setIdentificacao(String novo){
-        if(tipo.equals(TipoPessoa.FISICA)) this.nome = novo;
+        if(tipo.equals("Física")) this.nome = novo;
         else this.razaoSocial = novo;
     }
 
     @JsonIgnore
     public String getCadastro(){
-        if(tipo.equals(TipoPessoa.FISICA)) return cpf;
+        if(tipo.equals("Física")) return cpf;
         else return cnpj;
     }
 
     public void setCadastro(String novo){
-        if(tipo.equals(TipoPessoa.FISICA)) this.cpf = novo;
+        if(tipo.equals("Física")) this.cpf = novo;
         else this.cnpj = novo;
     }
 
     @JsonIgnore
     public String getRegistro(){
-        if(tipo.equals(TipoPessoa.FISICA)) return rg;
+        if(tipo.equals("Física")) return rg;
         else return inscricaoEstadual;
     }
 
     public void setRegistro(String novo){
-        if(tipo.equals(TipoPessoa.FISICA)) this.rg = novo;
+        if(tipo.equals("Física")) this.rg = novo;
         else this.inscricaoEstadual = novo;
     }
 

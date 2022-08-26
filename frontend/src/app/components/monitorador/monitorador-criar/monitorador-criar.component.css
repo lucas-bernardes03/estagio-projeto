@@ -1,0 +1,48 @@
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(37, 148, 37) !important;
+}
+
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: rgb(37, 148, 37) !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(37, 148, 37) !important;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: rgb(37, 148, 37);
+}
+
+::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: rgb(37, 148, 37);
+}
+
+::ng-deep datepicker-value-example .mat-form-field-label{
+    color:rgb(37, 148, 37);
+}
+ 
+::ng-deep .mat-datepicker-toggle{
+    color:rgb(37, 148, 37);
+}
+
+::ng-deep .mat-form-field-underline{
+    background: rgb(37, 148, 37);
+}
+
+.mat-card input {
+    caret-color: rgb(37, 148, 37);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.inner-form{
+    display: flex;
+    flex-direction: column;
+}

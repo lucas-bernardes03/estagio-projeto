@@ -1,1 +1,61 @@
-<p>monitorador-criar works!</p>
+<mat-card>
+    <mat-card-title>Novo Monitorador</mat-card-title>
+    <form>
+        
+        <mat-form-field>
+            <mat-label>Selecione o tipo de pessoa:</mat-label>
+            <mat-select name="tipo" [(ngModel)]="monitorador.tipo" (selectionChange)="onChange($event)">
+                <mat-option value="Física">Física</mat-option>
+                <mat-option value="Jurídica">Jurídica</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <div class="inner-form" *ngIf="monitorador.tipo === 'Física'">
+            <mat-form-field>
+                <input matInput placeholder="Nome" [(ngModel)]="monitorador.nome" name="nome">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="CPF" [(ngModel)]="monitorador.cpf" name="cpf">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="RG" [(ngModel)]="monitorador.rg" name="rg">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" [(ngModel)]="monitorador.dataNascimento" name="dataNascimento">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+        </div>
+        
+        <div class="inner-form" *ngIf="monitorador.tipo === 'Jurídica'">
+            <mat-form-field>
+                <input matInput placeholder="Razão Social" [(ngModel)]="monitorador.razaoSocial" name="razaoSocial">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="CNPJ" [(ngModel)]="monitorador.cnpj" name="cnpj">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Inscrição Estadual" [(ngModel)]="monitorador.inscricaoEstadual" name="inscricaoEstadual">
+            </mat-form-field>
+        </div>
+
+        <div class="inner-form" *ngIf="monitorador.tipo">
+            <mat-form-field>
+                <input matInput placeholder="E-mail" [(ngModel)]="monitorador.email" name="email">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Ativo" [(ngModel)]="monitorador.ativo" name="ativo">
+            </mat-form-field>
+        </div>
+        
+        
+    </form>
+    <button mat-raised-button (click)="salvarMonitorador()" color="success">
+        Salvar
+    </button>
+    
+    <button mat-raised-button (click)="cancelar()" color="cancel">
+        Cancelar
+    </button>
+</mat-card>

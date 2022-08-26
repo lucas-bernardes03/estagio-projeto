@@ -1,12 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(255, 255, 255);}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(66, 66, 66);}
 
 .v-align{
     vertical-align: middle;
 }
 
-.green{
-    background-color: rgb(0, 110, 0);
+.black{
+    background-color: rgb(17, 17, 17);
 }
+
+.mat-success {
+    background-color: rgb(37, 148, 37);
+    color: #fff;
+}
+
+.mat-cancel {
+    background-color: rgb(190, 36, 36)
+}
+
