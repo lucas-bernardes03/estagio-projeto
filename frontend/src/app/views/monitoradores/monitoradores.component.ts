@@ -2,7 +2,6 @@ import { MonitoradorLerComponent } from './../../components/monitorador/monitora
 import { MonitoradorCriarComponent } from './../../components/monitorador/monitorador-criar/monitorador-criar.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-monitoradores',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 export class MonitoradoresComponent implements OnInit {
   @ViewChild(MonitoradorLerComponent) monitoradorLer!: MonitoradorLerComponent
 
-  constructor(private router: Router, private dialog: MatDialog) { }
+  constructor( private dialog: MatDialog) { }
   
   ngOnInit(): void {
   }

@@ -13,10 +13,6 @@ const routes: Routes = [
     path: "monitoradores",
     component: MonitoradoresComponent
   },
-  {
-    path: "monitoradores/criar",
-    component: MonitoradorCriarComponent
-  }
 ];
 
 @NgModule({

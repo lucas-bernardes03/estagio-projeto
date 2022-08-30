@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MonitoradorUpdateComponent } from './components/monitorador/monitorador-update/monitorador-update.component';
 
 
 
@@ -45,6 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MonitoradoresComponent,
     MonitoradorCriarComponent,
     MonitoradorLerComponent,
+    MonitoradorUpdateComponent,
    
   ],
   imports: [
