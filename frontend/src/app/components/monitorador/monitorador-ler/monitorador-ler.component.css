@@ -1,0 +1,33 @@
+table{
+    width: 100%;
+}
+
+.material-icons{
+    color: rgb(37, 148, 37);
+}
+
+.delete-icon{
+    color: rgb(187, 23, 23);
+}
+
+.edit-icon{
+    color: blue;
+}
+
+.div-table{
+    margin-top: 20px;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+    text-align: center;
+}
+
+.title{
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
+.select{
+    margin-left: 20px;
+    
+}

@@ -1,61 +1,100 @@
-<mat-card>
-    <mat-card-title>Novo Monitorador</mat-card-title>
+<h2 mat-dialog-title>Registrar</h2>
+
+<mat-dialog-content>
     <form>
-        
         <mat-form-field>
-            <mat-label>Selecione o tipo de pessoa:</mat-label>
+            <mat-label>Selecione a Pessoa:</mat-label>
             <mat-select name="tipo" [(ngModel)]="monitorador.tipo" (selectionChange)="onChange($event)">
                 <mat-option value="Física">Física</mat-option>
                 <mat-option value="Jurídica">Jurídica</mat-option>
             </mat-select>
         </mat-form-field>
         
-        <div class="inner-form" *ngIf="monitorador.tipo === 'Física'">
+        <div class="inner-form" *ngIf="monitorador.tipo === 'Física'" [formGroup]="formF">
             <mat-form-field>
-                <input matInput placeholder="Nome" [(ngModel)]="monitorador.nome" name="nome">
+                <input matInput placeholder="Nome" [(ngModel)]="monitorador.nome" formControlName="nome">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('nome', 'pattern') || errorHandling('nome', 'required')">
+                Nome inválido
+            </mat-error>
+
             <mat-form-field>
-                <input matInput placeholder="CPF" [(ngModel)]="monitorador.cpf" name="cpf">
+                <input matInput placeholder="CPF" [(ngModel)]="monitorador.cpf" formControlName="cpf">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('cpf', 'pattern') || errorHandling('cpf', 'required')">
+                CPF inválido
+            </mat-error>
+
             <mat-form-field>
-                <input matInput placeholder="RG" [(ngModel)]="monitorador.rg" name="rg">
+                <input matInput placeholder="RG" [(ngModel)]="monitorador.rg" formControlName="rg">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('rg', 'pattern') || errorHandling('rg', 'required')">
+                RG inválido
+            </mat-error>
+
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" [(ngModel)]="monitorador.dataNascimento" name="dataNascimento">
+                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" [(ngModel)]="monitorador.dataNascimento" formControlName="dataNascimento">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('dataNascimento', 'required')">
+                Data de Nascimento inválida
+            </mat-error>
+
             
         </div>
         
-        <div class="inner-form" *ngIf="monitorador.tipo === 'Jurídica'">
+        <div class="inner-form" *ngIf="monitorador.tipo === 'Jurídica'" [formGroup]="formJ">
             <mat-form-field>
-                <input matInput placeholder="Razão Social" [(ngModel)]="monitorador.razaoSocial" name="razaoSocial">
+                <input matInput placeholder="Razão Social" [(ngModel)]="monitorador.razaoSocial" formControlName="razaoSocial">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('razaoSocial', 'pattern') || errorHandling('razaoSocial', 'required')">
+                Razão Social inválida
+            </mat-error>
+            
             <mat-form-field>
-                <input matInput placeholder="CNPJ" [(ngModel)]="monitorador.cnpj" name="cnpj">
+                <input matInput placeholder="CNPJ" [(ngModel)]="monitorador.cnpj" formControlName="cnpj">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('cnpj', 'pattern') || errorHandling('cnpj', 'required')">
+                CNPJ inválido
+            </mat-error>
+            
             <mat-form-field>
-                <input matInput placeholder="Inscrição Estadual" [(ngModel)]="monitorador.inscricaoEstadual" name="inscricaoEstadual">
+                <input matInput placeholder="Inscrição Estadual" [(ngModel)]="monitorador.inscricaoEstadual" formControlName="inscricaoEstadual">
             </mat-form-field>
+            <mat-error *ngIf="errorHandling('inscricaoEstadual', 'pattern') || errorHandling('inscricaoEstadual', 'required')">
+                Inscrição Estadual inválida
+            </mat-error>
         </div>
 
-        <div class="inner-form" *ngIf="monitorador.tipo">
+        <div class="inner-form" *ngIf="monitorador.tipo" [formGroup]="formComum">
             <mat-form-field>
-                <input matInput placeholder="E-mail" [(ngModel)]="monitorador.email" name="email">
+                <input matInput placeholder="E-mail" [(ngModel)]="monitorador.email" formControlName="email">
             </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Ativo" [(ngModel)]="monitorador.ativo" name="ativo">
-            </mat-form-field>
+            <mat-error *ngIf="errorHandling('email', 'email') || errorHandling('email', 'required')">
+                E-mail inválido
+            </mat-error>
+
+            <mat-radio-group aria-label="Selecione uma opção" [(ngModel)]="monitorador.ativo" formControlName="ativo">
+                <label>Ativo? </label>
+                <mat-radio-button [value]=true class="radiobt">Sim</mat-radio-button>
+                <mat-radio-button [value]=false class="radiobt">Não</mat-radio-button>
+                <br/>
+            </mat-radio-group>
         </div>
-        
-        
+        <br/>
     </form>
-    <button mat-raised-button (click)="salvarMonitorador()" color="success">
-        Salvar
-    </button>
+</mat-dialog-content>
     
-    <button mat-raised-button (click)="cancelar()" color="cancel">
+<mat-dialog-actions>
+    <div *ngIf="monitorador.tipo">
+        <button mat-raised-button (click)="salvarMonitorador()" color="success" class="formbt" [disabled]="formF.invalid || formJ.invalid || formComum.invalid">
+            Salvar
+        </button>
+        
+    </div>
+    <button mat-raised-button (click)="cancelar()" color="cancel" class="formbt">
         Cancelar
     </button>
-</mat-card>
+</mat-dialog-actions>
+

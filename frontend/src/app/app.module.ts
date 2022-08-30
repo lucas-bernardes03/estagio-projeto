@@ -25,7 +25,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
+import { MonitoradorLerComponent } from './components/monitorador/monitorador-ler/monitorador-ler.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -38,6 +44,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HomeComponent,
     MonitoradoresComponent,
     MonitoradorCriarComponent,
+    MonitoradorLerComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatRadioModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

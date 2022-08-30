@@ -33,6 +33,19 @@
     background: rgb(37, 148, 37);
 }
 
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color: rgb(37, 148, 37);
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    background-color: rgb(37, 148, 37);
+}
+
+.radiobt{
+    padding-left: 10px;
+    
+}
+
 .mat-card input {
     caret-color: rgb(37, 148, 37);
 }
@@ -45,4 +58,8 @@ form{
 .inner-form{
     display: flex;
     flex-direction: column;
+}
+
+button{
+    margin-right: 15px;
 }

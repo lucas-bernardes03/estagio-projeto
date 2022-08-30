@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MonitoradorLerComponent } from './../../components/monitorador/monitorador-ler/monitorador-ler.component';
+import { MonitoradorCriarComponent } from './../../components/monitorador/monitorador-criar/monitorador-criar.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,14 +10,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./monitoradores.component.css']
 })
 export class MonitoradoresComponent implements OnInit {
+  @ViewChild(MonitoradorLerComponent) monitoradorLer!: MonitoradorLerComponent
 
-  constructor(private router: Router) { }
-
+  constructor(private router: Router, private dialog: MatDialog) { }
+  
   ngOnInit(): void {
   }
 
   navigateToMonitoradorCriar(): void{
-    this.router.navigate(['/monitoradores/criar'])
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = true
+
+    const dialogRef = this.dialog.open(MonitoradorCriarComponent, dialogConfig)
+    
+    
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log(result)
+      if(result) this.monitoradorLer.ngOnInit()
+    });
   }
 
 }

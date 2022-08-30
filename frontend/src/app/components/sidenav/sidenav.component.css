@@ -10,3 +10,7 @@
     padding: 16px;
     background-color: rgb(66, 66, 66);
 }
+
+::ng-deep .mat-drawer-container{
+    background-color: rgb(66, 66, 66);
+}

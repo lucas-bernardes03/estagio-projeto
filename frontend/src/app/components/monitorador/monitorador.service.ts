@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class MonitoradorService {
 
-  baseUrl = 'http://localhost:8080/api/monitoradores'
+  baseUrl = 'api/monitoradores'
 
   constructor(private snackbar: MatSnackBar, private http: HttpClient) { }
 
@@ -24,6 +24,20 @@ export class MonitoradorService {
 
   create(monitorador: Monitorador): Observable<Monitorador> {
     return this.http.post<Monitorador>(this.baseUrl, monitorador)
+  }
+
+  read(): Observable<Monitorador[]> {
+    return this.http.get<Monitorador[]>(this.baseUrl)
+  }
+
+  readById(id:string): Observable<Monitorador>{
+    const url = `${this.baseUrl}/${id}`
+    return this.http.get<Monitorador>(url)
+  }
+
+  update(monitorador: Monitorador): Observable<Monitorador> {
+    const url = `${this.baseUrl}/${monitorador.id}`
+    return this.http.put<Monitorador>(url, monitorador)
   }
 
 }

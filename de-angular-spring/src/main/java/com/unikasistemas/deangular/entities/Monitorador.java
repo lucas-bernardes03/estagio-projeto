@@ -29,7 +29,7 @@ public class Monitorador implements Serializable {
     private String cpf = null;
     private String rg = null;
     
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'", timezone = "GMT")
     private Instant dataNascimento = null;
     
     private String razaoSocial = null;
