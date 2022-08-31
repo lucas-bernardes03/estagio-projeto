@@ -32,6 +32,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MonitoradorUpdateComponent } from './components/monitorador/monitorador-update/monitorador-update.component';
+import { MonitoradorDeletarComponent } from './components/monitorador/monitorador-deletar/monitorador-deletar.component';
 
 
 
@@ -47,6 +48,7 @@ import { MonitoradorUpdateComponent } from './components/monitorador/monitorador
     MonitoradorCriarComponent,
     MonitoradorLerComponent,
     MonitoradorUpdateComponent,
+    MonitoradorDeletarComponent,
    
   ],
   imports: [

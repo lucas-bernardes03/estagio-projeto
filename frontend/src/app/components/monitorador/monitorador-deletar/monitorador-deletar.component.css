@@ -1,0 +1,15 @@
+.sub {
+    font-style: italic;
+}
+
+.content{
+    text-align: center;
+}
+
+.actions{
+    justify-content: center;
+}
+
+h2{
+    text-align: center;
+}

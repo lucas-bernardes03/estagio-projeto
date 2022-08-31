@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Deletar</h2>
+
+<mat-dialog-content class="content">
+    <mat-label>Tem certeza que deseja deletar esse monitorador?</mat-label>
+    <br>
+    <mat-label class="sub">Essa é uma ação irreversível</mat-label>
+</mat-dialog-content>
+
+<mat-dialog-actions class="actions">
+    <button mat-raised-button (click)="deletarMonitorador()" color="success" class="formbt">
+        Deletar
+    </button>
+    <button mat-raised-button (click)="cancelar()" color="cancel" class="formbt">
+        Cancelar
+    </button>
+</mat-dialog-actions>

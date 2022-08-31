@@ -73,59 +73,16 @@ export class MonitoradorCriarComponent implements OnInit {
   onChange($event: MatSelectChange){
     if($event.value === "Física"){
       this.formJ.reset()
-      this.disableFormJValidators()
-      this.setFormFValidators()
+      this.service.disableFormJValidators(this.formJ)
+      this.service.setFormFValidators(this.formF)
     } 
     else{
       this.formF.reset()
-      this.disableFormFValidators()
-      this.setFormJValidators()
+      this.service.disableFormFValidators(this.formF)
+      this.service.setFormJValidators(this.formJ)
     } 
     this.formComum.reset()
   }
 
-  setFormFValidators(): void{
-    this.formF.controls['nome'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])
-    this.formF.controls['cpf'].setValidators([Validators.pattern('^[0-9]{11}$'), Validators.required])
-    this.formF.controls['rg'].setValidators([Validators.pattern('^[0-9]{7}$'), Validators.required])
-    this.formF.controls['dataNascimento'].setValidators([Validators.required])
-    
-    this.formF.controls['nome'].updateValueAndValidity()
-    this.formF.controls['cpf'].updateValueAndValidity()
-    this.formF.controls['rg'].updateValueAndValidity()
-    this.formF.controls['dataNascimento'].updateValueAndValidity()
-  }
-
-  setFormJValidators(): void{
-    this.formJ.controls['razaoSocial'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])
-    this.formJ.controls['cnpj'].setValidators([Validators.pattern('^[0-9]{14}$'), Validators.required])
-    this.formJ.controls['inscricaoEstadual'].setValidators([Validators.pattern('^[0-9]{9}$'), Validators.required])
-
-    this.formJ.controls['razaoSocial'].updateValueAndValidity()
-    this.formJ.controls['cnpj'].updateValueAndValidity()
-    this.formJ.controls['inscricaoEstadual'].updateValueAndValidity()
-  }
-
-  disableFormFValidators():void{
-    this.formF.controls['nome'].clearValidators()
-    this.formF.controls['cpf'].clearValidators()
-    this.formF.controls['rg'].clearValidators()
-    this.formF.controls['dataNascimento'].clearValidators()
-
-    this.formF.controls['nome'].updateValueAndValidity()
-    this.formF.controls['cpf'].updateValueAndValidity()
-    this.formF.controls['rg'].updateValueAndValidity()
-    this.formF.controls['dataNascimento'].updateValueAndValidity()
-  }
-
-  disableFormJValidators():void{
-    this.formJ.controls['razaoSocial'].clearValidators()
-    this.formJ.controls['cnpj'].clearValidators()
-    this.formJ.controls['inscricaoEstadual'].clearValidators()
-
-    this.formJ.controls['razaoSocial'].updateValueAndValidity()
-    this.formJ.controls['cnpj'].updateValueAndValidity()
-    this.formJ.controls['inscricaoEstadual'].updateValueAndValidity()
-  }
 
 }

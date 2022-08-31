@@ -51,7 +51,7 @@
               <i class="material-icons">edit</i>
             </button>
             
-            <button mat-icon-button >
+            <button mat-icon-button (click)="openDialogDelete(row.id)">
                 <i class="delete-icon material-icons">delete</i>
             </button>
         </td>
@@ -99,7 +99,7 @@
                 <button mat-icon-button (click)="findMon(row.id)">
                   <i class="material-icons">edit</i>
                 </button>
-                <button mat-icon-button >
+                <button mat-icon-button (click)="openDialogDelete(row.id)">
                   <i class="delete-icon material-icons">delete</i>
                 </button>
             </td>
