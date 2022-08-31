@@ -34,23 +34,7 @@ export class MonitoradorCriarComponent implements OnInit {
   constructor(private service: MonitoradorService, private router: Router, private formBuilder: FormBuilder, private dialogRef:MatDialogRef<MonitoradorCriarComponent>) { }
 
   ngOnInit(): void {
-    this.formF = this.formBuilder.group({
-      'nome': [null],
-      'cpf': [null],
-      'rg': [null],
-      'dataNascimento': [null]
-    })
-
-    this.formJ = this.formBuilder.group({
-      'razaoSocial': [null],
-      'cnpj': [null],
-      'inscricaoEstadual': [null]
-    })
-
-    this.formComum = this.formBuilder.group({
-      'email': [null,  [Validators.required, Validators.email]],
-      'ativo': [null, Validators.required]
-    })
+    this.instantiateForms()
   }
 
   salvarMonitorador(): void {
@@ -84,5 +68,23 @@ export class MonitoradorCriarComponent implements OnInit {
     this.formComum.reset()
   }
 
+  instantiateForms():void {
+    this.formF = this.formBuilder.group({
+      'nome': [null],
+      'cpf': [null],
+      'rg': [null],
+      'dataNascimento': [null]
+    })
 
+    this.formJ = this.formBuilder.group({
+      'razaoSocial': [null],
+      'cnpj': [null],
+      'inscricaoEstadual': [null]
+    })
+
+    this.formComum = this.formBuilder.group({
+      'email': [null,  [Validators.required, Validators.email]],
+      'ativo': [null, Validators.required]
+    })
+  }
 }

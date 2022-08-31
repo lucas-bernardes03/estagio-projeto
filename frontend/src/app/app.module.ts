@@ -33,7 +33,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MonitoradorUpdateComponent } from './components/monitorador/monitorador-update/monitorador-update.component';
 import { MonitoradorDeletarComponent } from './components/monitorador/monitorador-deletar/monitorador-deletar.component';
-
+import { FilterPipe } from './components/filter.pipe';
 
 
 
@@ -49,7 +49,7 @@ import { MonitoradorDeletarComponent } from './components/monitorador/monitorado
     MonitoradorLerComponent,
     MonitoradorUpdateComponent,
     MonitoradorDeletarComponent,
-   
+    FilterPipe
   ],
   imports: [
     BrowserModule,

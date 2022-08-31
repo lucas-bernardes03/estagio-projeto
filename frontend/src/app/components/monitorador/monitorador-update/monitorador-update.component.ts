@@ -21,23 +21,7 @@ export class MonitoradorUpdateComponent implements OnInit {
   constructor(@Inject(DIALOG_DATA) public data: Monitorador, private service: MonitoradorService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<MonitoradorUpdateComponent>) { }
 
   ngOnInit(): void {
-    this.formF = this.formBuilder.group({
-      'nome': [null],
-      'cpf': [null],
-      'rg': [null],
-      'dataNascimento': [null]
-    })
-
-    this.formJ = this.formBuilder.group({
-      'razaoSocial': [null],
-      'cnpj': [null],
-      'inscricaoEstadual': [null]
-    })
-
-    this.formComum = this.formBuilder.group({
-      'email': [null,  [Validators.required, Validators.email]],
-      'ativo': [null, Validators.required]
-    })
+    this.instantiateForms()
 
     if(this.monitorador.tipo === 'Física'){
       this.service.setFormFValidators(this.formF)
@@ -67,4 +51,23 @@ export class MonitoradorUpdateComponent implements OnInit {
     return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched 
   }
 
+  instantiateForms():void {
+    this.formF = this.formBuilder.group({
+      'nome': [null],
+      'cpf': [null],
+      'rg': [null],
+      'dataNascimento': [null]
+    })
+
+    this.formJ = this.formBuilder.group({
+      'razaoSocial': [null],
+      'cnpj': [null],
+      'inscricaoEstadual': [null]
+    })
+
+    this.formComum = this.formBuilder.group({
+      'email': [null,  [Validators.required, Validators.email]],
+      'ativo': [null, Validators.required]
+    })
+  }
 }

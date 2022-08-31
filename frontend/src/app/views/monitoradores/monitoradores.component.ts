@@ -24,7 +24,6 @@ export class MonitoradoresComponent implements OnInit {
 
     const dialogRef = this.dialog.open(MonitoradorCriarComponent, dialogConfig)
     
-    
     dialogRef.afterClosed().subscribe(result =>{
       if(result) this.monitoradorLer.ngOnInit()
     });

@@ -1,7 +1,7 @@
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Monitorador } from './monitorador.model';
 import { HttpClient } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, EMPTY, map, Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export class MonitoradorService {
 
   baseUrl = 'api/monitoradores'
 
-  constructor(private snackbar: MatSnackBar, private http: HttpClient) { }
+  constructor(private snackbar: MatSnackBar, private http: HttpClient, private formBuilder: FormBuilder) { }
 
   showMessage(msg: string, error: boolean = false): void {
     this.snackbar.open(msg, "x", {
@@ -51,8 +51,7 @@ export class MonitoradorService {
     const url = `${this.baseUrl}/${id}`
     return this.http.delete<Monitorador>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
-  
-  
+
   //form validations
   setFormFValidators(formF: FormGroup): void{
     formF.controls['nome'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])

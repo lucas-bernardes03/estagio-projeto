@@ -11,20 +11,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monitorador-ler.component.css']
 })
 export class MonitoradorLerComponent implements OnInit {
-
-  monitorador: Monitorador = {
-    id: null,
-    tipo: null,  
-    nome: null,
-    cpf: null,
-    rg: null,
-    dataNascimento: null,
-    razaoSocial: null,
-    cnpj: null,
-    inscricaoEstadual: null,
-    email: null,
-    ativo: null
-  }
+  
+  searchText: string = ''
 
   monitoradores: Monitorador[] = []
   tableType = null
@@ -43,12 +31,14 @@ export class MonitoradorLerComponent implements OnInit {
       this.monF = monitoradores.filter(m => m.tipo === 'Física')
       this.monJ = monitoradores.filter(m => m.tipo === 'Jurídica')
     })
+
   }
+  
 
   openDialogDelete(id: number):void {
     const dialogConfig = new MatDialogConfig()
-
-    dialogConfig.disableClose = false
+    
+    dialogConfig.disableClose = true
     dialogConfig.autoFocus = true
     dialogConfig.data = id
 
@@ -78,6 +68,5 @@ export class MonitoradorLerComponent implements OnInit {
       this.openDialogUpdate(monitorador)
     })    
   }
-  
- 
+
 }
