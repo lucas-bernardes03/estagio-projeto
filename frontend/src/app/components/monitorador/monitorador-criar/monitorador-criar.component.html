@@ -1,93 +1,180 @@
 <h2 mat-dialog-title>Registrar</h2>
 
-<mat-dialog-content>
-    <form>
-        <mat-form-field>
-            <mat-label>Selecione a Pessoa:</mat-label>
-            <mat-select name="tipo" [(ngModel)]="monitorador.tipo" (selectionChange)="onChange($event)">
-                <mat-option value="Física">Física</mat-option>
-                <mat-option value="Jurídica">Jurídica</mat-option>
-            </mat-select>
-        </mat-form-field>
-        
-        <div class="inner-form" *ngIf="monitorador.tipo === 'Física'" [formGroup]="formF">
-            <mat-form-field>
-                <input matInput placeholder="Nome" [(ngModel)]="monitorador.nome" formControlName="nome">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('nome', 'pattern') || errorHandling('nome', 'required')">
-                Nome inválido
-            </mat-error>
+
+<div class="content">
+    <mat-dialog-content>
+        <form>
+            <h3 *ngIf="monitorador.tipo">Monitorador</h3>
 
             <mat-form-field>
-                <input matInput placeholder="CPF" [(ngModel)]="monitorador.cpf" formControlName="cpf">
+                <mat-label>Selecione a Pessoa:</mat-label>
+                <mat-select name="tipo" [(ngModel)]="monitorador.tipo" (selectionChange)="onChange($event)">
+                    <mat-option value="Física">Física</mat-option>
+                    <mat-option value="Jurídica">Jurídica</mat-option>
+                </mat-select>
             </mat-form-field>
-            <mat-error *ngIf="errorHandling('cpf', 'pattern') || errorHandling('cpf', 'required')">
-                CPF inválido
-            </mat-error>
-
-            <mat-form-field>
-                <input matInput placeholder="RG" [(ngModel)]="monitorador.rg" formControlName="rg">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('rg', 'pattern') || errorHandling('rg', 'required')">
-                RG inválido
-            </mat-error>
-
-            <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" [(ngModel)]="monitorador.dataNascimento" formControlName="dataNascimento">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('dataNascimento', 'required')">
-                Data de Nascimento inválida
-            </mat-error>
-
             
-        </div>
-        
-        <div class="inner-form" *ngIf="monitorador.tipo === 'Jurídica'" [formGroup]="formJ">
-            <mat-form-field>
-                <input matInput placeholder="Razão Social" [(ngModel)]="monitorador.razaoSocial" formControlName="razaoSocial">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('razaoSocial', 'pattern') || errorHandling('razaoSocial', 'required')">
-                Razão Social inválida
-            </mat-error>
-            
-            <mat-form-field>
-                <input matInput placeholder="CNPJ" [(ngModel)]="monitorador.cnpj" formControlName="cnpj">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('cnpj', 'pattern') || errorHandling('cnpj', 'required')">
-                CNPJ inválido
-            </mat-error>
-            
-            <mat-form-field>
-                <input matInput placeholder="Inscrição Estadual" [(ngModel)]="monitorador.inscricaoEstadual" formControlName="inscricaoEstadual">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('inscricaoEstadual', 'pattern') || errorHandling('inscricaoEstadual', 'required')">
-                Inscrição Estadual inválida
-            </mat-error>
-        </div>
-
-        <div class="inner-form" *ngIf="monitorador.tipo" [formGroup]="formComum">
-            <mat-form-field>
-                <input matInput placeholder="E-mail" [(ngModel)]="monitorador.email" formControlName="email">
-            </mat-form-field>
-            <mat-error *ngIf="errorHandling('email', 'email') || errorHandling('email', 'required')">
-                E-mail inválido
-            </mat-error>
-
-            <mat-radio-group aria-label="Selecione uma opção" [(ngModel)]="monitorador.ativo" formControlName="ativo">
-                <label>Ativo? </label>
-                <mat-radio-button [value]=true class="radiobt">Sim</mat-radio-button>
-                <mat-radio-button [value]=false class="radiobt">Não</mat-radio-button>
-                <br/>
-            </mat-radio-group>
-        </div>
-        <br/>
-    </form>
-</mat-dialog-content>
+            <div class="inner-form" *ngIf="monitorador.tipo === 'Física'" [formGroup]="formF">
+                <mat-form-field>
+                    <input matInput placeholder="Nome" [(ngModel)]="monitorador.nome" formControlName="nome">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('nome', 'pattern') || errorHandling('nome', 'required')">
+                    Nome inválido
+                </mat-error>
     
+                <mat-form-field>
+                    <input matInput placeholder="CPF" [(ngModel)]="monitorador.cpf" formControlName="cpf">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('cpf', 'pattern') || errorHandling('cpf', 'required')">
+                    CPF inválido
+                </mat-error>
+    
+                <mat-form-field>
+                    <input matInput placeholder="RG" [(ngModel)]="monitorador.rg" formControlName="rg">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('rg', 'pattern') || errorHandling('rg', 'required')">
+                    RG inválido
+                </mat-error>
+    
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento" [(ngModel)]="monitorador.dataNascimento" formControlName="dataNascimento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('dataNascimento', 'required')">
+                    Data de Nascimento inválida
+                </mat-error>
+    
+                
+            </div>
+            
+            <div class="inner-form" *ngIf="monitorador.tipo === 'Jurídica'" [formGroup]="formJ">
+                <mat-form-field>
+                    <input matInput placeholder="Razão Social" [(ngModel)]="monitorador.razaoSocial" formControlName="razaoSocial">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('razaoSocial', 'pattern') || errorHandling('razaoSocial', 'required')">
+                    Razão Social inválida
+                </mat-error>
+                
+                <mat-form-field>
+                    <input matInput placeholder="CNPJ" [(ngModel)]="monitorador.cnpj" formControlName="cnpj">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('cnpj', 'pattern') || errorHandling('cnpj', 'required')">
+                    CNPJ inválido
+                </mat-error>
+                
+                <mat-form-field>
+                    <input matInput placeholder="Inscrição Estadual" [(ngModel)]="monitorador.inscricaoEstadual" formControlName="inscricaoEstadual">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('inscricaoEstadual', 'pattern') || errorHandling('inscricaoEstadual', 'required')">
+                    Inscrição Estadual inválida
+                </mat-error>
+            </div>
+    
+            <div class="inner-form" *ngIf="monitorador.tipo" [formGroup]="formComum">
+                <mat-form-field>
+                    <input matInput placeholder="E-mail" [(ngModel)]="monitorador.email" formControlName="email">
+                </mat-form-field>
+                <mat-error *ngIf="errorHandling('email', 'email') || errorHandling('email', 'required')">
+                    E-mail inválido
+                </mat-error>
+    
+                <mat-radio-group aria-label="Selecione uma opção" [(ngModel)]="monitorador.ativo" formControlName="ativo">
+                    <label>Ativo? </label>
+                    <mat-radio-button [value]=true class="radiobt">Sim</mat-radio-button>
+                    <mat-radio-button [value]=false class="radiobt">Não</mat-radio-button>
+                    <br/>
+                </mat-radio-group>
+            </div>
+            <br/>
+        </form>
+    </mat-dialog-content>
+    
+    <mat-dialog-content>
+        <form *ngIf="monitorador.tipo" [formGroup]="formEndereco" class="formEND">
+            <h3>Endereço</h3>
+            <div class="container">
+            
+                <div class="cepfields">
+                    <mat-form-field>
+                        <input matInput placeholder="CEP" [(ngModel)]="endereco.cep" formControlName="cep">
+                        <button type="button" mat-icon-button matSuffix (click)="buscarCEP()" [disabled]="!formEndereco.controls['cep'].valid" class="btcep">
+                            <i matSuffix class="material-icons v-align">search</i>
+                        </button>
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('cep', 'required')">
+                        CEP inválido
+                    </mat-error>
+    
+                    <mat-form-field>
+                        <input matInput placeholder="Telefone" [(ngModel)]="endereco.telefone" formControlName="telefone">
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('telefone', 'required')">
+                        Telefone inválido
+                    </mat-error>    
+                </div>
+                
+                <div *ngIf="endereco.endereco" class="cepfieldsH">
+                    <mat-form-field>
+                        <input matInput placeholder="Logradouro" [(ngModel)]="endereco.endereco" formControlName="endereco">
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('endereco', 'required')">
+                        Endereço inválido
+                    </mat-error>
+        
+                    <mat-form-field>
+                        <input matInput placeholder="Número" [(ngModel)]="endereco.numero" formControlName="numero" >
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('numero', 'required')">
+                        Número inválido
+                    </mat-error>
+        
+        
+                    <mat-form-field>
+                        <input matInput placeholder="Bairro" [(ngModel)]="endereco.bairro" formControlName="bairro">
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('bairro', 'required')">
+                        Bairro inválido
+                    </mat-error>
+                    
+                    <mat-form-field>
+                        <input matInput placeholder="Cidade" [(ngModel)]="endereco.cidade" formControlName="cidade">
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('cidade', 'required')">
+                        Cidade inválida
+                    </mat-error>
+        
+                    <mat-form-field>
+                        <input matInput placeholder="Estado" [(ngModel)]="endereco.estado" formControlName="estado">
+                    </mat-form-field>
+                    <mat-error *ngIf="errorHandling('estado', 'required')">
+                        Estado inválido
+                    </mat-error>
+                    <mat-radio-group aria-label="Selecione uma opção" [(ngModel)]="endereco.principal" formControlName="principal">
+                        <label>Endereço Principal? </label>
+                        <br>
+                        <mat-radio-button [value]=true class="radiobt">Sim</mat-radio-button>
+                        <mat-radio-button [value]=false class="radiobt">Não</mat-radio-button>
+                        <br/>
+                    </mat-radio-group>
+                </div>
+               
+                
+                
+             
+                
+    
+    
+    
+                
+            </div>
+        </form>
+    </mat-dialog-content>
+    
+</div>
+  
 <mat-dialog-actions>
-    <div *ngIf="monitorador.tipo">
+    <div *ngIf="monitorador.tipo" >
         <button mat-raised-button (click)="salvarMonitorador()" color="success" class="formbt" [disabled]="formF.invalid || formJ.invalid || formComum.invalid">
             Salvar
         </button>

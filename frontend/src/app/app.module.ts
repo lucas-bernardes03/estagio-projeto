@@ -49,7 +49,7 @@ import { FilterPipe } from './components/filter.pipe';
     MonitoradorLerComponent,
     MonitoradorUpdateComponent,
     MonitoradorDeletarComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

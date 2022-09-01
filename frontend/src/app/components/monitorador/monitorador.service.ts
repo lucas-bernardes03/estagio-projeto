@@ -53,6 +53,11 @@ export class MonitoradorService {
   }
 
   //form validations
+  setFormComumValidators(formComum: FormGroup):void {
+    formComum.controls['email'].setValidators([Validators.required, Validators.email])
+    formComum.controls['ativo'].setValidators(Validators.required)
+  }
+
   setFormFValidators(formF: FormGroup): void{
     formF.controls['nome'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])
     formF.controls['cpf'].setValidators([Validators.pattern('^[0-9]{11}$'), Validators.required])

@@ -1,4 +1,5 @@
-import { Monitorador } from './../monitorador.model';
+import { EnderecoService } from './../endereco.service';
+import { Monitorador, Enderecos } from './../monitorador.model';
 import { Router } from '@angular/router';
 import { MonitoradorService } from './../monitorador.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ export class MonitoradorCriarComponent implements OnInit {
   formF!: FormGroup;
   formJ!: FormGroup;
   formComum!: FormGroup;
+  formEndereco!: FormGroup
 
   monitorador: Monitorador = {
     id: null,
@@ -28,13 +30,31 @@ export class MonitoradorCriarComponent implements OnInit {
     cnpj: null,
     inscricaoEstadual: null,
     email: null,
-    ativo: null
+    ativo: null,
+    enderecos: null
   }
 
-  constructor(private service: MonitoradorService, private router: Router, private formBuilder: FormBuilder, private dialogRef:MatDialogRef<MonitoradorCriarComponent>) { }
+  endereco: Enderecos = {
+      endereco: null,
+      numero: null,
+      cep: null,
+      bairro: null,
+      telefone: null,
+      cidade: null,
+      estado: null,
+      principal: null
+  }
+
+  constructor(private service: MonitoradorService, 
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private dialogRef:MatDialogRef<MonitoradorCriarComponent>,
+    private enderecoService: EnderecoService) { }
 
   ngOnInit(): void {
     this.instantiateForms()
+    this.service.setFormComumValidators(this.formComum)
+    this.enderecoService.setFormEnderecoValidators(this.formEndereco)
   }
 
   salvarMonitorador(): void {
@@ -48,11 +68,24 @@ export class MonitoradorCriarComponent implements OnInit {
     this.dialogRef.close()
   }
 
-  errorHandling = (control: string, error: string) => {
-    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched 
-    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched 
-    return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched 
+  buscarCEP(): void{
+    this.enderecoService.buscarCEP(this.endereco.cep!).subscribe(CEP => {
+      this.endereco.endereco = CEP.logradouro
+      this.endereco.bairro = CEP.bairro
+      this.endereco.cidade = CEP.localidade
+      this.endereco.estado = CEP.uf
+    })
+    
   }
+
+  errorHandling = (control: string, error: string) => {
+    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched && this.formF.controls[control].dirty 
+    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched && this.formJ.controls[control].dirty 
+    else if(this.formComum.contains(control)) return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched && this.formComum.controls[control].dirty 
+    return this.formEndereco.controls[control].hasError(error) && this.formEndereco.controls[control].touched && this.formEndereco.controls[control].dirty 
+  }
+
+  
 
   onChange($event: MatSelectChange){
     if($event.value === "Física"){
@@ -83,8 +116,19 @@ export class MonitoradorCriarComponent implements OnInit {
     })
 
     this.formComum = this.formBuilder.group({
-      'email': [null,  [Validators.required, Validators.email]],
-      'ativo': [null, Validators.required]
+      'email': [null],
+      'ativo': [null]
+    })
+
+    this.formEndereco = this.formBuilder.group({
+      'endereco': [null],
+      'numero': [null],
+      'cep': [null],
+      'bairro': [null],
+      'telefone': [null],
+      'cidade': [null],
+      'estado': [null],
+      'principal':[null]
     })
   }
 }

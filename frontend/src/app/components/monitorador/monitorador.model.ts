@@ -10,4 +10,29 @@ export interface Monitorador {
     dataNascimento: Date | null
     email: String | null
     ativo: boolean | null
+    enderecos: Enderecos[] | null
+}
+
+export interface Enderecos {
+    endereco: string | null
+    numero: string | null
+    cep: string | null
+    bairro: string | null
+    telefone: string | null
+    cidade: string | null
+    estado: string | null
+    principal: boolean | null
+}
+
+export interface CEPModel {
+    cep: string
+    logradouro: string
+    complemento: string
+    bairro: string
+    localidade: string
+    uf: string
+    ibge: string
+    gia: string
+    ddd: string
+    siafi: string
 }

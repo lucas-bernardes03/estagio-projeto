@@ -41,9 +41,16 @@
     background-color: rgb(37, 148, 37);
 }
 
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{
+    margin: auto;
+}
+
+.material-icons{
+    color: rgb(37, 148, 37);
+}
+
 .radiobt{
-    padding-left: 10px;
-    
+    padding-right: 15px;
 }
 
 .mat-card input {
@@ -66,4 +73,35 @@ button{
 
 h2{
     text-align: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+}
+
+.formEND{
+    padding-left: 40px;
+}
+
+.cepfields{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.cepfieldsH{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    width: 100%;
+}
+
+h3{
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
 }
