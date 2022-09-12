@@ -1,6 +1,6 @@
 import { FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CEPModel } from './monitorador.model';
+import { CEPModel, Enderecos } from './monitorador.model';
 import { EMPTY, map, Observable, catchError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,13 +10,18 @@ import { Injectable } from '@angular/core';
 })
 export class EnderecoService {
 
-  baseUrl = 'https://viacep.com.br'
+  cepUrl = 'https://viacep.com.br'
+  baseUrl = 'api/enderecos'
 
   constructor(private http: HttpClient, private snackbar: MatSnackBar) { }
 
   buscarCEP(cep:string): Observable<CEPModel>{
-    const url = `${this.baseUrl}/ws/${cep}/json`
+    const url = `${this.cepUrl}/ws/${cep}/json`
     return this.http.get<CEPModel>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  adicionar(endereco : Enderecos): Observable<Enderecos>{
+    return this.http.post<Enderecos>(this.baseUrl, endereco).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
   errorHandler(e: any): Observable<any> {

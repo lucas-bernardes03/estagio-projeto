@@ -1,7 +1,6 @@
 package com.unikasistemas.deangular.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name = "enderecos")
@@ -28,10 +28,11 @@ public class Endereco implements Serializable{
     private String estado;
     private boolean principal;
 
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "monitorador_id")
     private Monitorador monitorador;
+
 
     public Endereco(){}
 
@@ -127,8 +128,7 @@ public class Endereco implements Serializable{
 
     public void setMonitorador(Monitorador monitorador) {
         this.monitorador = monitorador;
-    }
-    
+    }  
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -158,9 +158,8 @@ public class Endereco implements Serializable{
     public String toString() {
         return "Endereco [bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", endereco=" + endereco
                 + ", estado=" + estado + ", id=" + id + ", numero=" + numero + ", principal=" + principal
-                + ", telefone=" + telefone + "]";
+                + ", telefone=" + telefone + ", monitorador= "+ monitorador + "]";
     }
-
 
     
 }

@@ -35,6 +35,10 @@ public class MonitoradorService {
         repository.deleteById(id);
     }
 
+    public Monitorador ultimoAdicionado(){
+        return repository.findTopByOrderByIdDesc();
+    }
+
     private void updateData(Monitorador novo, Monitorador atual){
         atual.setTipo(novo.getTipo());
         atual.setIdentificacao(novo.getIdentificacao());
@@ -44,4 +48,6 @@ public class MonitoradorService {
         atual.setEmail(novo.getEmail());
         atual.setAtivo(novo.isAtivo());
     }
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.unikasistemas.deangular.entities.Monitorador;
+import com.unikasistemas.deangular.service.EnderecoService;
 import com.unikasistemas.deangular.service.MonitoradorService;
 
 @RestController
@@ -23,6 +24,9 @@ import com.unikasistemas.deangular.service.MonitoradorService;
 public class MonitoradorController {
     @Autowired
     private MonitoradorService service;
+
+    @Autowired
+    private EnderecoService enderecoService;
 
     @GetMapping
     public ResponseEntity<List<Monitorador>> listarTodos(){
@@ -51,6 +55,7 @@ public class MonitoradorController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
+        enderecoService.deletarPorMonitorador(id);
         service.deleteMonitorador(id);
         return ResponseEntity.noContent().build();
     }

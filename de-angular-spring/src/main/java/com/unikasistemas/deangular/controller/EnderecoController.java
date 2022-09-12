@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.unikasistemas.deangular.entities.Endereco;
+import com.unikasistemas.deangular.entities.Monitorador;
 import com.unikasistemas.deangular.service.EnderecoService;
+import com.unikasistemas.deangular.service.MonitoradorService;
 
 @RestController
 @RequestMapping(value = "/api/enderecos")
@@ -24,6 +26,9 @@ public class EnderecoController {
     
     @Autowired
     private EnderecoService service;
+
+    @Autowired
+    private MonitoradorService monitoradorService;
 
     @GetMapping
     public ResponseEntity<List<Endereco>> listarTodos(){
@@ -39,6 +44,8 @@ public class EnderecoController {
 
     @PostMapping
     public ResponseEntity<Endereco> inserir(@RequestBody Endereco endereco){
+        Monitorador m = monitoradorService.ultimoAdicionado();
+        endereco.setMonitorador(m);
         Endereco e = service.insertEndereco(endereco);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(e.getId()).toUri();
         return ResponseEntity.created(uri).body(e);

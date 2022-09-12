@@ -1,5 +1,6 @@
 .sidenav{
-    background-color: rgb(27, 27, 27)
+    background-color: rgb(27, 27, 27);   
+    height: 100%;
 }
 
 .sidenav i {
@@ -14,3 +15,8 @@
 ::ng-deep .mat-drawer-container{
     background-color: rgb(66, 66, 66);
 }
+
+::ng-deep .mat-drawer-side{
+    border: 0px;
+}
+

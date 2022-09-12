@@ -39,7 +39,6 @@ public class Monitorador implements Serializable {
     private String email;
     private Boolean ativo;
 
-    
     @OneToMany(mappedBy = "monitorador")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -199,7 +198,7 @@ public class Monitorador implements Serializable {
     public String toString() {
         return "Monitorador [ativo=" + ativo + ", cnpj=" + cnpj + ", cpf=" + cpf + ", dataNascimento=" + dataNascimento
                 + ", email=" + email + ", id=" + id + ", inscricaoEstadual=" + inscricaoEstadual + ", nome=" + nome
-                + ", razaoSocial=" + razaoSocial + ", rg=" + rg + ", tipo=" + tipo + "]";
+                + ", razaoSocial=" + razaoSocial + ", rg=" + rg + ", tipo=" + tipo +"]";
     }
 
 

@@ -35,6 +35,11 @@ public class EnderecoService {
         repository.deleteById(id);
     }
 
+    public void deletarPorMonitorador(Long id){
+        List<Endereco> ends = repository.findByMonitorador(id);
+        for(Endereco e : ends) deleteEndereco(e.getId());
+    }
+
     private void updateData(Endereco novo, Endereco atual){
         atual.setEndereco(novo.getEndereco());
         atual.setNumero(novo.getNumero());

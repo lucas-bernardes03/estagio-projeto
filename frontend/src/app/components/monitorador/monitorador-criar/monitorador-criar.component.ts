@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { EnderecoService } from './../endereco.service';
 import { Monitorador, Enderecos } from './../monitorador.model';
-import { Router } from '@angular/router';
 import { MonitoradorService } from './../monitorador.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
@@ -19,6 +19,8 @@ export class MonitoradorCriarComponent implements OnInit {
   formComum!: FormGroup;
   formEndereco!: FormGroup
 
+  hasNum = true
+
   monitorador: Monitorador = {
     id: null,
     tipo: null,  
@@ -35,6 +37,7 @@ export class MonitoradorCriarComponent implements OnInit {
   }
 
   endereco: Enderecos = {
+      id: null,
       endereco: null,
       numero: null,
       cep: null,
@@ -42,14 +45,14 @@ export class MonitoradorCriarComponent implements OnInit {
       telefone: null,
       cidade: null,
       estado: null,
-      principal: null
+      principal: null,
+      monitoradorId: null
   }
 
   constructor(private service: MonitoradorService, 
-    private router: Router, 
     private formBuilder: FormBuilder, 
-    private dialogRef:MatDialogRef<MonitoradorCriarComponent>,
-    private enderecoService: EnderecoService) { }
+    private enderecoService: EnderecoService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.instantiateForms()
@@ -58,14 +61,18 @@ export class MonitoradorCriarComponent implements OnInit {
   }
 
   salvarMonitorador(): void {
-    this.service.create(this.monitorador).subscribe(() => {
-      this.service.showMessage("Cadastro concluído com sucesso!")
-      this.dialogRef.close(this.monitorador)
+    this.service.create(this.monitorador).subscribe(m => {
+      this.enderecoService.adicionar(this.endereco).subscribe(e => {
+        e.monitoradorId = m.id
+        console.log(e)
+        this.service.showMessage("Cadastro concluído com sucesso!")
+        this.router.navigate(['monitoradores'])
+      })
     })
   }
 
   cancelar(): void {
-    this.dialogRef.close()
+    this.router.navigate(['monitoradores'])
   }
 
   buscarCEP(): void{

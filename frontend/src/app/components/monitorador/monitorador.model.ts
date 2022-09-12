@@ -14,6 +14,7 @@ export interface Monitorador {
 }
 
 export interface Enderecos {
+    id: number | null
     endereco: string | null
     numero: string | null
     cep: string | null
@@ -22,6 +23,7 @@ export interface Enderecos {
     cidade: string | null
     estado: string | null
     principal: boolean | null
+    monitoradorId: number | null
 }
 
 export interface CEPModel {

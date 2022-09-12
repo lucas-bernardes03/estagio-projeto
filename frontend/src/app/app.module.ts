@@ -34,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MonitoradorUpdateComponent } from './components/monitorador/monitorador-update/monitorador-update.component';
 import { MonitoradorDeletarComponent } from './components/monitorador/monitorador-deletar/monitorador-deletar.component';
 import { FilterPipe } from './components/filter.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -74,6 +75,7 @@ import { FilterPipe } from './components/filter.pipe';
     MatPaginatorModule,
     MatSortModule,
     ReactiveFormsModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

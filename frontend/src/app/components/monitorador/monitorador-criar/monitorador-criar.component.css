@@ -71,17 +71,15 @@ button{
     margin-right: 15px;
 }
 
-h2{
+h1{
     text-align: center;
 }
 
 .content{
+    margin: auto;
+    width: 45%;
     display: flex;
-    flex-direction: row;
-}
-
-.formEND{
-    padding-left: 40px;
+    justify-content: center;
 }
 
 .cepfields{
@@ -93,8 +91,8 @@ h2{
 .cepfieldsH{
     display: flex;
     flex-direction: column;
-    padding-left: 10px;
     width: 100%;
+    padding-left: 20px;
 }
 
 h3{
@@ -104,4 +102,14 @@ h3{
 .container{
     display: flex;
     flex-direction: row;
+}
+
+.botoes{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.formEND{
+    padding-left: 20px;
 }
