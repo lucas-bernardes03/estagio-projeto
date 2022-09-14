@@ -43,7 +43,7 @@ public class MonitoradorService {
         atual.setTipo(novo.getTipo());
         atual.setIdentificacao(novo.getIdentificacao());
         atual.setCadastro(novo.getCadastro());
-        atual.setRegistro(novo.getCadastro());
+        atual.setRegistro(novo.getRegistro());
         atual.setDataNascimento(novo.getDataNascimento());
         atual.setEmail(novo.getEmail());
         atual.setAtivo(novo.isAtivo());

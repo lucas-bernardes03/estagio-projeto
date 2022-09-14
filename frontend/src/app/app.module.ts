@@ -35,6 +35,9 @@ import { MonitoradorUpdateComponent } from './components/monitorador/monitorador
 import { MonitoradorDeletarComponent } from './components/monitorador/monitorador-deletar/monitorador-deletar.component';
 import { FilterPipe } from './components/filter.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EnderecosComponent } from './components/monitorador/enderecos/enderecos.component';
+import { EnderecoDeletarComponent } from './components/monitorador/endereco-deletar/endereco-deletar.component';
+import { EnderecoUpdateComponent } from './components/monitorador/endereco-update/endereco-update.component';
 
 
 
@@ -51,6 +54,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MonitoradorUpdateComponent,
     MonitoradorDeletarComponent,
     FilterPipe,
+    EnderecosComponent,
+    EnderecoDeletarComponent,
+    EnderecoUpdateComponent,
   ],
   imports: [
     BrowserModule,

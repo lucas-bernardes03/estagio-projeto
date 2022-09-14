@@ -24,6 +24,21 @@ export class EnderecoService {
     return this.http.post<Enderecos>(this.baseUrl, endereco).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
+  deletar(id:number): Observable<Enderecos>{
+    const url = `${this.baseUrl}/${id}`
+    return this.http.delete<Enderecos>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)));
+  }
+
+  readById(id: number): Observable<Enderecos> {
+    const url = `${this.baseUrl}/${id}`
+    return this.http.get<Enderecos>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)));
+  }
+
+  update(endereco:Enderecos): Observable<Enderecos> {
+    const url = `${this.baseUrl}/${endereco.id}`
+    return this.http.put<Enderecos>(url, endereco).pipe(map(obj => obj), catchError(e => this.errorHandler(e)));
+  }
+
   errorHandler(e: any): Observable<any> {
     this.showMessage('Ocorreu um erro!', true)
     return EMPTY

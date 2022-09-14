@@ -1,5 +1,5 @@
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Monitorador } from './monitorador.model';
+import { Enderecos, Monitorador } from './monitorador.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -50,6 +50,11 @@ export class MonitoradorService {
   delete(id: number): Observable<Monitorador>{
     const url = `${this.baseUrl}/${id}`
     return this.http.delete<Monitorador>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  retrieveEnderecos(id: number): Observable<Enderecos[]> {
+    const url = `${this.baseUrl}/${id}/enderecos`
+    return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
   //form validations

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MonitoradorDeletarComponent } from './../monitorador-deletar/monitorador-deletar.component';
 import { MonitoradorUpdateComponent } from './../monitorador-update/monitorador-update.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -23,7 +24,7 @@ export class MonitoradorLerComponent implements OnInit {
   displayedColumnsF = ['id', 'nome', 'cpf', 'rg', 'dataNascimento', 'email', 'ativo', 'acoes']
   displayedColumnsJ = ['id', 'razaoSocial', 'cnpj', 'inscricaoEstadual', 'email', 'ativo', 'acoes']
 
-  constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog) { }
+  constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
   ngOnInit(): void {
     this.monitoradorService.read().subscribe(monitoradores => {
@@ -32,6 +33,10 @@ export class MonitoradorLerComponent implements OnInit {
       this.monJ = monitoradores.filter(m => m.tipo === 'Jurídica')
     })
 
+  }
+
+  routeEnderecos(id: number): void {
+    this.router.navigate([`/monitorador/${id}/enderecos`])
   }
   
 

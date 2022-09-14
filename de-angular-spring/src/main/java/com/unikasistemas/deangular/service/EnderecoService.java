@@ -35,6 +35,11 @@ public class EnderecoService {
         repository.deleteById(id);
     }
 
+    public List<Endereco> encontrarPorMonitorador(Long id){
+        List<Endereco> enderecos = repository.findByMonitorador(id);
+        return enderecos;
+    }
+
     public void deletarPorMonitorador(Long id){
         List<Endereco> ends = repository.findByMonitorador(id);
         for(Endereco e : ends) deleteEndereco(e.getId());

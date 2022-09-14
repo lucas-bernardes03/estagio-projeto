@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.unikasistemas.deangular.entities.Endereco;
 import com.unikasistemas.deangular.entities.Monitorador;
 import com.unikasistemas.deangular.service.EnderecoService;
 import com.unikasistemas.deangular.service.MonitoradorService;
@@ -38,6 +39,12 @@ public class MonitoradorController {
     public ResponseEntity<Monitorador> buscarPorId(@PathVariable Long id){
         Monitorador m = service.findById(id);
         return ResponseEntity.ok(m);
+    }
+
+    @GetMapping(value = "/{id}/enderecos")
+    public ResponseEntity<List<Endereco>> enderecos(@PathVariable Long id){
+        List<Endereco> enderecos = enderecoService.encontrarPorMonitorador(id);
+        return ResponseEntity.ok(enderecos);
     }
 
     @PostMapping

@@ -1,3 +1,4 @@
+import { EnderecosComponent } from './components/monitorador/enderecos/enderecos.component';
 import { MonitoradorCriarComponent } from './components/monitorador/monitorador-criar/monitorador-criar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "monitoradores/criar",
     component: MonitoradorCriarComponent
+  },
+  {
+    path: "monitorador/:id/enderecos",
+    component: EnderecosComponent
   }
 ];
 

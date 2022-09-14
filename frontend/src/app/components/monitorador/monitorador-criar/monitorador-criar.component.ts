@@ -17,7 +17,7 @@ export class MonitoradorCriarComponent implements OnInit {
   formF!: FormGroup;
   formJ!: FormGroup;
   formComum!: FormGroup;
-  formEndereco!: FormGroup
+  formEndereco!: FormGroup;
 
   hasNum = true
 
@@ -45,8 +45,7 @@ export class MonitoradorCriarComponent implements OnInit {
       telefone: null,
       cidade: null,
       estado: null,
-      principal: null,
-      monitoradorId: null
+      principal: null
   }
 
   constructor(private service: MonitoradorService, 
@@ -63,8 +62,6 @@ export class MonitoradorCriarComponent implements OnInit {
   salvarMonitorador(): void {
     this.service.create(this.monitorador).subscribe(m => {
       this.enderecoService.adicionar(this.endereco).subscribe(e => {
-        e.monitoradorId = m.id
-        console.log(e)
         this.service.showMessage("Cadastro concluído com sucesso!")
         this.router.navigate(['monitoradores'])
       })
@@ -82,7 +79,6 @@ export class MonitoradorCriarComponent implements OnInit {
       this.endereco.cidade = CEP.localidade
       this.endereco.estado = CEP.uf
     })
-    
   }
 
   errorHandling = (control: string, error: string) => {

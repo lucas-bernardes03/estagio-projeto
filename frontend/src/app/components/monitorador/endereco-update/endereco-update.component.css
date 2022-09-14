@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h3 {
+    text-align: center;
+}
+
+.radiobt{
+    padding-right: 15px;
+}
+
+.botoes{
+    display: flex;
+    justify-content: center;
+}

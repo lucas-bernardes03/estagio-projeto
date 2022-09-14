@@ -11,11 +11,7 @@ table{
 }
 
 .edit-icon{
-    color: rgb(37, 148, 37);
-}
-
-.div-table{
-    margin-top: 20px;
+    color: blue;
 }
 
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
@@ -38,4 +34,16 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
 
 .end-icon{
     color: rgb(37, 148, 37);
+}
+
+.edit-icon{
+    color: rgb(37, 148, 37);
+}
+
+.botao{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+
 }

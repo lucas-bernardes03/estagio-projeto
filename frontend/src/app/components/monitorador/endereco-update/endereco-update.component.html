@@ -1,0 +1,74 @@
+<h3>Endereço</h3>
+
+<mat-dialog-content>
+    <div class="container" [formGroup]="form">
+        <mat-form-field>
+            <input matInput placeholder="CEP" [(ngModel)]="endereco.cep" formControlName="cep">
+            <button type="button" mat-icon-button matSuffix (click)="buscarCEP()" [disabled]="!form.controls['cep'].valid" class="btcep">
+                <i matSuffix class="material-icons v-align">search</i>
+            </button>
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('cep', 'required')">
+            CEP inválido
+        </mat-error>
+
+        <mat-form-field>
+            <input matInput placeholder="Telefone" [(ngModel)]="endereco.telefone" formControlName="telefone">
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('telefone', 'required')">
+            Telefone inválido
+        </mat-error>    
+    
+        <mat-form-field>
+            <input matInput placeholder="Logradouro" [(ngModel)]="endereco.endereco" formControlName="endereco">
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('endereco', 'required')">
+            Endereço inválido
+        </mat-error>
+
+        <mat-form-field>
+            <input matInput placeholder="Número (0 caso não tenha)" [(ngModel)]="endereco.numero" formControlName="numero" >
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('numero', 'required')">
+            Número inválido
+        </mat-error>
+
+        <mat-form-field>
+            <input matInput placeholder="Bairro" [(ngModel)]="endereco.bairro" formControlName="bairro">
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('bairro', 'required')">
+            Bairro inválido
+        </mat-error>
+        
+        <mat-form-field>
+            <input matInput placeholder="Cidade" [(ngModel)]="endereco.cidade" formControlName="cidade">
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('cidade', 'required')">
+            Cidade inválida
+        </mat-error>
+
+        <mat-form-field>
+            <input matInput placeholder="Estado" [(ngModel)]="endereco.estado" formControlName="estado">
+        </mat-form-field>
+        <mat-error *ngIf="errorHandling('estado', 'required')">
+            Estado inválido
+        </mat-error>
+        <mat-radio-group aria-label="Selecione uma opção" [(ngModel)]="endereco.principal" formControlName="principal">
+            <label>Endereço Principal? </label>
+            <br>
+            <mat-radio-button [value]=true class="radiobt">Sim</mat-radio-button>
+            <mat-radio-button [value]=false class="radiobt">Não</mat-radio-button>
+            <br/>
+        </mat-radio-group>                  
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="botoes">
+    <button mat-raised-button (click)="salvarEndereco()" color="success" class="formbt" [disabled]="form.invalid">
+        Salvar
+    </button>
+        
+    <button mat-raised-button (click)="cancelar()" color="cancel" class="formbt">
+        Cancelar
+    </button>
+</mat-dialog-actions>
