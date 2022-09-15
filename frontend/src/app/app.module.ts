@@ -38,6 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EnderecosComponent } from './components/monitorador/enderecos/enderecos.component';
 import { EnderecoDeletarComponent } from './components/monitorador/endereco-deletar/endereco-deletar.component';
 import { EnderecoUpdateComponent } from './components/monitorador/endereco-update/endereco-update.component';
+import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 
 
 
@@ -57,6 +58,7 @@ import { EnderecoUpdateComponent } from './components/monitorador/endereco-updat
     EnderecosComponent,
     EnderecoDeletarComponent,
     EnderecoUpdateComponent,
+    EnderecoCriarComponent,
   ],
   imports: [
     BrowserModule,

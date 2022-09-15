@@ -1,3 +1,4 @@
+import { EnderecoCriarComponent } from './../endereco-criar/endereco-criar.component';
 import { EnderecoUpdateComponent } from './../endereco-update/endereco-update.component';
 import { EnderecoDeletarComponent } from './../endereco-deletar/endereco-deletar.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -33,6 +34,20 @@ export class EnderecosComponent implements OnInit {
     this.router.navigate(['/monitoradores'])
   }
 
+  novoEnderecoDialog(): void {
+    const dialogConfig = new MatDialogConfig()
+    
+    dialogConfig.disableClose = false
+    dialogConfig.autoFocus = true
+    dialogConfig.data = this.monId
+
+    const dialogRef = this.dialog.open(EnderecoCriarComponent, dialogConfig)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) this.ngOnInit()
+    })
+  }
+
   editEndereco(endereco: Enderecos):void {
     const dialogConfig = new MatDialogConfig()
     
@@ -43,7 +58,10 @@ export class EnderecosComponent implements OnInit {
     const dialogRef = this.dialog.open(EnderecoUpdateComponent, dialogConfig)
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) this.ngOnInit()
+      if(result){
+        this.ngOnInit()
+        console.log("salvou")
+      } 
     })
   }
   

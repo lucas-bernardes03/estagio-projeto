@@ -61,7 +61,7 @@ export class MonitoradorCriarComponent implements OnInit {
 
   salvarMonitorador(): void {
     this.service.create(this.monitorador).subscribe(m => {
-      this.enderecoService.adicionar(this.endereco).subscribe(e => {
+      this.enderecoService.adicionarNovoM(this.endereco).subscribe(e => {
         this.service.showMessage("Cadastro concluído com sucesso!")
         this.router.navigate(['monitoradores'])
       })

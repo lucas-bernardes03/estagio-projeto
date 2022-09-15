@@ -47,3 +47,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
     justify-content: center;
 
 }
+
+.botaoNovo{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

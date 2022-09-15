@@ -1,11 +1,10 @@
 enderecos
--adicionar
--lista n atualiza com update
+-tests
 -visual overhaul 
 
-
+fields validations/masks
+visual revamp
 login (admins conseguem alterar, usuarios normais nao)
-
 excel
 pdf
 

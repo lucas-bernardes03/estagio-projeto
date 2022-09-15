@@ -20,8 +20,13 @@ export class EnderecoService {
     return this.http.get<CEPModel>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
-  adicionar(endereco : Enderecos): Observable<Enderecos>{
+  adicionarNovoM(endereco : Enderecos): Observable<Enderecos>{
     return this.http.post<Enderecos>(this.baseUrl, endereco).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  adicionar(id: number, endereco:Enderecos): Observable<Enderecos> {
+    const url = `api/monitoradores/${id}/enderecos`
+    return this.http.post<Enderecos>(url,endereco).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
   deletar(id:number): Observable<Enderecos>{

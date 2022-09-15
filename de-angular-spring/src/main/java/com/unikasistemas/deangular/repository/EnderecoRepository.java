@@ -9,4 +9,6 @@ import com.unikasistemas.deangular.entities.Endereco;
 public interface EnderecoRepository extends JpaRepository<Endereco,Long>{
     @Query(value = "SELECT * FROM enderecos WHERE monitorador_id = ?", nativeQuery = true)
     List<Endereco> findByMonitorador(Long id);
+
+    Endereco findTopByOrderByIdDesc();
 }

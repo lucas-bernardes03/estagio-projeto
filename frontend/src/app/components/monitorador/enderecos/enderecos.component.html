@@ -1,6 +1,8 @@
 <div class="div-table mat-elevation-z4">
     <h2 class="title">Lista de Endereços</h2>
     
+    <button mat-raised-button (click)="novoEnderecoDialog()" color="success" class="botaoNovo">Novo Endereço</button>
+
     <table mat-table [dataSource]="enderecos">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>

@@ -45,6 +45,10 @@ public class EnderecoService {
         for(Endereco e : ends) deleteEndereco(e.getId());
     }
 
+    public Endereco ultimoAdicionado(){
+        return repository.findTopByOrderByIdDesc();
+    }
+
     private void updateData(Endereco novo, Endereco atual){
         atual.setEndereco(novo.getEndereco());
         atual.setNumero(novo.getNumero());

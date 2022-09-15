@@ -47,6 +47,14 @@ public class MonitoradorController {
         return ResponseEntity.ok(enderecos);
     }
 
+    @PostMapping(value = "/{id}/enderecos")
+    public ResponseEntity<Endereco> adicionarEndereco(@PathVariable Long id, @RequestBody Endereco endereco){
+        Monitorador m = service.findById(id);
+        endereco.setMonitorador(m);
+        Endereco e = enderecoService.insertEndereco(endereco);
+        return ResponseEntity.ok(e);
+    }
+
     @PostMapping
     public ResponseEntity<Monitorador> inserir(@RequestBody Monitorador monitorador){
         Monitorador m = service.insertMonitorador(monitorador);

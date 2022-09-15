@@ -1,29 +1,40 @@
-import { MatDialogRef } from '@angular/material/dialog';
-import { EnderecoService } from './../endereco.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Enderecos } from './../monitorador.model';
-import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { EnderecoService } from '../endereco.service';
+import { Enderecos } from '../monitorador.model';
 
 @Component({
-  selector: 'app-endereco-update',
-  templateUrl: './endereco-update.component.html',
-  styleUrls: ['./endereco-update.component.css']
+  selector: 'app-endereco-criar',
+  templateUrl: './endereco-criar.component.html',
+  styleUrls: ['./endereco-criar.component.css']
 })
-export class EnderecoUpdateComponent implements OnInit {
+export class EnderecoCriarComponent implements OnInit {
 
   form!: FormGroup;
-  endereco = this.data
+  
+  endereco: Enderecos = {
+    id: null,
+    endereco: null,
+    numero: null,
+    cep: null,
+    bairro: null,
+    telefone: null,
+    cidade: null,
+    estado: null,
+    principal: null
+  }
 
-  constructor(@Inject(DIALOG_DATA) public data: Enderecos, private formBuilder: FormBuilder, private enderecoService:EnderecoService, private dialogRef: MatDialogRef<EnderecoUpdateComponent>) { }
+  constructor(@Inject(DIALOG_DATA) public data: number, private formBuilder: FormBuilder, private enderecoService:EnderecoService, private dialogRef: MatDialogRef<EnderecoCriarComponent>) { }
 
   ngOnInit(): void {
     this.instatiateForm()
   }
   
   salvarEndereco():void {
-    this.enderecoService.update(this.endereco).subscribe(() => {
-      this.enderecoService.showMessage("Endereço atualizado com sucesso!")
+    this.enderecoService.adicionar(this.data, this.endereco).subscribe(() => {
+      this.enderecoService.showMessage("Novo endereço registrado!")
       this.dialogRef.close(this.endereco)
     })
   }
