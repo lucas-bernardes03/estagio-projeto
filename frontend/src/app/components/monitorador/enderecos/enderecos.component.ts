@@ -37,7 +37,7 @@ export class EnderecosComponent implements OnInit {
   novoEnderecoDialog(): void {
     const dialogConfig = new MatDialogConfig()
     
-    dialogConfig.disableClose = false
+    dialogConfig.disableClose = true
     dialogConfig.autoFocus = true
     dialogConfig.data = this.monId
 
@@ -51,7 +51,7 @@ export class EnderecosComponent implements OnInit {
   editEndereco(endereco: Enderecos):void {
     const dialogConfig = new MatDialogConfig()
     
-    dialogConfig.disableClose = false
+    dialogConfig.disableClose = true
     dialogConfig.autoFocus = true
     dialogConfig.data = endereco
 

@@ -60,10 +60,10 @@ export class EnderecoService {
 
   setFormEnderecoValidators(formEndereco: FormGroup):void {
     formEndereco.controls['endereco'].setValidators([Validators.required])
-    formEndereco.controls['numero'].setValidators([Validators.required])
+    formEndereco.controls['numero'].setValidators([Validators.required, Validators.pattern('^[0-9]{1,5}$')])
     formEndereco.controls['cep'].setValidators([Validators.required, Validators.pattern('^[0-9]{8}$')])
     formEndereco.controls['bairro'].setValidators([Validators.required])
-    formEndereco.controls['telefone'].setValidators([Validators.required])
+    formEndereco.controls['telefone'].setValidators([Validators.required, Validators.pattern('^.{13,14}$')])
     formEndereco.controls['cidade'].setValidators([Validators.required])
     formEndereco.controls['estado'].setValidators([Validators.required])
     formEndereco.controls['principal'].setValidators([Validators.required])

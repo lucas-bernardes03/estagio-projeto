@@ -95,7 +95,7 @@
         
             <div class="cepfields">
                 <mat-form-field>
-                    <input matInput placeholder="CEP" [(ngModel)]="endereco.cep" formControlName="cep">
+                    <input matInput placeholder="CEP" [(ngModel)]="endereco.cep" formControlName="cep" maxlength="8">
                     <button type="button" mat-icon-button matSuffix (click)="buscarCEP()" [disabled]="!formEndereco.controls['cep'].valid" class="btcep">
                         <i matSuffix class="material-icons v-align">search</i>
                     </button>
@@ -105,7 +105,7 @@
                 </mat-error>
 
                 <mat-form-field>
-                    <input matInput placeholder="Telefone" [(ngModel)]="endereco.telefone" formControlName="telefone">
+                    <input matInput placeholder="Telefone" [(ngModel)]="endereco.telefone" formControlName="telefone" appPhoneMask maxlength="14">
                 </mat-form-field>
                 <mat-error *ngIf="errorHandling('telefone', 'required')">
                     Telefone inválido
@@ -121,7 +121,7 @@
                 </mat-error>
 
                 <mat-form-field>
-                    <input matInput placeholder="Número (0 caso não tenha)" [(ngModel)]="endereco.numero" formControlName="numero" >
+                    <input matInput placeholder="Número (0 caso não tenha)" [(ngModel)]="endereco.numero" formControlName="numero" maxlength="5">
                 </mat-form-field>
                 <mat-error *ngIf="errorHandling('numero', 'required')">
                     Número inválido

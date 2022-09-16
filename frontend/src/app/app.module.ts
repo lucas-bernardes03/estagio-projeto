@@ -39,6 +39,7 @@ import { EnderecosComponent } from './components/monitorador/enderecos/enderecos
 import { EnderecoDeletarComponent } from './components/monitorador/endereco-deletar/endereco-deletar.component';
 import { EnderecoUpdateComponent } from './components/monitorador/endereco-update/endereco-update.component';
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
+import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
 
 
 
@@ -59,6 +60,7 @@ import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/
     EnderecoDeletarComponent,
     EnderecoUpdateComponent,
     EnderecoCriarComponent,
+    PhoneMaskDirective,
   ],
   imports: [
     BrowserModule,

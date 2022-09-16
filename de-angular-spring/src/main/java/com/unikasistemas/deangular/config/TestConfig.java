@@ -31,12 +31,12 @@ public class TestConfig implements CommandLineRunner{
         Monitorador m4 = new Monitorador(null, "Jurídica", "Tapecaria Anapolis", "98765432198700", "anpstapecaria@gmail.com", "846291029", null, true);
         monitoradorRepository.saveAll(Arrays.asList(m1,m2,m3,m4));
 
-        Endereco e1 = new Endereco(null, "Rua 12 de Setembro", "101", "37564782", "Santa Marcia", "(62)999999999", "Cocalzin", "Goias", true, m1);
-        Endereco e2 = new Endereco(null, "Rua Antonio Jobim", "221", "74625163", "Ubatuba", "(32)911111111", "Marilandia", "Mato Grosso", false, m2);
-        Endereco e3 = new Endereco(null, "Avenida Brasilia", "332", "89283764", "Setor Central", "(54)23456789", "Hidrolandia", "Goias", true, m3);
-        Endereco e4 = new Endereco(null, "Avenida Soa", "0", "73846154", "Santa Maria", "(33)922222222", "Matagal", "Rio Grande do Norte", true, m4);
-        Endereco e5 = new Endereco(null, "Rua Paulo Viana", "55", "82938476", "Marialia", "(12)87462521", "Rio Avel", "Amapa", false, m1);
-        Endereco e6 = new Endereco(null, "Rua Malindera", "211", "73847211", "Lourdes", "(77)977777777", "Cachoeiras", "Roraima", true, m2);
+        Endereco e1 = new Endereco(null, "Rua 12 de Setembro", "101", "37564782", "Santa Marcia", "(62) 999999999", "Cocalzin", "GO", true, m1);
+        Endereco e2 = new Endereco(null, "Rua Antonio Jobim", "221", "74625163", "Ubatuba", "(32) 911111111", "Marilandia", "MT", false, m2);
+        Endereco e3 = new Endereco(null, "Avenida Brasilia", "332", "89283764", "Setor Central", "(54) 23456789", "Hidrolandia", "GO", true, m3);
+        Endereco e4 = new Endereco(null, "Avenida Soa", "0", "73846154", "Santa Maria", "(33) 922222222", "Matagal", "RN", true, m4);
+        Endereco e5 = new Endereco(null, "Rua Paulo Viana", "55", "82938476", "Marialia", "(12) 87462521", "Rio Avel", "AM", false, m1);
+        Endereco e6 = new Endereco(null, "Rua Malindera", "211", "73847211", "Lourdes", "(77) 977777777", "Cachoeiras", "RR", true, m2);
         enderecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5,e6));
         
         m1.addEndereco(e1);

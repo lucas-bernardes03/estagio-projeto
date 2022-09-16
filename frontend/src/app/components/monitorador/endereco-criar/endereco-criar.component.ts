@@ -20,7 +20,7 @@ export class EnderecoCriarComponent implements OnInit {
     numero: null,
     cep: null,
     bairro: null,
-    telefone: null,
+    telefone: '',
     cidade: null,
     estado: null,
     principal: null
@@ -51,7 +51,6 @@ export class EnderecoCriarComponent implements OnInit {
       this.endereco.estado = CEP.uf
     })
   }
-
 
   instatiateForm():void {
     this.form = this.formBuilder.group({
