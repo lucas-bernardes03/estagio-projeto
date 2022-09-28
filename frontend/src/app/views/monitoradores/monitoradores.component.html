@@ -1,5 +1,16 @@
-<button mat-raised-button (click)="navigateToMonitoradorCriar()" color="success">
-    Novo Monitorador
-</button>
+<div class="botoes">
+    <button mat-raised-button (click)="navigateToMonitoradorCriar()" color="success">
+        Novo Monitorador
+    </button>
+    
+    <button mat-icon-button (click)="toPDF()" color="success" matTooltip="PDF" class="pdf mat-elevation-z2">
+        <i class="material-icons">picture_as_pdf</i>
+    </button>
+    
+    <button mat-icon-button (click)="toXLSX()" color="success" matTooltip="XLSX" class="excel mat-elevation-z2">
+        <i class="material-icons">assignment</i>
+
+    </button>
+</div>
 
 <app-monitorador-ler></app-monitorador-ler>

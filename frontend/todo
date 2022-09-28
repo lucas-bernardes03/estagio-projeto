@@ -1,10 +1,25 @@
-enderecos
--tests
--visual overhaul 
+- checkiguais
+     - update
 
-fields validations/masks
-visual revamp
-login (admins conseguem alterar, usuarios normais nao)
-excel
-pdf
+- barra de search
+    - fazer request ao inves de filtrar
+    - params | filtrar no service
+
+- enderecos
+    - post - monitoradorid conflito XD 
+    - barra de busca
+    - paginação
+
+- db to mysql
+
+- pdf
+
+- login - ?
+
+- refactor - ?
+
+- visual revamp - ?
+
+
+
 

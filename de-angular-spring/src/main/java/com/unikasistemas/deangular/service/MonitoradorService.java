@@ -3,6 +3,8 @@ package com.unikasistemas.deangular.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.unikasistemas.deangular.entities.Monitorador;
@@ -13,7 +15,11 @@ public class MonitoradorService {
     @Autowired
     private MonitoradorRepository repository;
 
-    public List<Monitorador> findAll(){
+    public Page<Monitorador> findAllPaginated(String tipo, Pageable pageable){
+        return repository.findByTipo(tipo, pageable);
+    }
+
+    public Iterable<Monitorador> findAll(){
         return repository.findAll();
     }
 
@@ -37,6 +43,10 @@ public class MonitoradorService {
 
     public Monitorador ultimoAdicionado(){
         return repository.findTopByOrderByIdDesc();
+    }
+
+    public List<Monitorador> inserirVarios(List<Monitorador> monitoradores){
+        return (List<Monitorador>) repository.saveAll(monitoradores);
     }
 
     private void updateData(Monitorador novo, Monitorador atual){

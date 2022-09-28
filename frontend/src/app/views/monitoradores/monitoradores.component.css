@@ -1,0 +1,19 @@
+button {
+    margin-right: 10px;
+}
+
+.excel{
+    border-radius: 4px;
+}
+
+.pdf{
+    border-radius: 4px;
+    margin-left: 79%;
+    background-color: #cf1009;
+}
+
+.botoes{
+    margin: auto;
+    max-width: 95%;
+    padding: 10px;
+}

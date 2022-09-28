@@ -35,9 +35,17 @@ export class MonitoradorUpdateComponent implements OnInit {
   }
 
   salvarMonitorador(): void {
-    this.service.update(this.monitorador).subscribe(() =>{
-      this.service.showMessage('Monitorador atualizado com sucesso!')
-      this.dialogRef.close(this.monitorador)
+    this.service.checkIguais(this.monitorador).subscribe(check => {
+      if(!check){
+        this.service.update(this.monitorador).subscribe(() =>{
+          this.service.showMessage('Monitorador atualizado com sucesso!')
+          this.dialogRef.close(this.monitorador)
+        })
+      }
+      else{
+        if(this.monitorador.tipo === "Física") this.service.showMessage("CPF/RG já cadastrado no sistema.", true)
+        else this.service.showMessage("CNPJ/Inscrição Estadual já cadastrado no sistema.", true)
+      }
     })
   }
 

@@ -37,3 +37,8 @@ export interface CEPModel {
     ddd: string
     siafi: string
 }
+
+export interface PaginatedResponse {
+    content: Monitorador[]
+    totalElements: number
+}

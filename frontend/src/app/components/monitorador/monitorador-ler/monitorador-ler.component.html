@@ -66,6 +66,9 @@
             <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)">
                 <i class="delete-icon material-icons">delete</i>
             </button>
+            <button mat-icon-button matTooltip="XLSX" matTooltipPosition="above" (click)="toXLSX(row.id)">
+              <i class="excel-icon material-icons">description</i>
+            </button>
         </td>
       </ng-container>
   
@@ -118,6 +121,9 @@
                 <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)">
                   <i class="delete-icon material-icons">delete</i>
                 </button>
+                <button mat-icon-button matTooltip="XLSX" matTooltipPosition="above" (click)="toXLSX(row.id)">
+                  <i class="excel-icon material-icons">description</i>
+                </button>
             </td>
           </ng-container>
     
@@ -126,8 +132,9 @@
       </table>
   
     <mat-paginator *ngIf="tableType" #paginator
-        [length]="tableType === 'Física' ? monF.length : monJ.length"
-        [pageSize]="5"
-        [pageSizeOptions]="[5, 10, 20]">
+        [length]="tableType === 'Física' ? totalElementsF : totalElementsJ"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="nextPage($event)">
     </mat-paginator>
   </div>

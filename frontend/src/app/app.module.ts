@@ -8,10 +8,8 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FooterComponent } from './components/footer/footer.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { HomeComponent } from './views/home/home.component';
 import { MatCardModule } from '@angular/material/card';
 import { MonitoradoresComponent } from './views/monitoradores/monitoradores.component';
 import { MonitoradorCriarComponent } from './components/monitorador/monitorador-criar/monitorador-criar.component';
@@ -41,15 +39,11 @@ import { EnderecoUpdateComponent } from './components/monitorador/endereco-updat
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidenavComponent,
-    HomeComponent,
     MonitoradoresComponent,
     MonitoradorCriarComponent,
     MonitoradorLerComponent,
@@ -87,7 +81,7 @@ import { PhoneMaskDirective } from './components/monitorador/phone-mask.directiv
     ReactiveFormsModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [MonitoradorLerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

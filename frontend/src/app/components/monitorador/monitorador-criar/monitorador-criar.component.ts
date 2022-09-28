@@ -1,3 +1,4 @@
+import { MonitoradorLerComponent } from './../monitorador-ler/monitorador-ler.component';
 import { Router } from '@angular/router';
 import { EnderecoService } from './../endereco.service';
 import { Monitorador, Enderecos } from './../monitorador.model';
@@ -5,7 +6,6 @@ import { MonitoradorService } from './../monitorador.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-monitorador-criar',
@@ -19,7 +19,8 @@ export class MonitoradorCriarComponent implements OnInit {
   formComum!: FormGroup;
   formEndereco!: FormGroup;
 
-  hasNum = true
+  numeroPlaceholder = 'Número'
+  numero = true
 
   monitorador: Monitorador = {
     id: null,
@@ -42,7 +43,7 @@ export class MonitoradorCriarComponent implements OnInit {
       numero: null,
       cep: null,
       bairro: null,
-      telefone: null,
+      telefone: '',
       cidade: null,
       estado: null,
       principal: null
@@ -59,12 +60,20 @@ export class MonitoradorCriarComponent implements OnInit {
     this.enderecoService.setFormEnderecoValidators(this.formEndereco)
   }
 
-  salvarMonitorador(): void {
-    this.service.create(this.monitorador).subscribe(m => {
-      this.enderecoService.adicionarNovoM(this.endereco).subscribe(e => {
-        this.service.showMessage("Cadastro concluído com sucesso!")
-        this.router.navigate(['monitoradores'])
-      })
+  salvarMonitorador(): void { 
+    this.service.checkIguais(this.monitorador).subscribe(check => {
+      if(!check){
+        this.service.create(this.monitorador).subscribe(() => {
+          this.enderecoService.adicionarNovoM(this.endereco).subscribe(() => {
+            this.service.showMessage("Cadastro concluído com sucesso!")
+            this.router.navigate(['monitoradores'])
+          })
+        })
+      }
+      else{
+        if(this.monitorador.tipo === "Física") this.service.showMessage("CPF/RG já cadastrado no sistema.", true)
+        else this.service.showMessage("CNPJ/Inscrição Estadual já cadastrado no sistema.", true)
+      }
     })
   }
 
@@ -78,7 +87,27 @@ export class MonitoradorCriarComponent implements OnInit {
       this.endereco.bairro = CEP.bairro
       this.endereco.cidade = CEP.localidade
       this.endereco.estado = CEP.uf
+
+      if(CEP.localidade) this.disableCEPInputs()
     })
+  }
+
+  disableCEPInputs():void {
+    this.formEndereco.controls['cidade'].disable()
+    this.formEndereco.controls['estado'].disable()
+  }
+
+  disableNumero():void {
+    this.numero = !this.numero
+    if(!this.numero){
+      this.formEndereco.controls['numero'].reset()
+      this.formEndereco.controls['numero'].disable()
+      this.numeroPlaceholder = 'Sem Número'
+    } 
+    else{
+      this.formEndereco.controls['numero'].enable()
+      this.numeroPlaceholder = 'Número'
+    } 
   }
 
   errorHandling = (control: string, error: string) => {

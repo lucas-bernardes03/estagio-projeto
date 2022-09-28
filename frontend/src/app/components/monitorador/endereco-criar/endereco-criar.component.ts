@@ -13,7 +13,10 @@ import { Enderecos } from '../monitorador.model';
 export class EnderecoCriarComponent implements OnInit {
 
   form!: FormGroup;
-  
+
+  numeroPlaceholder = 'Número'
+  numero = true
+
   endereco: Enderecos = {
     id: null,
     endereco: null,
@@ -49,7 +52,26 @@ export class EnderecoCriarComponent implements OnInit {
       this.endereco.bairro = CEP.bairro
       this.endereco.cidade = CEP.localidade
       this.endereco.estado = CEP.uf
+
+      if(CEP.localidade) this.disableCEPInputs()
     })
+  }
+
+  disableCEPInputs():void {
+    this.form.controls['cidade'].disable()
+    this.form.controls['estado'].disable()
+  }
+
+  disableNumero():void {
+    this.numero = !this.numero
+    if(!this.numero){
+      this.form.controls['numero'].disable()
+      this.numeroPlaceholder = 'Sem Número'
+    } 
+    else{
+      this.form.controls['numero'].enable()
+      this.numeroPlaceholder = 'Número'
+    } 
   }
 
   instatiateForm():void {

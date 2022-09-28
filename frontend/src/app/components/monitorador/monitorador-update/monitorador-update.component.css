@@ -60,10 +60,15 @@ form{
     flex-direction: column;
 }
 
-button{
-    margin-right: 15px;
+.formbt{
+    padding-right: 15px;
 }
 
 h2{
     text-align: center;
+}
+
+.botoes{
+    justify-content: center;
+    display: flex;
 }

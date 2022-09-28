@@ -1,8 +1,7 @@
+import { MonitoradorService } from './../../components/monitorador/monitorador.service';
 import { Router } from '@angular/router';
-import { MonitoradorLerComponent } from './../../components/monitorador/monitorador-ler/monitorador-ler.component';
-import { MonitoradorCriarComponent } from './../../components/monitorador/monitorador-criar/monitorador-criar.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit} from '@angular/core';
+import * as XLSX from 'xlsx'
 
 @Component({
   selector: 'app-monitoradores',
@@ -10,15 +9,22 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./monitoradores.component.css']
 })
 export class MonitoradoresComponent implements OnInit {
-  @ViewChild(MonitoradorLerComponent) monitoradorLer!: MonitoradorLerComponent
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private monitoradorService: MonitoradorService) { }
   
   ngOnInit(): void {
   }
 
   navigateToMonitoradorCriar(): void{
     this.router.navigate(['/monitoradores/criar'])
+  }
+
+  toXLSX(): void {
+    this.monitoradorService.toXLSXAll()
+  }
+
+  toPDF(): void {
+    
   }
 
 }

@@ -1,10 +1,12 @@
+import { HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MonitoradorDeletarComponent } from './../monitorador-deletar/monitorador-deletar.component';
 import { MonitoradorUpdateComponent } from './../monitorador-update/monitorador-update.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Monitorador } from './../monitorador.model';
+import { Monitorador, PaginatedResponse } from './../monitorador.model';
 import { MonitoradorService } from './../monitorador.service';
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-monitorador-ler',
@@ -14,32 +16,38 @@ import { Component, OnInit } from '@angular/core';
 export class MonitoradorLerComponent implements OnInit {
   
   searchText: string = ''
-
-  monitoradores: Monitorador[] = []
-  tableType = null
   
+  totalElementsF: number = 0
   monF: Monitorador[] = []
+  
+  totalElementsJ: number = 0
   monJ: Monitorador[] = []
 
+  tableType = null
+  
   displayedColumnsF = ['id', 'nome', 'cpf', 'rg', 'dataNascimento', 'email', 'ativo', 'acoes']
   displayedColumnsJ = ['id', 'razaoSocial', 'cnpj', 'inscricaoEstadual', 'email', 'ativo', 'acoes']
 
   constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
   ngOnInit(): void {
-    this.monitoradorService.read().subscribe(monitoradores => {
-      this.monitoradores = monitoradores
-      this.monF = monitoradores.filter(m => m.tipo === 'Física')
-      this.monJ = monitoradores.filter(m => m.tipo === 'Jurídica')
-    })
+    this.paginatedF(0,10)
+    this.paginatedJ(0,10)
+  }
 
+  nextPage(event: PageEvent): void {
+    if(this.tableType === "Física") this.paginatedF(event.pageIndex, event.pageSize)
+    else this.paginatedJ(event.pageIndex, event.pageSize)
   }
 
   routeEnderecos(id: number): void {
     this.router.navigate([`/monitorador/${id}/enderecos`])
   }
-  
 
+  toXLSX(id: number): void {
+    this.monitoradorService.toXLSXId(id)
+  }
+  
   openDialogDelete(id: number):void {
     const dialogConfig = new MatDialogConfig()
     
@@ -72,6 +80,22 @@ export class MonitoradorLerComponent implements OnInit {
      this.monitoradorService.readById(id.toString()).subscribe(monitorador => {
       this.openDialogUpdate(monitorador)
     })    
+  }
+
+  paginatedF(pageIndex:number, pageSize:number): void {
+    const params = new HttpParams().set('tipo','Física').set('page',pageIndex).set('size',pageSize)
+    this.monitoradorService.readPaginated(params).subscribe((data: PaginatedResponse) => {
+      this.monF = data.content
+      this.totalElementsF = data.totalElements
+    })
+  }
+
+  paginatedJ(pageIndex:number, pageSize:number): void {
+    const params = new HttpParams().set('tipo','Jurídica').set('page',pageIndex).set('size',pageSize)
+    this.monitoradorService.readPaginated(params).subscribe((data:PaginatedResponse) => {
+      this.monJ = data.content
+      this.totalElementsJ = data.totalElements
+    })
   }
 
 }

@@ -11,11 +11,13 @@ table{
 }
 
 .edit-icon{
-    color: rgb(37, 148, 37);
+    color: rgb(185, 174, 19);
 }
 
 .div-table{
-    margin-top: 20px;
+    margin: auto;
+    max-width: 95%;
+    background-color: #424242;
 }
 
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
@@ -29,13 +31,17 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
 
 .select{
     margin-left: 20px;
-    
 }
 
 .search{
-    padding-left: 62%;
+    padding-left: 65%;
 }
 
 .end-icon{
-    color: rgb(37, 148, 37);
+    color: rgb(39, 138, 177);
 }
+
+.excel-icon{
+    color: #289659;
+}
+
