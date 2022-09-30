@@ -34,9 +34,11 @@ public class MonitoradorController {
     private EnderecoService enderecoService;
 
     @GetMapping
-    public Page<Monitorador> listarPaginas(@RequestParam(required = true) String tipo, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+    public Page<Monitorador> listarPaginas(@RequestParam(required = true) String tipo, @RequestParam(required = false) String search , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page, size);
-        return service.findAllPaginated(tipo, pageable);
+        if(search == null) return service.findAllPaginated(tipo, pageable);
+        else return service.findSearch(tipo, pageable, search);
+
     }
 
     @GetMapping(value = "/{id}")

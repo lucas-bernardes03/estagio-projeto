@@ -19,6 +19,12 @@ public class MonitoradorService {
         return repository.findByTipo(tipo, pageable);
     }
 
+    public Page<Monitorador> findSearch(String tipo, Pageable pageable, String search){
+        search = "%" + search + "%";
+        if(tipo.equals("Física")) return repository.findSearchFisica(search, pageable);
+        else return repository.findSearchJuridica(search, pageable);
+    }
+
     public Iterable<Monitorador> findAll(){
         return repository.findAll();
     }

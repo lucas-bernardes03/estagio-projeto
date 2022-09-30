@@ -35,7 +35,7 @@ export class MonitoradorUpdateComponent implements OnInit {
   }
 
   salvarMonitorador(): void {
-    this.service.checkIguais(this.monitorador).subscribe(check => {
+    this.service.checkIguaisUpdate(this.monitorador, this.monitorador.id!).subscribe(check => {
       if(!check){
         this.service.update(this.monitorador).subscribe(() =>{
           this.service.showMessage('Monitorador atualizado com sucesso!')

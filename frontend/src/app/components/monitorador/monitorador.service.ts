@@ -3,7 +3,7 @@ import { Enderecos, Monitorador } from './monitorador.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, EMPTY, map, Observable, of, Subject } from 'rxjs';
+import { catchError, EMPTY, filter, map, Observable, of, Subject } from 'rxjs';
 import * as XLSX from 'xlsx'
 
 @Injectable({
@@ -42,6 +42,7 @@ export class MonitoradorService {
     return this.http.get<Monitorador[]>(this.baseUrl, { params: params }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
+
   readById(id:string): Observable<Monitorador>{
     const url = `${this.baseUrl}/${id}`
     return this.http.get<Monitorador>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
@@ -62,6 +63,8 @@ export class MonitoradorService {
     return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
+  
+
   checkIguais(mon: Monitorador): Observable<boolean> {
     var subject = new Subject<boolean>()
     this.read().subscribe(m => {
@@ -80,6 +83,36 @@ export class MonitoradorService {
       if(mon.tipo === "Física") subject.next(identificacoes.includes(mon.cpf!) || identificacoes.includes(mon.rg!))
       else subject.next(identificacoes.includes(mon.cnpj!) || identificacoes.includes(mon.inscricaoEstadual!))
     })
+    return subject.asObservable()
+  }
+
+  checkIguaisUpdate(mon: Monitorador, idCurrent: number): Observable<boolean> {
+    var subject = new Subject<boolean>()
+     
+    this.readById(idCurrent.toString()).subscribe(curr => {
+      this.read().subscribe(m => {
+        var identificacoes: string[] = []
+        for(var monitorador of m){
+          if(monitorador.tipo === "Física"){
+            identificacoes.push(monitorador.cpf!)
+            identificacoes.push(monitorador.rg!)
+          }
+          else{
+            identificacoes.push(monitorador.cnpj!)
+            identificacoes.push(monitorador.inscricaoEstadual!)
+          }
+        }
+
+        var idsFilter
+
+        if(curr.tipo === "Física") idsFilter = identificacoes.filter(data => data !== curr.cpf).filter(data => data !== curr.rg)
+        else idsFilter = identificacoes.filter(data => data !== curr.cnpj).filter(data => data !== curr.inscricaoEstadual)
+
+        if(mon.tipo === "Física") subject.next(idsFilter.includes(mon.rg!) || idsFilter.includes(mon.cpf!))
+        else subject.next(idsFilter.includes(mon.cnpj!) || idsFilter.includes(mon.inscricaoEstadual!))
+      })
+    })
+
     return subject.asObservable()
   }
 

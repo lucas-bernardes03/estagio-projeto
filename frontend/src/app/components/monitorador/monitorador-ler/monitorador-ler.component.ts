@@ -31,13 +31,13 @@ export class MonitoradorLerComponent implements OnInit {
   constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
   ngOnInit(): void {
-    this.paginatedF(0,10)
-    this.paginatedJ(0,10)
+    this.paginatedF(0,10, this.searchText)
+    this.paginatedJ(0,10, this.searchText)
   }
 
   nextPage(event: PageEvent): void {
-    if(this.tableType === "Física") this.paginatedF(event.pageIndex, event.pageSize)
-    else this.paginatedJ(event.pageIndex, event.pageSize)
+    if(this.tableType === "Física") this.paginatedF(event.pageIndex, event.pageSize, this.searchText)
+    else this.paginatedJ(event.pageIndex, event.pageSize, this.searchText)
   }
 
   routeEnderecos(id: number): void {
@@ -82,20 +82,28 @@ export class MonitoradorLerComponent implements OnInit {
     })    
   }
 
-  paginatedF(pageIndex:number, pageSize:number): void {
-    const params = new HttpParams().set('tipo','Física').set('page',pageIndex).set('size',pageSize)
+  paginatedF(pageIndex:number, pageSize:number, search:string): void {
+    const params = new HttpParams().set('tipo','Física').set('page',pageIndex).set('size',pageSize).set('search',search)
+    
     this.monitoradorService.readPaginated(params).subscribe((data: PaginatedResponse) => {
       this.monF = data.content
       this.totalElementsF = data.totalElements
     })
   }
 
-  paginatedJ(pageIndex:number, pageSize:number): void {
+  paginatedJ(pageIndex:number, pageSize:number, search:string): void {
     const params = new HttpParams().set('tipo','Jurídica').set('page',pageIndex).set('size',pageSize)
+
+
     this.monitoradorService.readPaginated(params).subscribe((data:PaginatedResponse) => {
       this.monJ = data.content
       this.totalElementsJ = data.totalElements
     })
+  }
+
+  search(): void {
+    if(this.tableType === "Física") this.paginatedF(0, 10, this.searchText)
+    else this.paginatedJ(0, 10, this.searchText)
   }
 
 }

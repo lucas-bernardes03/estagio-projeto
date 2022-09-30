@@ -12,11 +12,13 @@
     
     <mat-form-field class="search" *ngIf="tableType">
       <input matInput placeholder="Buscar" [(ngModel)]="searchText">
-      <i matSuffix class="material-icons v-align">search</i>
+      <button mat-icon-button matSuffix (click)="search()">
+        <i matSuffix class="material-icons v-align">search</i>
+      </button>
     </mat-form-field>
     
 
-    <table mat-table [dataSource]="monF | appFilter: searchText" *ngIf="tableType === 'Física'">
+    <table mat-table [dataSource]="monF" *ngIf="tableType === 'Física'">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let row">{{row.id}}</td>
@@ -76,7 +78,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumnsF;"></tr>
     </table>
 
-    <table mat-table [dataSource]="monJ | appFilter: searchText" *ngIf="tableType === 'Jurídica'">
+    <table mat-table [dataSource]="monJ" *ngIf="tableType === 'Jurídica'">
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
