@@ -3,6 +3,8 @@ package com.unikasistemas.deangular.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.unikasistemas.deangular.entities.Endereco;
@@ -14,7 +16,7 @@ public class EnderecoService {
     private EnderecoRepository repository;
 
     public List<Endereco> findAll(){
-        return repository.findAll();
+        return (List<Endereco>) repository.findAll();
     }
 
     public Endereco findById(Long id){
@@ -35,9 +37,12 @@ public class EnderecoService {
         repository.deleteById(id);
     }
 
+    public Page<Endereco> encontrarPorMonitoradorPageable(Long id, Pageable pageable){
+        return repository.findByMonitoradorPageable(id, pageable);
+    }
+
     public List<Endereco> encontrarPorMonitorador(Long id){
-        List<Endereco> enderecos = repository.findByMonitorador(id);
-        return enderecos;
+        return repository.findByMonitorador(id);
     }
 
     public void deletarPorMonitorador(Long id){

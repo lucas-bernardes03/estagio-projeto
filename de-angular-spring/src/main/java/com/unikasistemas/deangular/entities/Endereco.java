@@ -28,7 +28,7 @@ public class Endereco implements Serializable{
     private String estado;
     private boolean principal;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
     @JoinColumn(name = "monitorador_id")
     private Monitorador monitorador;

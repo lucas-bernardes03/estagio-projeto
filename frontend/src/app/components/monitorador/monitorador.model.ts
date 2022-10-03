@@ -39,6 +39,6 @@ export interface CEPModel {
 }
 
 export interface PaginatedResponse {
-    content: Monitorador[]
+    content: any[]
     totalElements: number
 }

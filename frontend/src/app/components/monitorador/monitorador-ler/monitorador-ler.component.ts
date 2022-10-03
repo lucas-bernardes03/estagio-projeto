@@ -92,7 +92,7 @@ export class MonitoradorLerComponent implements OnInit {
   }
 
   paginatedJ(pageIndex:number, pageSize:number, search:string): void {
-    const params = new HttpParams().set('tipo','Jurídica').set('page',pageIndex).set('size',pageSize)
+    const params = new HttpParams().set('tipo','Jurídica').set('page',pageIndex).set('size',pageSize).set('search',search)
 
 
     this.monitoradorService.readPaginated(params).subscribe((data:PaginatedResponse) => {

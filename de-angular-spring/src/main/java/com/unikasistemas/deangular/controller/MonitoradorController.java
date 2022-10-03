@@ -1,6 +1,6 @@
 package com.unikasistemas.deangular.controller;
 
-import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.unikasistemas.deangular.entities.Endereco;
 import com.unikasistemas.deangular.entities.Monitorador;
@@ -48,9 +47,15 @@ public class MonitoradorController {
     }
 
     @GetMapping(value = "/{id}/enderecos")
-    public ResponseEntity<List<Endereco>> enderecos(@PathVariable Long id){
-        List<Endereco> enderecos = enderecoService.encontrarPorMonitorador(id);
-        return ResponseEntity.ok(enderecos);
+    public Page<Endereco> enderecos(@PathVariable Long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return enderecoService.encontrarPorMonitoradorPageable(id, pageable);
+    }
+
+    @GetMapping(value = "/{id}/enderecos/m")
+    public ResponseEntity<List<Endereco>> enderecosTodos(@PathVariable Long id){
+        List<Endereco> e = enderecoService.encontrarPorMonitorador(id);
+        return ResponseEntity.ok(e);
     }
 
     @PostMapping(value = "/{id}/enderecos")
@@ -64,8 +69,9 @@ public class MonitoradorController {
     @PostMapping
     public ResponseEntity<Monitorador> inserir(@RequestBody Monitorador monitorador){
         Monitorador m = service.insertMonitorador(monitorador);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(m.getId()).toUri();
-        return ResponseEntity.created(uri).body(m);
+        monitorador.getEnderecos().forEach(endereco -> endereco.setMonitorador(m));
+        monitorador.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
+        return ResponseEntity.ok(m);
     }
 
     @GetMapping(value = "/m")
@@ -76,7 +82,15 @@ public class MonitoradorController {
 
     @PostMapping(value = "/m")
     public ResponseEntity<List<Monitorador>> inserirMultiplos(@RequestBody List<Monitorador> monitoradores){
-        List<Monitorador> mons = service.inserirVarios(monitoradores);
+        List<Monitorador> mons = new ArrayList<>();
+        
+        for(Monitorador m : monitoradores){
+            Monitorador mSalvo = service.insertMonitorador(m);
+            m.getEnderecos().forEach(endereco -> endereco.setMonitorador(mSalvo));
+            m.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
+            mons.add(mSalvo);
+        }
+        
         return ResponseEntity.ok(mons);
     }
 

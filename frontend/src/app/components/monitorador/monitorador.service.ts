@@ -58,12 +58,16 @@ export class MonitoradorService {
     return this.http.delete<Monitorador>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
-  retrieveEnderecos(id: number): Observable<Enderecos[]> {
+  retrieveEnderecosPageable(id: string, params: HttpParams){
     const url = `${this.baseUrl}/${id}/enderecos`
+    return this.http.get<Enderecos[]>(url, {params: params}).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  retrieveEnderecos(id: number): Observable<Enderecos[]> {
+    const url = `${this.baseUrl}/${id}/enderecos/m`
     return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
-  
 
   checkIguais(mon: Monitorador): Observable<boolean> {
     var subject = new Subject<boolean>()

@@ -1,0 +1,23 @@
+SELECT monitoradores.id AS MON_ID,
+monitoradores.ativo AS MON_ATIVO,
+monitoradores.cnpj AS MON_CNPJ,
+monitoradores.cpf AS MON_CPF,
+monitoradores.data_nascimento AS MON_NASCIMENTO,
+monitoradores.email AS MON_EMAIL,
+monitoradores.inscricao_estadual AS MON_INSCRICAO,
+monitoradores.nome AS MON_NOME,
+monitoradores.razao_social AS MON_RAZAO,
+monitoradores.rg AS MON_RG,
+monitoradores.tipo AS MON_TIPO,
+enderecos.bairro AS END_BAIRRO,
+enderecos.cep AS END_CEP,
+enderecos.cidade AS END_CIDADE,
+enderecos.endereco AS END_LOGRADOURO,
+enderecos.estado AS END_ESTADO,
+enderecos.numero AS END_NUMERO,
+enderecos.principal AS END_PRINCIPAL,
+enderecos.telefone AS END_TELEFONE,
+enderecos.monitorador_id AS END_MON_ID
+FROM desafio_angular.monitoradores, desafio_angular.enderecos
+WHERE enderecos.monitorador_id = monitoradores.id
+ORDER BY monitoradores.id
