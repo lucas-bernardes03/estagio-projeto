@@ -1,23 +1,46 @@
-SELECT monitoradores.id AS MON_ID,
-monitoradores.ativo AS MON_ATIVO,
-monitoradores.cnpj AS MON_CNPJ,
-monitoradores.cpf AS MON_CPF,
-monitoradores.data_nascimento AS MON_NASCIMENTO,
-monitoradores.email AS MON_EMAIL,
-monitoradores.inscricao_estadual AS MON_INSCRICAO,
-monitoradores.nome AS MON_NOME,
-monitoradores.razao_social AS MON_RAZAO,
-monitoradores.rg AS MON_RG,
-monitoradores.tipo AS MON_TIPO,
-enderecos.bairro AS END_BAIRRO,
-enderecos.cep AS END_CEP,
-enderecos.cidade AS END_CIDADE,
-enderecos.endereco AS END_LOGRADOURO,
-enderecos.estado AS END_ESTADO,
-enderecos.numero AS END_NUMERO,
-enderecos.principal AS END_PRINCIPAL,
-enderecos.telefone AS END_TELEFONE,
-enderecos.monitorador_id AS END_MON_ID
-FROM desafio_angular.monitoradores, desafio_angular.enderecos
-WHERE enderecos.monitorador_id = monitoradores.id
-ORDER BY monitoradores.id
+JASPER
+
+DATABASE:
+    SELECT monitoradores.id AS MON_ID,
+    monitoradores.ativo AS MON_ATIVO,
+    monitoradores.cnpj AS MON_CNPJ,
+    monitoradores.cpf AS MON_CPF,
+    monitoradores.data_nascimento AS MON_NASCIMENTO,
+    monitoradores.email AS MON_EMAIL,
+    monitoradores.inscricao_estadual AS MON_INSCRICAO,
+    monitoradores.nome AS MON_NOME,
+    monitoradores.razao_social AS MON_RAZAO,
+    monitoradores.rg AS MON_RG,
+    monitoradores.tipo AS MON_TIPO,
+    enderecos.bairro AS END_BAIRRO,
+    enderecos.cep AS END_CEP,
+    enderecos.cidade AS END_CIDADE,
+    enderecos.endereco AS END_LOGRADOURO,
+    enderecos.estado AS END_ESTADO,
+    enderecos.numero AS END_NUMERO,
+    enderecos.principal AS END_PRINCIPAL,
+    enderecos.telefone AS END_TELEFONE,
+    enderecos.monitorador_id AS END_MON_ID
+    FROM desafio_angular.monitoradores, desafio_angular.enderecos
+    WHERE enderecos.monitorador_id = monitoradores.id
+    ORDER BY monitoradores.id
+
+HEADER:
+    IF($F{MON_TIPO}.equals( "Física" ),$F{MON_NOME},$F{MON_RAZAO})
+
+DADOS:
+    IF($F{MON_TIPO}.equals( "Física" ),
+    "CPF: " + $F{MON_CPF} +'\n'+ 
+    "RG: " + $F{MON_RG} +'\n' + 
+    "Data de Nascimento: " + $F{MON_NASCIMENTO} + '\n' + 
+    "E-mail: " + $F{MON_EMAIL}+'\n',
+    "CNPJ: " + $F{MON_CNPJ} + '\n' + 
+    "Inscrição Estadual: " +  $F{MON_INSCRICAO} + '\n' + 
+    "E-mail: " + $F{MON_EMAIL} + '\n') +
+    "Ativo: " + IF($F{MON_ATIVO},"Sim","Não")
+
+ENDERECOS:
+    "Logradouro: " + $F{END_LOGRADOURO}  + '\t' + '\t' + '\t' + "Numero: " + $F{END_NUMERO} +'\n' +
+    "Bairro: " + $F{END_BAIRRO} + '\t' + '\t' + '\t' + '\t' + "CEP: " + $F{END_CEP} + '\n' +
+    "Cidade: " + $F{END_CIDADE} + '\t' + '\t' + '\t' + '\t' + '\t' + "Estado: " + $F{END_ESTADO} + '\n' +
+    "Telefone: " + $F{END_TELEFONE}
