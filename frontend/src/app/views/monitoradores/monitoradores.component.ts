@@ -1,7 +1,6 @@
 import { MonitoradorService } from './../../components/monitorador/monitorador.service';
 import { Router } from '@angular/router';
 import { Component, OnInit} from '@angular/core';
-import * as XLSX from 'xlsx'
 
 @Component({
   selector: 'app-monitoradores',

@@ -1,14 +1,35 @@
+- confirmar as validacoes e length dos campos (rg e inscricao)
+
+
+
 - enderecos
     - multiple post
     - barra de busca ?
 
-- pdf
+
+
+- pdf !
+    - compilar o pdf
+    - mandar arquivos para o front
+    - download
+
+
+
 
 - excel
     - import de dados
 
-- login - ?
+
+
+
+- login
+    - db
+    - spring
+
+
 
 - refactor - ?
+
+
 
 - visual revamp - ?

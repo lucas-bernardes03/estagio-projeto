@@ -3,12 +3,14 @@ package com.unikasistemas.deangular.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.unikasistemas.deangular.entities.Monitorador;
 import com.unikasistemas.deangular.repository.MonitoradorRepository;
+
 
 @Service
 public class MonitoradorService {
@@ -65,5 +67,9 @@ public class MonitoradorService {
         atual.setAtivo(novo.isAtivo());
     }
 
+    public void exportReport() {
+        //TODO
+      
+    }
 
 }

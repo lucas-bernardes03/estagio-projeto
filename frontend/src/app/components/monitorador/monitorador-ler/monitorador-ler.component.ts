@@ -15,6 +15,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class MonitoradorLerComponent implements OnInit {
   
+  loginFlag:boolean = false
+
   searchText: string = ''
   
   totalElementsF: number = 0
@@ -31,6 +33,9 @@ export class MonitoradorLerComponent implements OnInit {
   constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
   ngOnInit(): void {
+    let storedData = localStorage.getItem("isLogged");
+    (storedData == 'true') ? this.loginFlag = true : this.loginFlag = false;
+    
     this.paginatedF(0,10, this.searchText)
     this.paginatedJ(0,10, this.searchText)
   }

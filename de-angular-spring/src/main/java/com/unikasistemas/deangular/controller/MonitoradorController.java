@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import com.unikasistemas.deangular.entities.Endereco;
 import com.unikasistemas.deangular.entities.Monitorador;
 import com.unikasistemas.deangular.service.EnderecoService;
 import com.unikasistemas.deangular.service.MonitoradorService;
+
 
 @RestController
 @RequestMapping(value = "/api/monitoradores")
@@ -106,4 +108,6 @@ public class MonitoradorController {
         service.deleteMonitorador(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 }

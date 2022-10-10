@@ -38,6 +38,7 @@ import { EnderecoDeletarComponent } from './components/monitorador/endereco-dele
 import { EnderecoUpdateComponent } from './components/monitorador/endereco-update/endereco-update.component';
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
+import { LoginComponent } from './views/login/login.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PhoneMaskDirective } from './components/monitorador/phone-mask.directiv
     EnderecoUpdateComponent,
     EnderecoCriarComponent,
     PhoneMaskDirective,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

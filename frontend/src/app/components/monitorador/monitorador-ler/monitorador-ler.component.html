@@ -61,11 +61,11 @@
               <i class="end-icon material-icons">home</i>
             </button>
 
-            <button mat-icon-button matTooltip="Editar" matTooltipPosition="above" (click)="findMon(row.id)">
+            <button mat-icon-button matTooltip="Editar" matTooltipPosition="above" (click)="findMon(row.id)" *ngIf="loginFlag">
               <i class="edit-icon material-icons">edit</i>
             </button>
             
-            <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)">
+            <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)" *ngIf="loginFlag">
                 <i class="delete-icon material-icons">delete</i>
             </button>
             <button mat-icon-button matTooltip="XLSX" matTooltipPosition="above" (click)="toXLSX(row.id)">
@@ -117,10 +117,10 @@
                   <i class="end-icon material-icons">home</i>
                 </button>
 
-                <button mat-icon-button matTooltip="Editar" matTooltipPosition="above" (click)="findMon(row.id)">
+                <button mat-icon-button matTooltip="Editar" matTooltipPosition="above" (click)="findMon(row.id)" *ngIf="loginFlag">
                   <i class="edit-icon material-icons">edit</i>
                 </button>
-                <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)">
+                <button mat-icon-button matTooltip="Deletar" matTooltipPosition="above" (click)="openDialogDelete(row.id)" *ngIf="loginFlag">
                   <i class="delete-icon material-icons">delete</i>
                 </button>
                 <button mat-icon-button matTooltip="XLSX" matTooltipPosition="above" (click)="toXLSX(row.id)">

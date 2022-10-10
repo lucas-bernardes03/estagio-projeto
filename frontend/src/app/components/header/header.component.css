@@ -18,3 +18,12 @@
     padding-left: 20px;
     font-weight: 300;
 }
+
+.login{
+    margin-left: 72%;
+}
+
+a:visited{
+    text-decoration: none;
+    color: white;
+}

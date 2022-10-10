@@ -75,7 +75,6 @@ export class EnderecosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.ngOnInit()
-        console.log("salvou")
       } 
     })
   }

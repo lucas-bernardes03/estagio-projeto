@@ -25,7 +25,7 @@ export class MonitoradorService {
   }
   
   errorHandler(e: any): Observable<any> {
-    this.showMessage('Ocorreu um erro!', true)
+    this.showMessage('Erro de conexão com o banco de dados!', true)
     return EMPTY
   }
 
@@ -150,7 +150,7 @@ export class MonitoradorService {
       XLSX.utils.sheet_add_aoa(wsF, [["ID", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
       XLSX.utils.sheet_add_aoa(wsJ, [["ID", "Razão Social", "CNPJ", "Inscrição Estadual", "E-mail", "Ativo"]], { origin: "A1"})
 
-      wsF["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
+      wsF["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 12 }, { wch: 10 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
       wsJ["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 15 }, { wch: 16 }, { wch: 30 }, { wch: 5 } ]
 
       const workbook = XLSX.utils.book_new()
