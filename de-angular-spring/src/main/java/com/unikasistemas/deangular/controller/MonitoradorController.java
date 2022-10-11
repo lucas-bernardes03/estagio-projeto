@@ -1,5 +1,7 @@
 package com.unikasistemas.deangular.controller;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,5 +111,10 @@ public class MonitoradorController {
         return ResponseEntity.noContent().build();
     }
 
-    
+    @GetMapping(value = "/pdf")
+    public ResponseEntity<Resource> pdf() throws IOException{
+        Resource file = service.exportReport();
+        return ResponseEntity.ok(file);
+    }
+
 }

@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -39,6 +40,7 @@ import { EnderecoUpdateComponent } from './components/monitorador/endereco-updat
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
 import { LoginComponent } from './views/login/login.component';
+
 
 @NgModule({
   declarations: [

@@ -1,6 +1,7 @@
 import { MonitoradorService } from './../../components/monitorador/monitorador.service';
 import { Router } from '@angular/router';
 import { Component, OnInit} from '@angular/core';
+import { saveAs } from 'file-saver'
 
 @Component({
   selector: 'app-monitoradores',
@@ -23,7 +24,7 @@ export class MonitoradoresComponent implements OnInit {
   }
 
   toPDF(): void {
-    
+    this.monitoradorService.downloadPdf().subscribe(blob => saveAs(blob, 'MONITORADORES.pdf'));
   }
 
 }

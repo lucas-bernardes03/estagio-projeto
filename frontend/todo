@@ -7,24 +7,15 @@
     - barra de busca ?
 
 
-
-- pdf !
-    - compilar o pdf
-    - mandar arquivos para o front
-    - download
-
-
-
-
 - excel
     - import de dados
 
 
 
-
 - login
-    - db
+    - user model
     - spring
+    - db
 
 
 

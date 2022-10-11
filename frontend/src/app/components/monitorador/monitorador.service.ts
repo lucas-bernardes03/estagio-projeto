@@ -26,6 +26,7 @@ export class MonitoradorService {
   
   errorHandler(e: any): Observable<any> {
     this.showMessage('Erro de conexão com o banco de dados!', true)
+    console.log(e)
     return EMPTY
   }
 
@@ -36,6 +37,11 @@ export class MonitoradorService {
   read(): Observable<Monitorador[]> {
     const url = `${this.baseUrl}/m`
     return this.http.get<Monitorador[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  downloadPdf(): Observable<Blob> {
+    const url = `${this.baseUrl}/pdf`
+    return this.http.get(url, { responseType: 'blob' }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
   readPaginated(params: HttpParams) {
