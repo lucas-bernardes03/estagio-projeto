@@ -6,11 +6,20 @@
     <button mat-icon-button (click)="toPDF()" color="success" matTooltip="PDF" class="pdf mat-elevation-z2">
         <i class="material-icons">picture_as_pdf</i>
     </button>
-    
-    <button mat-icon-button (click)="toXLSX()" color="success" matTooltip="XLSX" class="excel mat-elevation-z2">
-        <i class="material-icons">assignment</i>
 
+    <button mat-icon-button color="success" matTooltip="Excel" class="excel mat-elevation-z2" [matMenuTriggerFor]="menu">
+        <i class="material-icons">assignment</i>
     </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="uploadPage()">
+            <i class="material-icons v-align">file_upload</i>
+            <span> Upload</span>
+        </button>
+        <button mat-menu-item (click)="toXLSX()">
+            <i class="material-icons v-align">get_app</i>
+            <span> Download</span>
+        </button>
+    </mat-menu>
 </div>
 
 <app-monitorador-ler></app-monitorador-ler>

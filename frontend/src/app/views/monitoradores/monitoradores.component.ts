@@ -20,11 +20,15 @@ export class MonitoradoresComponent implements OnInit {
   }
 
   toXLSX(): void {
-    this.monitoradorService.toXLSXAll()
+    //this.monitoradorService.toXLSXAll()
+  }
+
+  uploadPage(): void {
+    this.router.navigate(['/upload'])
   }
 
   toPDF(): void {
-    this.monitoradorService.downloadPdf().subscribe(blob => saveAs(blob, 'MONITORADORES.pdf'));
+    // this.monitoradorService.downloadPdf().subscribe(blob => saveAs(blob, 'MONITORADORES.pdf'));
   }
 
 }

@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FooterComponent } from './components/footer/footer.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
@@ -40,13 +39,16 @@ import { EnderecoUpdateComponent } from './components/monitorador/endereco-updat
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
 import { LoginComponent } from './views/login/login.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { UploadComponent } from './views/upload/upload/upload.component';
+import { DragNDropDirective } from './views/upload/drag-ndrop.directive';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     MonitoradoresComponent,
     MonitoradorCriarComponent,
     MonitoradorLerComponent,
@@ -59,6 +61,8 @@ import { LoginComponent } from './views/login/login.component';
     EnderecoCriarComponent,
     PhoneMaskDirective,
     LoginComponent,
+    UploadComponent,
+    DragNDropDirective,
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,8 @@ import { LoginComponent } from './views/login/login.component';
     MatPaginatorModule,
     MatSortModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ],
   providers: [MonitoradorLerComponent],
   bootstrap: [AppComponent]

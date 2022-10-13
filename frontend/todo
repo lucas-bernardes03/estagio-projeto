@@ -1,7 +1,6 @@
 - confirmar as validacoes e length dos campos (rg e inscricao)
 
 
-
 - enderecos
     - multiple post
     - barra de busca ?
@@ -11,12 +10,10 @@
     - import de dados
 
 
-
 - login
     - user model
     - spring
     - db
-
 
 
 - refactor - ?
