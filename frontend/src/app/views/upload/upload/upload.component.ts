@@ -1,4 +1,7 @@
+import { Router } from '@angular/router';
+import { MonitoradorService } from './../../../components/monitorador/monitorador.service';
 import { Component, OnInit } from '@angular/core';
+import { Monitorador } from 'src/app/components/monitorador/monitorador.model';
 
 @Component({
   selector: 'app-upload',
@@ -7,20 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  file: any
+  monitoradores: Monitorador[] = []
+  displayedColumns = ['tipo', 'nomeRazao', 'cpfCnpj', 'rgInscricao', 'email', 'endereco', 'telefone']
 
-  constructor() { }
+
+  constructor(private monitoradorService: MonitoradorService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
   onDrop(file: File): void {
-    console.log('file: ',file)
-    
-    let fileReader = new FileReader()
-    fileReader.onload = (e) => {
-      console.log(fileReader.result)
-    }
-    fileReader.readAsText(file)
+    this.monitoradorService.readExcel(file).subscribe(m => {
+      this.monitoradores = m
+    })
+  }
+
+  fileBrowser($event: any): void {
+    this.monitoradorService.readExcel($event.files[0]).subscribe(m => {
+      this.monitoradores = m
+    })
+  }
+
+  salvar(): void {
+    this.monitoradorService.createMany(this.monitoradores).subscribe(m => {
+      this.monitoradorService.showMessage("Monitoradores cadastrados com sucesso!")
+      this.router.navigate(['/'])
+    })
+  }
+
+
+  voltar(): void {
+    this.router.navigate(['/'])
   }
 }

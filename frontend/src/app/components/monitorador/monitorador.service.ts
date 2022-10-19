@@ -34,6 +34,11 @@ export class MonitoradorService {
     return this.http.post<Monitorador>(this.baseUrl, monitorador).pipe(map(obj => obj), catchError(e => this.errorHandler(e)));
   }
 
+  createMany(monitoradores: Monitorador[]): Observable<Monitorador[]> {
+    const url = `${this.baseUrl}/m`
+    return this.http.post<Monitorador[]>(url, monitoradores).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
   read(): Observable<Monitorador[]> {
     const url = `${this.baseUrl}/m`
     return this.http.get<Monitorador[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
@@ -173,15 +178,15 @@ export class MonitoradorService {
       const workbook = XLSX.utils.book_new()
       
       if(m.tipo === "Física"){
-        const wsF = XLSX.utils.aoa_to_sheet([[],[m.id, m.nome, m.cpf, m.rg, new Date(m.dataNascimento!).toLocaleDateString(), m.email, m.ativo ? "Sim":"Não"]])
-        XLSX.utils.sheet_add_aoa(wsF, [["ID", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
-        wsF["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
+        const wsF = XLSX.utils.aoa_to_sheet([[],[m.id, m.tipo, m.nome, m.cpf, m.rg, new Date(m.dataNascimento!).toLocaleDateString(), m.email, m.ativo ? "Sim":"Não"]])
+        XLSX.utils.sheet_add_aoa(wsF, [["ID", "Tipo", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
+        wsF["!cols"] = [{ wch: 5 }, {wch: 7}, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
         XLSX.utils.book_append_sheet(workbook, wsF, "Monitorador")
       }
       else{
-        const wsJ = XLSX.utils.aoa_to_sheet([[],[m.id, m.razaoSocial, m.cnpj, m.inscricaoEstadual, m.email, m.ativo ? "Sim":"Não"]])
-        XLSX.utils.sheet_add_aoa(wsJ, [["ID", "Razão Social", "CNPJ", "Inscrição Estadual", "E-mail", "Ativo"]], { origin: "A1"})
-        wsJ["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 15 }, { wch: 16 }, { wch: 30 }, { wch: 5 } ]
+        const wsJ = XLSX.utils.aoa_to_sheet([[],[m.id, m.tipo, m.razaoSocial, m.cnpj, m.inscricaoEstadual, m.email, m.ativo ? "Sim":"Não"]])
+        XLSX.utils.sheet_add_aoa(wsJ, [["ID", "Tipo", "Razão Social", "CNPJ", "Inscrição Estadual", "E-mail", "Ativo"]], { origin: "A1"})
+        wsJ["!cols"] = [{ wch: 5 }, {wch: 9},  { wch: 30 }, { wch: 15 }, { wch: 16 }, { wch: 30 }, { wch: 5 } ]
         XLSX.utils.book_append_sheet(workbook, wsJ, "Monitorador")
       }
 
@@ -203,9 +208,92 @@ export class MonitoradorService {
         endS["!cols"] = [{wch: 5}, {wch: 30}, {wch: 7}, {wch: 9}, {wch: 15}, {wch: 15}, {wch: 7}, {wch: 10}, {wch: 15}]
         XLSX.utils.book_append_sheet(workbook,endS,"Endereços")
         
-        XLSX.writeFile(workbook, `${m.nome?.replace(/\s/g, '')}.xlsx`)
+        if(m.tipo === 'Física') XLSX.writeFile(workbook, `${m.nome?.replace(/\s/g, '')}.xlsx`)
+        else XLSX.writeFile(workbook, `${m.razaoSocial?.replace(/\s/g, '')}.xlsx`)
       })
     })
+  }
+
+  readExcel(file: File): Observable<Monitorador[]>{
+    const reader = new FileReader();
+    const monitoradores: Monitorador[] = [];
+    
+    const subject = new Subject<Monitorador[]>();
+
+    reader.onload = (e) => {
+      let data = reader.result
+      var workbook = XLSX.read(data, {type: 'binary'})
+
+      workbook.SheetNames.forEach(sheetName => {
+        var rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
+        
+        if(sheetName === 'Cadastrar'){
+          rows.forEach((row:any) => {
+            const mon:Monitorador = {
+              id: null,
+              tipo: null,
+              nome: null,
+              razaoSocial: null,
+              cpf: null,
+              cnpj: null,
+              rg: null,
+              inscricaoEstadual: null,
+              dataNascimento: null,
+              email: null,
+              ativo: true,
+              enderecos: []              
+            }
+
+            const end:Enderecos = {
+              id: null,
+              endereco: null,
+              numero: null,
+              cep: null,
+              bairro: null,
+              telefone: null,
+              cidade: null,
+              estado: null,
+              principal: true              
+            }
+  
+            mon.tipo = row['Tipo (Física ou Jurídica)']
+            mon.email = row["E-mail"]
+            
+            if(mon.tipo === "Física"){
+              mon.nome = row["Nome / Razão Social"]
+              mon.cpf = row['CPF / CNPJ']
+              mon.rg = row["RG / Iscrição Estadual"]
+              mon.dataNascimento = row["Data de Nascimento"]
+            }
+            else{
+              mon.razaoSocial = row["Nome / Razão Social"]
+              mon.cnpj = row['CPF / CNPJ']
+              mon.inscricaoEstadual = row["RG / Iscrição Estadual"]
+            }
+
+            end.endereco = row['Logradouro']
+            end.numero = row['Número']
+            end.cep = row['CEP']
+            end.bairro = row['Bairro']
+            end.cidade = row['Cidade']
+            end.estado = row['Estado']
+            end.telefone = this.formatPhone(row['Telefone'])
+
+            mon.enderecos?.push(end)
+            monitoradores.push(mon)
+          })
+        }
+      })
+      subject.next(monitoradores)
+    }
+    
+    reader.onerror = function(e){
+      console.log(e)
+    }
+    
+    reader.readAsBinaryString(file)
+    
+    return subject.asObservable()
   }
 
   //form validations
@@ -258,4 +346,9 @@ export class MonitoradorService {
     formJ.controls['inscricaoEstadual'].updateValueAndValidity()
   }
 
+  private formatPhone(phone:number):string {
+    return phone.toString().replace(/^(\d{0,2})(\d{0,9})$/, '($1) $2')
+  }
+
 }
+

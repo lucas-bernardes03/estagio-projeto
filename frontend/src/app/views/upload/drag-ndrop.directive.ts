@@ -11,16 +11,12 @@ export class DragNDropDirective {
     evt.preventDefault();
     evt.stopPropagation();
     this.fileOver = true;
-
-    console.log("Drag Over")
   }
 
   @HostListener('dragleave', ['$event']) onDragLeave(evt: DragEvent){
     evt.preventDefault()
     evt.stopPropagation()
     this.fileOver = false
-
-    console.log("Drag Leave")
   }
 
   @HostListener('drop', ['$event']) public onDrop(evt: DragEvent){

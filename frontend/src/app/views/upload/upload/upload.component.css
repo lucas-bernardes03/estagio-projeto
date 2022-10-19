@@ -3,9 +3,15 @@
     height: 200px;
     padding: 2rem;
     text-align: center;
-    border: double 1px #979797;
+    border: solid 1px #979797;
     position: relative;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.fileover{
+    border-color: rgb(37, 148, 37);
+    border-width: 2px;
 }
 
 input {
@@ -33,6 +39,31 @@ h3 {
     color: white;
 }
 
+h2 {
+  padding-left: 10px;
+}
+
 .icone {
     font-size: 40px;
 }
+
+.tabel {
+    width: 99%;
+    margin: auto;
+    text-align: center;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+    text-align: center;
+}
+
+.botoes{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.r {
+    margin-left: 10px;
+}
+

@@ -1,7 +1,56 @@
-<div class="dropzone" appDragNDrop (fileDropped)="onDrop($event)">
-    <input type="file" #fileDrop id="fileDrop">
+<div class="dropzone" appDragNDrop (fileDropped)="onDrop($event)" >
+    <input type="file" #fileDrop id="fileDrop" (change)="fileBrowser($event.target)">
     <i class="icone material-icons">file_upload</i>
     <h3>Arraste o arquivo</h3>
     <h3>ou</h3>
     <label for="fileDrop">Procure na máquina</label>
+</div>
+
+<div *ngIf="monitoradores.length != 0">
+    <h2>Monitoradores:</h2>
+    <table mat-table [dataSource]="monitoradores" class="tabel mat-elevation-z4">
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let row">{{row.tipo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomeRazao">
+          <th mat-header-cell *matHeaderCellDef>Nome/Razão</th>
+          <td mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.nome:row.razaoSocial}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cpfCnpj">
+          <th mat-header-cell *matHeaderCellDef>CPF/CNPJ</th>
+          <td mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.cpf:row.cnpj}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rgInscricao">
+          <th mat-header-cell *matHeaderCellDef>RG/Inscrição</th>
+          <td mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.rg:row.inscricaoEstadual}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>E-mail</th>
+            <td mat-cell *matCellDef="let row">{{row.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endereco">
+          <th mat-header-cell *matHeaderCellDef>Endereço</th>
+          <td mat-cell *matCellDef="let row">{{row.enderecos[0].endereco}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefone">
+          <th mat-header-cell *matHeaderCellDef>Telefone</th>
+          <td mat-cell *matCellDef="let row">{{row.enderecos[0].telefone}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<div class="botoes">
+    <button mat-raised-button color="success" (click)="salvar()">Salvar</button>
+    <button mat-raised-button color="cancel" class="r" (click)="voltar()">Sair</button>
 </div>

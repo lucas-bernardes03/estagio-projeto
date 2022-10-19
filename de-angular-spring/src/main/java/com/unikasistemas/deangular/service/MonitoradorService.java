@@ -83,7 +83,7 @@ public class MonitoradorService {
 
     public Resource exportReport() {  
         try{
-            JasperPrint jasperPrint = JasperFillManager.fillReport("Leaf_Green.jasper", null, dataSource.getConnection());
+            JasperPrint jasperPrint = JasperFillManager.fillReport("src/main/resources/Leaf_Green.jasper", null, dataSource.getConnection());
 
             JRPdfExporter exporter = new JRPdfExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
