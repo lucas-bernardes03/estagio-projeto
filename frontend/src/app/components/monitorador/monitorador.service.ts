@@ -1,9 +1,9 @@
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { Enderecos, Monitorador } from './monitorador.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, EMPTY, filter, map, Observable, of, Subject } from 'rxjs';
+import { catchError, EMPTY, map, Observable, Subject } from 'rxjs';
 import * as XLSX from 'xlsx'
 
 @Injectable({
@@ -13,7 +13,7 @@ export class MonitoradorService {
 
   private baseUrl = 'api/monitoradores'
 
-  constructor(private snackbar: MatSnackBar, private http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private snackbar: MatSnackBar, private http: HttpClient) { }
 
   showMessage(msg: string, error: boolean = false): void {
     this.snackbar.open(msg, "x", {
@@ -23,7 +23,7 @@ export class MonitoradorService {
       panelClass: error ?  ["mat-cancel"]:["mat-success"]
     })
   }
-  
+
   errorHandler(e: any): Observable<any> {
     this.showMessage('Erro de conexão com o banco de dados!', true)
     console.log(e)
@@ -79,49 +79,45 @@ export class MonitoradorService {
     return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
-
-  checkIguais(mon: Monitorador): Observable<boolean> {
-    var subject = new Subject<boolean>()
+  getIdentificacoes(): Observable<string[]> {
+    const subject = new Subject<string[]>()
     this.read().subscribe(m => {
-      var identificacoes: string[] = []
-      for(var monitorador of m){
-        if(monitorador.tipo === "Física"){
+      const identificacoes: string[] = []
+      for (let monitorador of m) {
+        if (monitorador.tipo === "Física") {
           identificacoes.push(monitorador.cpf!)
           identificacoes.push(monitorador.rg!)
-        }
-        else{
+        } else {
           identificacoes.push(monitorador.cnpj!)
           identificacoes.push(monitorador.inscricaoEstadual!)
         }
       }
-
-      if(mon.tipo === "Física") subject.next(identificacoes.includes(mon.cpf!) || identificacoes.includes(mon.rg!))
-      else subject.next(identificacoes.includes(mon.cnpj!) || identificacoes.includes(mon.inscricaoEstadual!))
+      subject.next(identificacoes);
     })
+    return subject.asObservable();
+  }
+
+
+  checkIguais(mon: Monitorador): Observable<boolean> {
+    const subject = new Subject<boolean>()
+    this.getIdentificacoes().subscribe(ids => {
+      if(mon.tipo === "Física") subject.next(ids.includes(mon.cpf!) || ids.includes(mon.rg!))
+      else subject.next(ids.includes(mon.cnpj!) || ids.includes(mon.inscricaoEstadual!))
+    })
+
     return subject.asObservable()
   }
 
   checkIguaisUpdate(mon: Monitorador, idCurrent: number): Observable<boolean> {
-    var subject = new Subject<boolean>()
-     
+    const subject = new Subject<boolean>()
+
     this.readById(idCurrent.toString()).subscribe(curr => {
-      this.read().subscribe(m => {
-        var identificacoes: string[] = []
-        for(var monitorador of m){
-          if(monitorador.tipo === "Física"){
-            identificacoes.push(monitorador.cpf!)
-            identificacoes.push(monitorador.rg!)
-          }
-          else{
-            identificacoes.push(monitorador.cnpj!)
-            identificacoes.push(monitorador.inscricaoEstadual!)
-          }
-        }
+      this.getIdentificacoes().subscribe(ids => {
 
-        var idsFilter
+        let idsFilter
 
-        if(curr.tipo === "Física") idsFilter = identificacoes.filter(data => data !== curr.cpf).filter(data => data !== curr.rg)
-        else idsFilter = identificacoes.filter(data => data !== curr.cnpj).filter(data => data !== curr.inscricaoEstadual)
+        if(curr.tipo === "Física") idsFilter = ids.filter(data => data !== curr.cpf).filter(data => data !== curr.rg)
+        else idsFilter = ids.filter(data => data !== curr.cnpj).filter(data => data !== curr.inscricaoEstadual)
 
         if(mon.tipo === "Física") subject.next(idsFilter.includes(mon.rg!) || idsFilter.includes(mon.cpf!))
         else subject.next(idsFilter.includes(mon.cnpj!) || idsFilter.includes(mon.inscricaoEstadual!))
@@ -154,7 +150,7 @@ export class MonitoradorService {
         email: mon.email,
         ativo: mon.ativo ? "Sim":"Não"
       }))
-      
+
       const wsF = XLSX.utils.json_to_sheet(monFformat)
       const wsJ = XLSX.utils.json_to_sheet(monJformat)
 
@@ -176,7 +172,7 @@ export class MonitoradorService {
   toXLSXId(id: number): void {
     this.readById(id.toString()).subscribe(m => {
       const workbook = XLSX.utils.book_new()
-      
+
       if(m.tipo === "Física"){
         const wsF = XLSX.utils.aoa_to_sheet([[],[m.id, m.tipo, m.nome, m.cpf, m.rg, new Date(m.dataNascimento!).toLocaleDateString(), m.email, m.ativo ? "Sim":"Não"]])
         XLSX.utils.sheet_add_aoa(wsF, [["ID", "Tipo", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
@@ -207,7 +203,7 @@ export class MonitoradorService {
         XLSX.utils.sheet_add_aoa(endS, [["ID", "Logradouro", "Número", "CEP", "Bairro", "Cidade", "Estado", "Principal", "Telefone"]], { origin: "A1" })
         endS["!cols"] = [{wch: 5}, {wch: 30}, {wch: 7}, {wch: 9}, {wch: 15}, {wch: 15}, {wch: 7}, {wch: 10}, {wch: 15}]
         XLSX.utils.book_append_sheet(workbook,endS,"Endereços")
-        
+
         if(m.tipo === 'Física') XLSX.writeFile(workbook, `${m.nome?.replace(/\s/g, '')}.xlsx`)
         else XLSX.writeFile(workbook, `${m.razaoSocial?.replace(/\s/g, '')}.xlsx`)
       })
@@ -217,16 +213,16 @@ export class MonitoradorService {
   readExcel(file: File): Observable<Monitorador[]>{
     const reader = new FileReader();
     const monitoradores: Monitorador[] = [];
-    
+
     const subject = new Subject<Monitorador[]>();
 
-    reader.onload = (e) => {
+    reader.onload = () => {
       let data = reader.result
-      var workbook = XLSX.read(data, {type: 'binary'})
+      const workbook = XLSX.read(data, {type: 'binary'})
 
       workbook.SheetNames.forEach(sheetName => {
-        var rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
-        
+        let rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
+
         if(sheetName === 'Cadastrar'){
           rows.forEach((row:any) => {
             const mon:Monitorador = {
@@ -241,7 +237,7 @@ export class MonitoradorService {
               dataNascimento: null,
               email: null,
               ativo: true,
-              enderecos: []              
+              enderecos: []
             }
 
             const end:Enderecos = {
@@ -253,12 +249,12 @@ export class MonitoradorService {
               telefone: null,
               cidade: null,
               estado: null,
-              principal: true              
+              principal: true
             }
-  
+
             mon.tipo = row['Tipo (Física ou Jurídica)']
             mon.email = row["E-mail"]
-            
+
             if(mon.tipo === "Física"){
               mon.nome = row["Nome / Razão Social"]
               mon.cpf = row['CPF / CNPJ']
@@ -277,22 +273,26 @@ export class MonitoradorService {
             end.bairro = row['Bairro']
             end.cidade = row['Cidade']
             end.estado = row['Estado']
-            end.telefone = this.formatPhone(row['Telefone'])
+            end.telefone = MonitoradorService.formatPhone(row['Telefone'])
 
             mon.enderecos?.push(end)
             monitoradores.push(mon)
           })
         }
+
+        else{
+          this.showMessage("Formato inválido de arquivo.", true)
+        }
       })
       subject.next(monitoradores)
     }
-    
+
     reader.onerror = function(e){
       console.log(e)
     }
-    
+
     reader.readAsBinaryString(file)
-    
+
     return subject.asObservable()
   }
 
@@ -307,7 +307,7 @@ export class MonitoradorService {
     formF.controls['cpf'].setValidators([Validators.pattern('^[0-9]{11}$'), Validators.required])
     formF.controls['rg'].setValidators([Validators.pattern('^[0-9]{7}$'), Validators.required])
     formF.controls['dataNascimento'].setValidators([Validators.required])
-    
+
     formF.controls['nome'].updateValueAndValidity()
     formF.controls['cpf'].updateValueAndValidity()
     formF.controls['rg'].updateValueAndValidity()
@@ -346,7 +346,7 @@ export class MonitoradorService {
     formJ.controls['inscricaoEstadual'].updateValueAndValidity()
   }
 
-  private formatPhone(phone:number):string {
+  private static formatPhone(phone:number):string {
     return phone.toString().replace(/^(\d{0,2})(\d{0,9})$/, '($1) $2')
   }
 

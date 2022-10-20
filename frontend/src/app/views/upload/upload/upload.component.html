@@ -51,6 +51,6 @@
 </div>
 
 <div class="botoes">
-    <button mat-raised-button color="success" (click)="salvar()">Salvar</button>
+    <button mat-raised-button color="success" (click)="salvar()" [disabled]="monitoradores.length == 0">Salvar</button>
     <button mat-raised-button color="cancel" class="r" (click)="voltar()">Sair</button>
 </div>

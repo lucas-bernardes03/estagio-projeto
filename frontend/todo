@@ -1,23 +1,12 @@
 - confirmar as validacoes e length dos campos (rg e inscricao)
 
-
 - enderecos
-    - multiple post
-    - barra de busca ?
-
-- excel
-  - error handling no upload
-
-
+    - multiple post?
 
 - login
     - user model
     - spring
     - db
 
-
 - refactor - ?
-
-
-
 - visual revamp - ?
