@@ -14,28 +14,23 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./monitorador-ler.component.css']
 })
 export class MonitoradorLerComponent implements OnInit {
-  
-  loginFlag:boolean = false
 
   searchText: string = ''
-  
+
   totalElementsF: number = 0
   monF: Monitorador[] = []
-  
+
   totalElementsJ: number = 0
   monJ: Monitorador[] = []
 
   tableType = null
-  
+
   displayedColumnsF = ['id', 'nome', 'cpf', 'rg', 'dataNascimento', 'email', 'ativo', 'acoes']
   displayedColumnsJ = ['id', 'razaoSocial', 'cnpj', 'inscricaoEstadual', 'email', 'ativo', 'acoes']
 
   constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
   ngOnInit(): void {
-    let storedData = localStorage.getItem("isLogged");
-    (storedData == 'true') ? this.loginFlag = true : this.loginFlag = false;
-    
     this.paginatedF(0,10, this.searchText)
     this.paginatedJ(0,10, this.searchText)
   }
@@ -52,10 +47,10 @@ export class MonitoradorLerComponent implements OnInit {
   toXLSX(id: number): void {
     this.monitoradorService.toXLSXId(id)
   }
-  
+
   openDialogDelete(id: number):void {
     const dialogConfig = new MatDialogConfig()
-    
+
     dialogConfig.disableClose = true
     dialogConfig.autoFocus = true
     dialogConfig.data = id
@@ -84,12 +79,12 @@ export class MonitoradorLerComponent implements OnInit {
   findMon(id:number):void{
      this.monitoradorService.readById(id.toString()).subscribe(monitorador => {
       this.openDialogUpdate(monitorador)
-    })    
+    })
   }
 
   paginatedF(pageIndex:number, pageSize:number, search:string): void {
     const params = new HttpParams().set('tipo','Física').set('page',pageIndex).set('size',pageSize).set('search',search)
-    
+
     this.monitoradorService.readPaginated(params).subscribe((data: PaginatedResponse) => {
       this.monF = data.content
       this.totalElementsF = data.totalElements

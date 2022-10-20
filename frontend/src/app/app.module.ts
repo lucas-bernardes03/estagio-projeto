@@ -38,10 +38,10 @@ import { EnderecoDeletarComponent } from './components/monitorador/endereco-dele
 import { EnderecoUpdateComponent } from './components/monitorador/endereco-update/endereco-update.component';
 import { EnderecoCriarComponent } from './components/monitorador/endereco-criar/endereco-criar.component';
 import { PhoneMaskDirective } from './components/monitorador/phone-mask.directive';
-import { LoginComponent } from './views/login/login.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { UploadComponent } from './views/upload/upload/upload.component';
 import { DragNDropDirective } from './views/upload/drag-ndrop.directive';
+import { LoginComponent } from './views/login/login.component';
 
 
 
@@ -60,9 +60,9 @@ import { DragNDropDirective } from './views/upload/drag-ndrop.directive';
     EnderecoUpdateComponent,
     EnderecoCriarComponent,
     PhoneMaskDirective,
-    LoginComponent,
     UploadComponent,
     DragNDropDirective,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
