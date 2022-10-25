@@ -1,13 +1,12 @@
 package com.unikasistemas.deangular.repository;
 
-import java.util.List;
-
+import com.unikasistemas.deangular.entities.Endereco;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.unikasistemas.deangular.entities.Endereco;
+import java.util.List;
 
 public interface EnderecoRepository extends PagingAndSortingRepository<Endereco,Long>{
     @Query(value = "SELECT * FROM enderecos WHERE monitorador_id = ?1", nativeQuery = true)

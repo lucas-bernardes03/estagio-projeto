@@ -1,17 +1,14 @@
-- confirmar as validacoes e length dos campos (rg e inscricao)
+- excel
+  - otimização checkiguais?
 
-- enderecos
-    - multiple post?
 
 - login
     - user model
-    - spring
-    - db
+    - auth spring
 
-- excel
-  - checagem nos campos
 
 - junit
+
 
 - refactor - ?
 - visual revamp - ?

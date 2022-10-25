@@ -276,7 +276,10 @@ export class MonitoradorService {
             end.telefone = MonitoradorService.formatPhone(row['Telefone'])
 
             mon.enderecos?.push(end)
-            monitoradores.push(mon)
+
+            if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)) monitoradores.push(mon)
+            else this.showMessage("Monitoradores com campos incorretos foram descartados!", true)
+
           })
         }
 
@@ -303,7 +306,7 @@ export class MonitoradorService {
   }
 
   setFormFValidators(formF: FormGroup): void{
-    formF.controls['nome'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])
+    formF.controls['nome'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(30), Validators.required])
     formF.controls['cpf'].setValidators([Validators.pattern('^[0-9]{11}$'), Validators.required])
     formF.controls['rg'].setValidators([Validators.pattern('^[0-9]{7}$'), Validators.required])
     formF.controls['dataNascimento'].setValidators([Validators.required])
@@ -315,7 +318,7 @@ export class MonitoradorService {
   }
 
   setFormJValidators(formJ: FormGroup): void{
-    formJ.controls['razaoSocial'].setValidators([Validators.pattern('^[a-zA-Z ]*$'), Validators.maxLength(30), Validators.required])
+    formJ.controls['razaoSocial'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(30), Validators.required])
     formJ.controls['cnpj'].setValidators([Validators.pattern('^[0-9]{14}$'), Validators.required])
     formJ.controls['inscricaoEstadual'].setValidators([Validators.pattern('^[0-9]{12}$'), Validators.required])
 
@@ -344,6 +347,15 @@ export class MonitoradorService {
     formJ.controls['razaoSocial'].updateValueAndValidity()
     formJ.controls['cnpj'].updateValueAndValidity()
     formJ.controls['inscricaoEstadual'].updateValueAndValidity()
+  }
+
+  private static validateExcelMonitorador(mon: Monitorador): boolean {
+    if(mon.tipo == 'Física') return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.nome!) && /^\d{11}$/.test(mon.cpf!) && /^\d{7}$/.test(mon.rg!)
+    else return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.razaoSocial!) && /^\d{14}$/.test(mon.cnpj!) && /^\d{12}$/.test(mon.inscricaoEstadual!)
+  }
+
+  private static validataExcelEndereco(end: Enderecos): boolean {
+    return /^\d{1,5}$/.test(end.numero!) && /^\d{8}$/.test(end.cep!) && /^.{13,14}$/.test(end.telefone!)
   }
 
   private static formatPhone(phone:number):string {

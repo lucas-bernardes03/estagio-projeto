@@ -1,19 +1,16 @@
 package com.unikasistemas.deangular.config;
 
-import java.time.Instant;
-import java.util.Arrays;
-
-import com.unikasistemas.deangular.entities.Usuario;
-import com.unikasistemas.deangular.repository.UsuarioRepository;
+import com.unikasistemas.deangular.entities.Endereco;
+import com.unikasistemas.deangular.entities.Monitorador;
+import com.unikasistemas.deangular.repository.EnderecoRepository;
+import com.unikasistemas.deangular.repository.MonitoradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.unikasistemas.deangular.entities.Endereco;
-import com.unikasistemas.deangular.entities.Monitorador;
-import com.unikasistemas.deangular.repository.EnderecoRepository;
-import com.unikasistemas.deangular.repository.MonitoradorRepository;
+import java.time.Instant;
+import java.util.Arrays;
 
 
 @Configuration
@@ -24,9 +21,6 @@ public class TestConfig implements CommandLineRunner{
 
     @Autowired
     private EnderecoRepository enderecoRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -52,12 +46,6 @@ public class TestConfig implements CommandLineRunner{
         m4.addEndereco(e4);
         
         monitoradorRepository.saveAll(Arrays.asList(m1,m2,m3,m4));
-
-        Usuario u1 = new Usuario(null, "lucas", "password", "ADMIN");
-        Usuario u2 = new Usuario(null, "nao lucas", "password","USER");
-
-        usuarioRepository.saveAll(Arrays.asList(u1,u2));
-
     }
     
 }
