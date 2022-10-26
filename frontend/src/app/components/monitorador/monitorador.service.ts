@@ -223,6 +223,9 @@ export class MonitoradorService {
       workbook.SheetNames.forEach(sheetName => {
         let rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
 
+        let ids: string[] = []
+        this.getIdentificacoes().subscribe(r => {ids = r})
+
         if(sheetName === 'Cadastrar'){
           rows.forEach((row:any) => {
             const mon:Monitorador = {
@@ -277,7 +280,21 @@ export class MonitoradorService {
 
             mon.enderecos?.push(end)
 
-            if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)) monitoradores.push(mon)
+            if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)){
+              if(mon.tipo == 'Física' && ids.includes(mon.rg!)
+                || mon.tipo == 'Física' && ids.includes(mon.cpf!)
+                || mon.tipo == 'Jurídica' && ids.includes(mon.cnpj!)
+                || mon.tipo == 'Jurídica' && ids.includes(mon.inscricaoEstadual!)){
+                this.showMessage("Monitoradores já cadastrados no sistema foram descartados!", true)
+              }
+
+              else{
+                monitoradores.push(mon)
+                if(mon.tipo == 'Física') ids.push(mon.rg!, mon.cpf!)
+                else ids.push(mon.cnpj!, mon.inscricaoEstadual!)
+              }
+
+            }
             else this.showMessage("Monitoradores com campos incorretos foram descartados!", true)
 
           })
