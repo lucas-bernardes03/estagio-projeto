@@ -26,6 +26,7 @@ public class MonitoradorController {
     @Autowired
     private EnderecoService enderecoService;
 
+    //listar monitoradores com paginação e filtro
     @GetMapping
     public Page<Monitorador> listarPaginas(@RequestParam(required = true) String tipo, @RequestParam(required = false) String search , @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page, size);
@@ -34,24 +35,28 @@ public class MonitoradorController {
 
     }
 
+    //listar monitorador por id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Monitorador> buscarPorId(@PathVariable Long id){
         Monitorador m = service.findById(id);
         return ResponseEntity.ok(m);
     }
 
+    //listar todos endereços de um monitorador, paginado
     @GetMapping(value = "/{id}/enderecos")
     public Page<Endereco> enderecos(@PathVariable Long id, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         Pageable pageable = PageRequest.of(page, size);
         return enderecoService.encontrarPorMonitoradorPageable(id, pageable);
     }
 
+    //listar todos os endereços de um monitorador
     @GetMapping(value = "/{id}/enderecos/m")
     public ResponseEntity<List<Endereco>> enderecosTodos(@PathVariable Long id){
         List<Endereco> e = enderecoService.encontrarPorMonitorador(id);
         return ResponseEntity.ok(e);
     }
 
+    //adicionar um endereço a um monitorador
     @PostMapping(value = "/{id}/enderecos")
     public ResponseEntity<Endereco> adicionarEndereco(@PathVariable Long id, @RequestBody Endereco endereco){
         Monitorador m = service.findById(id);
@@ -60,6 +65,7 @@ public class MonitoradorController {
         return ResponseEntity.ok(e);
     }
 
+    //adicionar um novo monitorador
     @PostMapping
     public ResponseEntity<Monitorador> inserir(@RequestBody Monitorador monitorador){
         Monitorador m = service.insertMonitorador(monitorador);
@@ -68,12 +74,14 @@ public class MonitoradorController {
         return ResponseEntity.ok(m);
     }
 
+    //listar todos os monitoradores
     @GetMapping(value = "/m")
     public ResponseEntity<List<Monitorador>> listarTodos(){
         List<Monitorador> m = (List<Monitorador>) service.findAll();
         return ResponseEntity.ok(m);
     }
 
+    //adicionar uma lista de novos monitoradores
     @PostMapping(value = "/m")
     public ResponseEntity<List<Monitorador>> inserirMultiplos(@RequestBody List<Monitorador> monitoradores){
         List<Monitorador> mons = new ArrayList<>();
@@ -88,12 +96,14 @@ public class MonitoradorController {
         return ResponseEntity.ok(mons);
     }
 
+    //atualizar dos dados de um monitorador
     @PutMapping(value = "/{id}")
     public ResponseEntity<Monitorador> atualizar(@RequestBody Monitorador novo,@PathVariable Long id){
         Monitorador atual = service.updateMonitorador(novo, id);
         return ResponseEntity.ok(atual);
     }
 
+    //deletar um monitorador
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         enderecoService.deletarPorMonitorador(id);
@@ -101,6 +111,7 @@ public class MonitoradorController {
         return ResponseEntity.noContent().build();
     }
 
+    //gerar um pdf dos monitoradores
     @GetMapping(value = "/pdf")
     public ResponseEntity<Resource> pdf() throws IOException{
         Resource file = service.exportReport();

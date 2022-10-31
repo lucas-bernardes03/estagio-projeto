@@ -16,14 +16,18 @@ export class EnderecoUpdateComponent implements OnInit {
   endereco = this.data
 
   numeroPlaceholder = 'Número'
-  numero = true
+  numero = !!this.data.numero
 
   constructor(@Inject(DIALOG_DATA) public data: Enderecos, private formBuilder: FormBuilder, private enderecoService:EnderecoService, private dialogRef: MatDialogRef<EnderecoUpdateComponent>) { }
 
   ngOnInit(): void {
     this.instatiateForm()
+    if(!this.numero){
+      this.form.controls['numero'].disable()
+      this.numeroPlaceholder = 'Sem Número'
+    }
   }
-  
+
   salvarEndereco():void {
     this.enderecoService.update(this.endereco).subscribe(() => {
       this.enderecoService.showMessage("Endereço atualizado com sucesso!")
@@ -45,7 +49,7 @@ export class EnderecoUpdateComponent implements OnInit {
       if(CEP.localidade) this.disableCEPInputs()
     })
   }
-  
+
   disableCEPInputs():void {
     this.form.controls['cidade'].disable()
     this.form.controls['estado'].disable()
@@ -54,13 +58,14 @@ export class EnderecoUpdateComponent implements OnInit {
   disableNumero():void {
     this.numero = !this.numero
     if(!this.numero){
+      this.form.controls['numero'].setValue(null)
       this.form.controls['numero'].disable()
       this.numeroPlaceholder = 'Sem Número'
-    } 
+    }
     else{
       this.form.controls['numero'].enable()
       this.numeroPlaceholder = 'Número'
-    } 
+    }
   }
 
   instatiateForm():void {
@@ -79,6 +84,6 @@ export class EnderecoUpdateComponent implements OnInit {
   }
 
   errorHandling = (control: string, error: string) => {
-    return this.form.controls[control].hasError(error) && this.form.controls[control].touched && this.form.controls[control].dirty 
+    return this.form.controls[control].hasError(error) && this.form.controls[control].touched && this.form.controls[control].dirty
   }
 }

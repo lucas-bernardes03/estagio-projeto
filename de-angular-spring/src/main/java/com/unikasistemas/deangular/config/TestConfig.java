@@ -26,8 +26,8 @@ public class TestConfig implements CommandLineRunner{
     public void run(String... args) throws Exception {
         Monitorador m1 = new Monitorador(null, "Física", "Marcos Paulo Castro Neves", "12345678900", "mcastroneves@gmail.com", "7638946", Instant.parse("1998-02-22T22:45:22Z"), true);
         Monitorador m2 = new Monitorador(null, "Física", "Julia Bonifacio da Silva", "98765432100", "jbsilva@gmail.com", "8927354", Instant.parse("1999-12-30T02:15:26Z"), false);
-        Monitorador m3 = new Monitorador(null, "Jurídica", "Ferragista Loureira", "12345678912399", "loureiro@ferragista.com.br", "837462518", null, true);
-        Monitorador m4 = new Monitorador(null, "Jurídica", "Tapecaria Anapolis", "98765432198700", "anpstapecaria@gmail.com", "846291029", null, true);
+        Monitorador m3 = new Monitorador(null, "Jurídica", "Ferragista Loureira", "12345678912399", "loureiro@ferragista.com.br", "837462523118", null, true);
+        Monitorador m4 = new Monitorador(null, "Jurídica", "Tapecaria Anapolis", "98765432198700", "anpstapecaria@gmail.com", "846294231029", null, true);
         monitoradorRepository.saveAll(Arrays.asList(m1,m2,m3,m4));
 
         Endereco e1 = new Endereco(null, "Rua 12 de Setembro", "101", "37564782", "Santa Marcia", "(62) 999999999", "Cocalzin", "GO", true, m1);

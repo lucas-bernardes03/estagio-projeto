@@ -2,6 +2,12 @@ table{
     width: 100%;
 }
 
+.none{
+  font-weight: 300;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
 .delete-icon{
     color: rgb(187, 23, 23);
 }

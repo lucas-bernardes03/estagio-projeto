@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 
 
 @Service
@@ -34,6 +35,7 @@ public class MonitoradorService {
 
     public Page<Monitorador> findSearch(String tipo, Pageable pageable, String search){
         search = "%" + search + "%";
+        search = search.toUpperCase(Locale.ROOT);
         if(tipo.equals("Física")) return repository.findSearchFisica(search, pageable);
         else return repository.findSearchJuridica(search, pageable);
     }

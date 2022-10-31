@@ -10,9 +10,9 @@ public interface MonitoradorRepository extends PagingAndSortingRepository<Monito
     Monitorador findTopByOrderByIdDesc();
     Page<Monitorador> findByTipo(String tipo, Pageable pageable);
 
-    @Query(value = "SELECT * FROM monitoradores WHERE razao_social LIKE ?1 OR cnpj LIKE ?1 OR inscricao_estadual LIKE ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM monitoradores WHERE UPPER(razao_social) LIKE ?1 OR UPPER(cnpj) LIKE ?1 OR UPPER(inscricao_estadual) LIKE ?1", nativeQuery = true)
     Page<Monitorador> findSearchJuridica(String search, Pageable pageable);
 
-    @Query(value = "SELECT * FROM monitoradores WHERE nome LIKE ?1 OR cpf LIKE ?1 OR rg LIKE ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM monitoradores WHERE UPPER(nome) LIKE ?1 OR UPPER(cpf) LIKE ?1 OR UPPER(rg) LIKE ?1", nativeQuery = true)
     Page<Monitorador> findSearchFisica(String search, Pageable pageable);
 }

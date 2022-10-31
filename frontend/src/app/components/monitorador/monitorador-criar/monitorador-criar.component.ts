@@ -24,7 +24,7 @@ export class MonitoradorCriarComponent implements OnInit {
 
   monitorador: Monitorador = {
     id: null,
-    tipo: null,  
+    tipo: null,
     nome: null,
     cpf: null,
     rg: null,
@@ -34,7 +34,7 @@ export class MonitoradorCriarComponent implements OnInit {
     inscricaoEstadual: null,
     email: null,
     ativo: null,
-    enderecos: null
+    enderecos: []
   }
 
   endereco: Enderecos = {
@@ -49,8 +49,8 @@ export class MonitoradorCriarComponent implements OnInit {
       principal: null
   }
 
-  constructor(private service: MonitoradorService, 
-    private formBuilder: FormBuilder, 
+  constructor(private service: MonitoradorService,
+    private formBuilder: FormBuilder,
     private enderecoService: EnderecoService,
     private router:Router) { }
 
@@ -60,14 +60,13 @@ export class MonitoradorCriarComponent implements OnInit {
     this.enderecoService.setFormEnderecoValidators(this.formEndereco)
   }
 
-  salvarMonitorador(): void { 
+  salvarMonitorador(): void {
+    this.monitorador.enderecos?.push(this.endereco)
     this.service.checkIguais(this.monitorador).subscribe(check => {
       if(!check){
         this.service.create(this.monitorador).subscribe(() => {
-          this.enderecoService.adicionarNovoM(this.endereco).subscribe(() => {
-            this.service.showMessage("Cadastro concluído com sucesso!")
-            this.router.navigate(['monitoradores'])
-          })
+          this.service.showMessage("Cadastro concluído com sucesso!")
+          this.router.navigate(['monitoradores'])
         })
       }
       else{
@@ -103,33 +102,33 @@ export class MonitoradorCriarComponent implements OnInit {
       this.formEndereco.controls['numero'].reset()
       this.formEndereco.controls['numero'].disable()
       this.numeroPlaceholder = 'Sem Número'
-    } 
+    }
     else{
       this.formEndereco.controls['numero'].enable()
       this.numeroPlaceholder = 'Número'
-    } 
+    }
   }
 
   errorHandling = (control: string, error: string) => {
-    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched && this.formF.controls[control].dirty 
-    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched && this.formJ.controls[control].dirty 
-    else if(this.formComum.contains(control)) return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched && this.formComum.controls[control].dirty 
-    return this.formEndereco.controls[control].hasError(error) && this.formEndereco.controls[control].touched && this.formEndereco.controls[control].dirty 
+    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched && this.formF.controls[control].dirty
+    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched && this.formJ.controls[control].dirty
+    else if(this.formComum.contains(control)) return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched && this.formComum.controls[control].dirty
+    return this.formEndereco.controls[control].hasError(error) && this.formEndereco.controls[control].touched && this.formEndereco.controls[control].dirty
   }
 
-  
+
 
   onChange($event: MatSelectChange){
     if($event.value === "Física"){
       this.formJ.reset()
       this.service.disableFormJValidators(this.formJ)
       this.service.setFormFValidators(this.formF)
-    } 
+    }
     else{
       this.formF.reset()
       this.service.disableFormFValidators(this.formF)
       this.service.setFormJValidators(this.formJ)
-    } 
+    }
     this.formComum.reset()
   }
 

@@ -25,8 +25,8 @@ export class MonitoradorLerComponent implements OnInit {
 
   tableType = null
 
-  displayedColumnsF = ['id', 'nome', 'cpf', 'rg', 'dataNascimento', 'email', 'ativo', 'acoes']
-  displayedColumnsJ = ['id', 'razaoSocial', 'cnpj', 'inscricaoEstadual', 'email', 'ativo', 'acoes']
+  displayedColumnsF = ['nome', 'cpf', 'rg', 'dataNascimento', 'email', 'ativo', 'acoes']
+  displayedColumnsJ = ['razaoSocial', 'cnpj', 'inscricaoEstadual', 'email', 'ativo', 'acoes']
 
   constructor(private monitoradorService: MonitoradorService, private dialog:MatDialog, private router:Router) { }
 
