@@ -61,7 +61,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-  <h2 class="none" *ngIf="totalElements == 0">Não há endereços cadastrados.</h2>
+  <h2 class="none" *ngIf="totalElements == 0 && loaded">Não há endereços cadastrados.</h2>
 
     <mat-paginator #paginator *ngIf="totalElements != 0"
         [length]="totalElements"

@@ -19,6 +19,7 @@ export class EnderecosComponent implements OnInit {
   monId: string = ''
 
   totalElements: number = 0
+  loaded: boolean = false
 
   enderecos: Enderecos[] = []
   displayedColumns = ['endereco','numero','cep','bairro','telefone','cidade','estado','principal','acoes']
@@ -37,6 +38,7 @@ export class EnderecosComponent implements OnInit {
     this.monitoradorService.retrieveEnderecosPageable(id,params).subscribe((data: PaginatedResponse) => {
       this.enderecos = data.content
       this.totalElements = data.totalElements
+      this.loaded = true
     })
   }
 
