@@ -111,6 +111,19 @@ public class MonitoradorService {
 
     }
 
-    
+    public Resource exportModelo() {
+        try {
+            String filepath = "C:\\Users\\dev\\Documents\\GitHub\\desafioestagio-angular-spring\\de-angular-spring\\src\\main\\resources";
+            Path file = Paths.get(filepath).resolve("PlanilhaCadastro.xlsx");
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) return resource;
+            else throw new RuntimeException("Arquivo base corrompido.");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -1,7 +1,16 @@
+<div class="mat-elevation-z4 card">
+  <h2 class="tut">Para inserir via Excel siga os passos:</h2>
+  <h3 class="passo">• Faça o download do modelo</h3>
+  <h3 class="passo">• Preencha os dados corretamente</h3>
+  <h3 class="passo">• Faça o upload do arquivo na área abaixo</h3>
+  <h3 class="passo">• Caso não haja nenhum erro os dados serão mostrados na tela, após isso basta clicar em salvar</h3>
+  <button class="butao" mat-button (click)="excelModelo()">Baixar Modelo</button>
+</div>
+
 <div class="dropzone" appDragNDrop (fileDropped)="onDrop($event)" >
-    <input type="file" #fileDrop id="fileDrop" (change)="fileBrowser($event.target)">
+  <input type="file" #fileDrop id="fileDrop" (change)="fileBrowser($event.target)">
     <i class="icone material-icons">file_upload</i>
-    <h3>Arraste o arquivo</h3>
+    <h3>Arraste o modelo preenchido</h3>
     <h3>ou</h3>
     <label for="fileDrop">Procure na máquina</label>
 </div>

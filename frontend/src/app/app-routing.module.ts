@@ -4,7 +4,7 @@ import { MonitoradorCriarComponent } from './components/monitorador/monitorador-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MonitoradoresComponent } from './views/monitoradores/monitoradores.component';
-import {LoginComponent} from "./views/login/login.component";
+
 
 
 const routes: Routes = [
@@ -27,10 +27,6 @@ const routes: Routes = [
   {
     path: "upload",
     component: UploadComponent
-  },
-  {
-    path: "login",
-    component: LoginComponent
   }
 ];
 

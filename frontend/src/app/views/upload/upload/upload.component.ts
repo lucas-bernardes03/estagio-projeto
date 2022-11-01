@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { MonitoradorService } from './../../../components/monitorador/monitorador.service';
 import { Component, OnInit } from '@angular/core';
 import { Monitorador } from 'src/app/components/monitorador/monitorador.model';
+import {saveAs} from "file-saver";
 
 @Component({
   selector: 'app-upload',
@@ -41,5 +42,9 @@ export class UploadComponent implements OnInit {
 
   voltar(): void {
     this.router.navigate(['/'])
+  }
+
+  excelModelo():void{
+    this.monitoradorService.downloadModeloExcel().subscribe(blob => saveAs(blob, 'PlanilhaModelo.xlsx'))
   }
 }

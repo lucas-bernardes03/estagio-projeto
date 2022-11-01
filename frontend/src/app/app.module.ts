@@ -41,7 +41,7 @@ import { PhoneMaskDirective } from './components/monitorador/phone-mask.directiv
 import { MatMenuModule } from '@angular/material/menu';
 import { UploadComponent } from './views/upload/upload/upload.component';
 import { DragNDropDirective } from './views/upload/drag-ndrop.directive';
-import { LoginComponent } from './views/login/login.component';
+
 
 
 
@@ -62,7 +62,6 @@ import { LoginComponent } from './views/login/login.component';
     PhoneMaskDirective,
     UploadComponent,
     DragNDropDirective,
-    LoginComponent,
   ],
   imports: [
     BrowserModule,

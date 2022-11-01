@@ -49,6 +49,11 @@ export class MonitoradorService {
     return this.http.get(url, { responseType: 'blob' }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
+  downloadModeloExcel(): Observable<Blob> {
+    const url = `${this.baseUrl}/modelo`
+    return this.http.get(url, { responseType: 'blob'}).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
   readPaginated(params: HttpParams) {
     return this.http.get<Monitorador[]>(this.baseUrl, { params: params }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }

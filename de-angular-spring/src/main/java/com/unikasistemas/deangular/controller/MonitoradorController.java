@@ -113,8 +113,14 @@ public class MonitoradorController {
 
     //gerar um pdf dos monitoradores
     @GetMapping(value = "/pdf")
-    public ResponseEntity<Resource> pdf() throws IOException{
+    public ResponseEntity<Resource> pdf(){
         Resource file = service.exportReport();
+        return ResponseEntity.ok(file);
+    }
+
+    @GetMapping(value = "/modelo")
+    public ResponseEntity<Resource> excelModelo() {
+        Resource file = service.exportModelo();
         return ResponseEntity.ok(file);
     }
 
