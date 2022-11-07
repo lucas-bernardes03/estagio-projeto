@@ -39,8 +39,7 @@ public class EnderecoController {
         Monitorador m = monitoradorService.ultimoAdicionado();
         endereco.setMonitorador(m);
         Endereco e = service.insertEndereco(endereco);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(e.getId()).toUri();
-        return ResponseEntity.created(uri).body(e);
+        return ResponseEntity.ok(e);
     }
 
     @PutMapping(value = "/{id}")

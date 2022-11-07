@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,12 +27,14 @@ public class EnderecoService {
         return repository.save(endereco);
     }
 
+    @Transactional
     public Endereco updateEndereco(Endereco novo, Long id){
         Endereco atual = repository.findById(id).get();
         updateData(novo, atual);
         return repository.save(atual);
     }
 
+    @Transactional
     public void deleteEndereco(Long id){
         repository.deleteById(id);
     }
@@ -44,13 +47,10 @@ public class EnderecoService {
         return repository.findByMonitorador(id);
     }
 
+    @Transactional
     public void deletarPorMonitorador(Long id){
         List<Endereco> ends = repository.findByMonitorador(id);
         for(Endereco e : ends) deleteEndereco(e.getId());
-    }
-
-    public Endereco ultimoAdicionado(){
-        return repository.findTopByOrderByIdDesc();
     }
 
     private void updateData(Endereco novo, Endereco atual){

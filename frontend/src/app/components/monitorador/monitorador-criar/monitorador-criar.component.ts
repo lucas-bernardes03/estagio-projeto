@@ -62,16 +62,14 @@ export class MonitoradorCriarComponent implements OnInit {
 
   salvarMonitorador(): void {
     this.monitorador.enderecos?.push(this.endereco)
-    this.service.checkIguais(this.monitorador).subscribe(check => {
-      if(!check){
-        this.service.create(this.monitorador).subscribe(() => {
-          this.service.showMessage("Cadastro concluído com sucesso!")
-          this.router.navigate(['monitoradores'])
-        })
+    this.service.create(this.monitorador).subscribe(m => {
+      if(m.id == null){
+        if(m.tipo == 'Física') m.cpf == null ? this.service.showMessage('CPF já cadastrado no sistema.', true) : this.service.showMessage('RG já cadastrado no sistema.', true)
+        else m.cnpj == null ? this.service.showMessage('CNPJ já cadastrado no sistema.', true) : this.service.showMessage('Inscrição Estadual já cadastrada no sistema.', true)
       }
       else{
-        if(this.monitorador.tipo === "Física") this.service.showMessage("CPF/RG já cadastrado no sistema.", true)
-        else this.service.showMessage("CNPJ/Inscrição Estadual já cadastrado no sistema.", true)
+        this.service.showMessage('Monitorador cadastrado com sucesso!')
+        this.router.navigate(['monitoradores'])
       }
     })
   }

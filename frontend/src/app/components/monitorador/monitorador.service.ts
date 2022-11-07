@@ -84,54 +84,6 @@ export class MonitoradorService {
     return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
-  getIdentificacoes(): Observable<string[]> {
-    const subject = new Subject<string[]>()
-    this.read().subscribe(m => {
-      const identificacoes: string[] = []
-      for (let monitorador of m) {
-        if (monitorador.tipo === "Física") {
-          identificacoes.push(monitorador.cpf!)
-          identificacoes.push(monitorador.rg!)
-        } else {
-          identificacoes.push(monitorador.cnpj!)
-          identificacoes.push(monitorador.inscricaoEstadual!)
-        }
-      }
-      subject.next(identificacoes);
-    })
-    return subject.asObservable();
-  }
-
-
-  checkIguais(mon: Monitorador): Observable<boolean> {
-    const subject = new Subject<boolean>()
-    this.getIdentificacoes().subscribe(ids => {
-      if(mon.tipo === "Física") subject.next(ids.includes(mon.cpf!) || ids.includes(mon.rg!))
-      else subject.next(ids.includes(mon.cnpj!) || ids.includes(mon.inscricaoEstadual!))
-    })
-
-    return subject.asObservable()
-  }
-
-  checkIguaisUpdate(mon: Monitorador, idCurrent: number): Observable<boolean> {
-    const subject = new Subject<boolean>()
-
-    this.readById(idCurrent.toString()).subscribe(curr => {
-      this.getIdentificacoes().subscribe(ids => {
-
-        let idsFilter
-
-        if(curr.tipo === "Física") idsFilter = ids.filter(data => data !== curr.cpf).filter(data => data !== curr.rg)
-        else idsFilter = ids.filter(data => data !== curr.cnpj).filter(data => data !== curr.inscricaoEstadual)
-
-        if(mon.tipo === "Física") subject.next(idsFilter.includes(mon.rg!) || idsFilter.includes(mon.cpf!))
-        else subject.next(idsFilter.includes(mon.cnpj!) || idsFilter.includes(mon.inscricaoEstadual!))
-      })
-    })
-
-    return subject.asObservable()
-  }
-
   toXLSXAll(): void {
     this.read().subscribe(monitoradores => {
       const monF = monitoradores.filter(m => m.tipo === "Física")
@@ -228,9 +180,6 @@ export class MonitoradorService {
       workbook.SheetNames.forEach(sheetName => {
         let rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
 
-        let ids: string[] = []
-        this.getIdentificacoes().subscribe(r => {ids = r})
-
         if(sheetName === 'Cadastrar'){
           rows.forEach((row:any) => {
             const mon:Monitorador = {
@@ -285,22 +234,22 @@ export class MonitoradorService {
 
             mon.enderecos?.push(end)
 
-            if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)){
-              if(mon.tipo == 'Física' && ids.includes(mon.rg!)
-                || mon.tipo == 'Física' && ids.includes(mon.cpf!)
-                || mon.tipo == 'Jurídica' && ids.includes(mon.cnpj!)
-                || mon.tipo == 'Jurídica' && ids.includes(mon.inscricaoEstadual!)){
-                this.showMessage("Monitoradores já cadastrados no sistema foram descartados!", true)
-              }
-
-              else{
-                monitoradores.push(mon)
-                if(mon.tipo == 'Física') ids.push(mon.rg!, mon.cpf!)
-                else ids.push(mon.cnpj!, mon.inscricaoEstadual!)
-              }
-
-            }
-            else this.showMessage("Monitoradores com campos incorretos foram descartados!", true)
+            // if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)){
+            //   if(mon.tipo == 'Física' && ids.includes(mon.rg!)
+            //     || mon.tipo == 'Física' && ids.includes(mon.cpf!)
+            //     || mon.tipo == 'Jurídica' && ids.includes(mon.cnpj!)
+            //     || mon.tipo == 'Jurídica' && ids.includes(mon.inscricaoEstadual!)){
+            //     this.showMessage("Monitoradores já cadastrados no sistema foram descartados!", true)
+            //   }
+            //
+            //   else{
+            //     monitoradores.push(mon)
+            //     if(mon.tipo == 'Física') ids.push(mon.rg!, mon.cpf!)
+            //     else ids.push(mon.cnpj!, mon.inscricaoEstadual!)
+            //   }
+            // }
+            //
+            // else this.showMessage("Monitoradores com campos incorretos foram descartados!", true)
 
           })
         }

@@ -32,7 +32,6 @@ public class MonitoradorController {
         Pageable pageable = PageRequest.of(page, size);
         if(search == null) return service.findAllPaginated(tipo, pageable);
         else return service.findSearch(tipo, pageable, search);
-
     }
 
     //listar monitorador por id
@@ -68,10 +67,16 @@ public class MonitoradorController {
     //adicionar um novo monitorador
     @PostMapping
     public ResponseEntity<Monitorador> inserir(@RequestBody Monitorador monitorador){
-        Monitorador m = service.insertMonitorador(monitorador);
-        monitorador.getEnderecos().forEach(endereco -> endereco.setMonitorador(m));
-        monitorador.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
-        return ResponseEntity.ok(m);
+        if(!service.checkIguais(monitorador)){
+            Monitorador m = service.insertMonitorador(monitorador);
+            monitorador.getEnderecos().forEach(endereco -> {
+                endereco.setMonitorador(m);
+                enderecoService.insertEndereco(endereco);
+            });
+            return ResponseEntity.ok(m);
+        }
+        else return ResponseEntity.ok(monitorador);
+
     }
 
     //listar todos os monitoradores
@@ -92,21 +97,25 @@ public class MonitoradorController {
             m.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
             mons.add(mSalvo);
         }
-        
         return ResponseEntity.ok(mons);
     }
 
     //atualizar dos dados de um monitorador
     @PutMapping(value = "/{id}")
     public ResponseEntity<Monitorador> atualizar(@RequestBody Monitorador novo,@PathVariable Long id){
-        Monitorador atual = service.updateMonitorador(novo, id);
-        return ResponseEntity.ok(atual);
+        if(!service.checkUpdate(id, novo)){
+            Monitorador atual = service.updateMonitorador(novo, id);
+            return ResponseEntity.ok(atual);
+        }
+        else{
+            novo.setId(null);
+            return ResponseEntity.ok(novo);
+        }
     }
 
     //deletar um monitorador
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
-        enderecoService.deletarPorMonitorador(id);
         service.deleteMonitorador(id);
         return ResponseEntity.noContent().build();
     }

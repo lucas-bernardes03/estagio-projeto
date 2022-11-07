@@ -18,9 +18,11 @@ public class Monitorador implements Serializable {
     private Long id;
 
     private String tipo;
-    
+
     private String nome = null;
+
     private String cpf = null;
+
     private String rg = null;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'", timezone = "GMT")

@@ -26,25 +26,23 @@ export class MonitoradorUpdateComponent implements OnInit {
     if(this.monitorador.tipo === 'Física'){
       this.service.setFormFValidators(this.formF)
       this.service.disableFormJValidators(this.formJ)
-    } 
+    }
     else{
       this.service.setFormJValidators(this.formJ)
       this.service.disableFormFValidators(this.formF)
     }
-    
+
   }
 
   salvarMonitorador(): void {
-    this.service.checkIguaisUpdate(this.monitorador, this.monitorador.id!).subscribe(check => {
-      if(!check){
-        this.service.update(this.monitorador).subscribe(() =>{
-          this.service.showMessage('Monitorador atualizado com sucesso!')
-          this.dialogRef.close(this.monitorador)
-        })
+    this.service.update(this.monitorador).subscribe(res => {
+      if(res.id == null){
+        if(res.tipo == 'Física') res.cpf == null ? this.service.showMessage('CPF já cadastrado no sistema.', true) : this.service.showMessage('RG já cadastrado no sistema.', true)
+        else res.cnpj == null ? this.service.showMessage('CNPJ já cadastrado no sistema.', true) : this.service.showMessage('Inscrição Estadual já cadastrada no sistema.', true)
       }
       else{
-        if(this.monitorador.tipo === "Física") this.service.showMessage("CPF/RG já cadastrado no sistema.", true)
-        else this.service.showMessage("CNPJ/Inscrição Estadual já cadastrado no sistema.", true)
+        this.service.showMessage('Monitorador atualizado com sucesso!')
+        this.dialogRef.close(this.monitorador)
       }
     })
   }
@@ -54,9 +52,9 @@ export class MonitoradorUpdateComponent implements OnInit {
   }
 
   errorHandling = (control: string, error: string) => {
-    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched 
-    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched 
-    return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched 
+    if(this.formF.contains(control)) return this.formF.controls[control].hasError(error) && this.formF.controls[control].touched
+    else if (this.formJ.contains(control)) return this.formJ.controls[control].hasError(error) && this.formJ.controls[control].touched
+    return this.formComum.controls[control].hasError(error) && this.formComum.controls[control].touched
   }
 
   instantiateForms():void {

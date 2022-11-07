@@ -15,8 +15,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +28,9 @@ import java.util.Locale;
 public class MonitoradorService {
     @Autowired
     private MonitoradorRepository repository;
+
+    @Autowired
+    private EnderecoService enderecoService;
 
     @Autowired
     private DataSource dataSource;
@@ -52,22 +58,86 @@ public class MonitoradorService {
         return repository.save(monitorador);
     }
 
+    @Transactional
     public Monitorador updateMonitorador(Monitorador novo, Long idAtual){
         Monitorador atual = repository.findById(idAtual).get();
         updateData(novo, atual);
         return repository.save(atual);
     }
 
+    @Transactional
     public void deleteMonitorador(Long id){
+        enderecoService.deletarPorMonitorador(id);
         repository.deleteById(id);
+    }
+
+    public boolean checkUpdate(Long id, Monitorador novo){
+        boolean check = false;
+        if(novo.getTipo().equals("Física")){
+            Long cpfCount = repository.updateCountCpf(id , novo.getCpf());
+            Long rgCount = repository.updateCountRg(id, novo.getRg());
+
+            if(cpfCount > 0){
+                novo.setCadastro(null);
+                check = true;
+            }
+            if(rgCount > 0){
+                novo.setRegistro(null);
+                check = true;
+            }
+        }
+        else{
+            Long cnpjCount = repository.updateCountCnpj(id, novo.getCnpj());
+            Long insCount = repository.updateCountIns(id, novo.getInscricaoEstadual());
+
+            if(cnpjCount > 0){
+                novo.setCadastro(null);
+                check = true;
+            }
+            if(insCount > 0){
+                novo.setRegistro(null);
+                check = true;
+            }
+        }
+
+        return check;
+    }
+
+    public boolean checkIguais(Monitorador m){
+        boolean check = false;
+
+        if(m.getTipo().equals("Física")){
+            Long cpfCount = repository.countByCpf(m.getCpf());
+            Long rgCount = repository.countByRg(m.getRg());
+
+            if(cpfCount > 0){
+                m.setCadastro(null);
+                check = true;
+            }
+            if(rgCount > 0){
+                m.setRegistro(null);
+                check = true;
+            }
+        }
+        else{
+            Long cnpjCount = repository.countByCnpj(m.getCnpj());
+            Long insCount = repository.countByInscricaoEstadual(m.getInscricaoEstadual());
+
+            if(cnpjCount > 0){
+                m.setCadastro(null);
+                check = true;
+            }
+            if(insCount > 0){
+                m.setRegistro(null);
+                check = true;
+            }
+        }
+
+        return check;
     }
 
     public Monitorador ultimoAdicionado(){
         return repository.findTopByOrderByIdDesc();
-    }
-
-    public List<Monitorador> inserirVarios(List<Monitorador> monitoradores){
-        return (List<Monitorador>) repository.saveAll(monitoradores);
     }
 
     private void updateData(Monitorador novo, Monitorador atual){
