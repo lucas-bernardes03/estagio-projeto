@@ -134,4 +134,16 @@ public class MonitoradorController {
         return ResponseEntity.ok(file);
     }
 
+    @GetMapping(value = "/excel")
+    public ResponseEntity<Resource> excel(){
+        Resource file = service.excelDados();
+        return ResponseEntity.ok(file);
+    }
+
+    @GetMapping(value = "/{id}/excel")
+    public ResponseEntity<Resource> excelId(@PathVariable Long id){
+        Resource file = service.excelDadosId(id);
+        return ResponseEntity.ok(file);
+    }
+
 }

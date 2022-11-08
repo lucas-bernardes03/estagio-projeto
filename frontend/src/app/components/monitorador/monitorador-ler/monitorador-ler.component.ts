@@ -7,6 +7,7 @@ import { Monitorador, PaginatedResponse } from './../monitorador.model';
 import { MonitoradorService } from './../monitorador.service';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import {saveAs} from "file-saver";
 
 @Component({
   selector: 'app-monitorador-ler',
@@ -44,8 +45,8 @@ export class MonitoradorLerComponent implements OnInit {
     this.router.navigate([`/monitorador/${id}/enderecos`])
   }
 
-  toXLSX(id: number): void {
-    this.monitoradorService.toXLSXId(id)
+  toXLS(id: number): void {
+    this.monitoradorService.downloadExcelId(id).subscribe(blob => saveAs(blob, "monitoradorMUDAR.xls"))
   }
 
   openDialogDelete(id: number):void {

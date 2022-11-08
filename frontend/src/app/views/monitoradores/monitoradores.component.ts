@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver'
 export class MonitoradoresComponent implements OnInit {
 
   constructor( private router: Router, private monitoradorService: MonitoradorService) { }
-  
+
   ngOnInit(): void {
   }
 
@@ -19,8 +19,8 @@ export class MonitoradoresComponent implements OnInit {
     this.router.navigate(['/monitoradores/criar'])
   }
 
-  toXLSX(): void {
-    this.monitoradorService.toXLSXAll()
+  toXLS(): void {
+    this.monitoradorService.downloadExcelAll().subscribe(blob => saveAs(blob, "Monitoradores.xls"))
   }
 
   uploadPage(): void {

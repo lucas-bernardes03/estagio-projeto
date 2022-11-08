@@ -49,6 +49,16 @@ export class MonitoradorService {
     return this.http.get(url, { responseType: 'blob' }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
 
+  downloadExcelAll(): Observable<Blob> {
+    const url = `${this.baseUrl}/excel`
+    return this.http.get(url, { responseType: 'blob' }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
+  downloadExcelId(id: number): Observable<Blob>{
+    const url = `${this.baseUrl}/${id}/excel`
+    return this.http.get(url, { responseType: 'blob' }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
+  }
+
   downloadModeloExcel(): Observable<Blob> {
     const url = `${this.baseUrl}/modelo`
     return this.http.get(url, { responseType: 'blob'}).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
@@ -57,7 +67,6 @@ export class MonitoradorService {
   readPaginated(params: HttpParams) {
     return this.http.get<Monitorador[]>(this.baseUrl, { params: params }).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
   }
-
 
   readById(id:string): Observable<Monitorador>{
     const url = `${this.baseUrl}/${id}`
@@ -77,94 +86,6 @@ export class MonitoradorService {
   retrieveEnderecosPageable(id: string, params: HttpParams){
     const url = `${this.baseUrl}/${id}/enderecos`
     return this.http.get<Enderecos[]>(url, {params: params}).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
-  }
-
-  retrieveEnderecos(id: number): Observable<Enderecos[]> {
-    const url = `${this.baseUrl}/${id}/enderecos/m`
-    return this.http.get<Enderecos[]>(url).pipe(map(obj => obj), catchError(e => this.errorHandler(e)))
-  }
-
-  toXLSXAll(): void {
-    this.read().subscribe(monitoradores => {
-      const monF = monitoradores.filter(m => m.tipo === "Física")
-      const monJ = monitoradores.filter(m => m.tipo === "Jurídica")
-
-      const monFformat = monF.map(mon => ({
-        id: mon.id,
-        nome: mon.nome,
-        cpf: mon.cpf,
-        rg: mon.rg,
-        dataNascimento: new Date(mon.dataNascimento!).toLocaleDateString(),
-        email: mon.email,
-        ativo: mon.ativo ? "Sim":"Não"
-      }))
-
-      const monJformat = monJ.map(mon => ({
-        id: mon.id,
-        razaoSocial: mon.razaoSocial,
-        cnpj: mon.cnpj,
-        inscricaoEstadual: mon.inscricaoEstadual,
-        email: mon.email,
-        ativo: mon.ativo ? "Sim":"Não"
-      }))
-
-      const wsF = XLSX.utils.json_to_sheet(monFformat)
-      const wsJ = XLSX.utils.json_to_sheet(monJformat)
-
-      XLSX.utils.sheet_add_aoa(wsF, [["ID", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
-      XLSX.utils.sheet_add_aoa(wsJ, [["ID", "Razão Social", "CNPJ", "Inscrição Estadual", "E-mail", "Ativo"]], { origin: "A1"})
-
-      wsF["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 12 }, { wch: 10 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
-      wsJ["!cols"] = [ { wch: 5 }, { wch: 30 }, { wch: 15 }, { wch: 16 }, { wch: 30 }, { wch: 5 } ]
-
-      const workbook = XLSX.utils.book_new()
-
-      XLSX.utils.book_append_sheet(workbook, wsF, "Pessoa Física")
-      XLSX.utils.book_append_sheet(workbook, wsJ, "Pessoa Jurídica")
-
-      XLSX.writeFile(workbook, "Monitoradores.xlsx")
-    })
-  }
-
-  toXLSXId(id: number): void {
-    this.readById(id.toString()).subscribe(m => {
-      const workbook = XLSX.utils.book_new()
-
-      if(m.tipo === "Física"){
-        const wsF = XLSX.utils.aoa_to_sheet([[],[m.id, m.tipo, m.nome, m.cpf, m.rg, new Date(m.dataNascimento!).toLocaleDateString(), m.email, m.ativo ? "Sim":"Não"]])
-        XLSX.utils.sheet_add_aoa(wsF, [["ID", "Tipo", "Nome", "CPF", "RG", "Data de Nascimento", "E-mail", "Ativo"]], { origin: "A1"})
-        wsF["!cols"] = [{ wch: 5 }, {wch: 7}, { wch: 30 }, { wch: 12 }, { wch: 8 }, { wch: 20 }, { wch: 30 }, { wch: 5 } ]
-        XLSX.utils.book_append_sheet(workbook, wsF, "Monitorador")
-      }
-      else{
-        const wsJ = XLSX.utils.aoa_to_sheet([[],[m.id, m.tipo, m.razaoSocial, m.cnpj, m.inscricaoEstadual, m.email, m.ativo ? "Sim":"Não"]])
-        XLSX.utils.sheet_add_aoa(wsJ, [["ID", "Tipo", "Razão Social", "CNPJ", "Inscrição Estadual", "E-mail", "Ativo"]], { origin: "A1"})
-        wsJ["!cols"] = [{ wch: 5 }, {wch: 9},  { wch: 30 }, { wch: 15 }, { wch: 16 }, { wch: 30 }, { wch: 5 } ]
-        XLSX.utils.book_append_sheet(workbook, wsJ, "Monitorador")
-      }
-
-      this.retrieveEnderecos(id).subscribe(enderecos => {
-        const endereceosFormat = enderecos.map(end => ({
-          id: end.id,
-          endereco: end.endereco,
-          numero: end.numero ? end.numero:"S/N",
-          cep: end.cep,
-          bairro: end.bairro,
-          cidade: end.cidade,
-          estado: end.estado,
-          principal: end.principal ? "Sim":"Não",
-          telefone: end.telefone
-        }))
-
-        const endS = XLSX.utils.json_to_sheet(endereceosFormat)
-        XLSX.utils.sheet_add_aoa(endS, [["ID", "Logradouro", "Número", "CEP", "Bairro", "Cidade", "Estado", "Principal", "Telefone"]], { origin: "A1" })
-        endS["!cols"] = [{wch: 5}, {wch: 30}, {wch: 7}, {wch: 9}, {wch: 15}, {wch: 15}, {wch: 7}, {wch: 10}, {wch: 15}]
-        XLSX.utils.book_append_sheet(workbook,endS,"Endereços")
-
-        if(m.tipo === 'Física') XLSX.writeFile(workbook, `${m.nome?.replace(/\s/g, '')}.xlsx`)
-        else XLSX.writeFile(workbook, `${m.razaoSocial?.replace(/\s/g, '')}.xlsx`)
-      })
-    })
   }
 
   readExcel(file: File): Observable<Monitorador[]>{
@@ -233,24 +154,7 @@ export class MonitoradorService {
             end.telefone = MonitoradorService.formatPhone(row['Telefone'])
 
             mon.enderecos?.push(end)
-
-            // if (MonitoradorService.validateExcelMonitorador(mon) && MonitoradorService.validataExcelEndereco(end)){
-            //   if(mon.tipo == 'Física' && ids.includes(mon.rg!)
-            //     || mon.tipo == 'Física' && ids.includes(mon.cpf!)
-            //     || mon.tipo == 'Jurídica' && ids.includes(mon.cnpj!)
-            //     || mon.tipo == 'Jurídica' && ids.includes(mon.inscricaoEstadual!)){
-            //     this.showMessage("Monitoradores já cadastrados no sistema foram descartados!", true)
-            //   }
-            //
-            //   else{
-            //     monitoradores.push(mon)
-            //     if(mon.tipo == 'Física') ids.push(mon.rg!, mon.cpf!)
-            //     else ids.push(mon.cnpj!, mon.inscricaoEstadual!)
-            //   }
-            // }
-            //
-            // else this.showMessage("Monitoradores com campos incorretos foram descartados!", true)
-
+            monitoradores.push(mon)
           })
         }
 
@@ -320,12 +224,22 @@ export class MonitoradorService {
     formJ.controls['inscricaoEstadual'].updateValueAndValidity()
   }
 
-  private static validateExcelMonitorador(mon: Monitorador): boolean {
-    if(mon.tipo == 'Física') return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.nome!) && /^\d{11}$/.test(mon.cpf!) && /^\d{7}$/.test(mon.rg!)
-    else return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.razaoSocial!) && /^\d{14}$/.test(mon.cnpj!) && /^\d{12}$/.test(mon.inscricaoEstadual!)
+  public validateNome(mon: Monitorador): boolean {
+    if(mon.tipo == 'Física') return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.nome!)
+    else return /^[A-Za-zÀ-ÖØ-öø-ÿ ]{1,50}$/.test(mon.razaoSocial!)
   }
 
-  private static validataExcelEndereco(end: Enderecos): boolean {
+  public validateCadastro(mon: Monitorador): boolean {
+    if(mon.tipo == 'Física') return /^\d{11}$/.test(mon.cpf!)
+    else return /^\d{14}$/.test(mon.cnpj!)
+  }
+
+  public validateRegistro(mon : Monitorador): boolean {
+    if(mon.tipo == 'Física') return /^\d{7}$/.test(mon.rg!)
+    else return /^\d{12}$/.test(mon.inscricaoEstadual!)
+  }
+
+  public validataExcelEndereco(end: Enderecos): boolean {
     return /^\d{1,5}$/.test(end.numero!) && /^\d{8}$/.test(end.cep!) && /^.{13,14}$/.test(end.telefone!)
   }
 
