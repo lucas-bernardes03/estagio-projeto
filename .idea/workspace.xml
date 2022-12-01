@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="34cb6b33-4271-4793-8e9c-11a86d8676a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/de-angular-spring/src/main/java/com/unikasistemas/deangular/service/MonitoradorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/de-angular-spring/src/main/java/com/unikasistemas/deangular/service/MonitoradorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/monitorador/endereco.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/monitorador/endereco.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/monitorador/monitorador.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/monitorador/monitorador.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/views/upload/upload/upload.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,19 +12,33 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2H2LXKyn13hN0cGkEsdCfjfnTIn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dev/Documents/GitHub/desafioestagio-angular-spring&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/dev/Documents/GitHub/estagio-projeto/back-spring/pom.xml",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Angular" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/front-angular/package.json" />
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -42,6 +50,7 @@
       <workItem from="1667478270738" duration="12000" />
       <workItem from="1667835843224" duration="7000" />
       <workItem from="1667916615315" duration="2000" />
+      <workItem from="1669902972917" duration="310000" />
     </task>
     <servers />
   </component>
