@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <wicket:extend>
+        <h1 wicket:id="editar">teste</h1>
+        <div style="color:red" wicket:id="feedbackError"></div>
+        <form wicket:id="formularioEdicao" name="formularioedicao">
+            <div class="input-group-edit" id="input-group-edit">
+                <input wicket:id="nome" type="text" class="form-control" placeholder="Nome Completo" aria-describedby="basic-addon1">
+                <input wicket:id="cpf" type="text" class="form-control" placeholder="CPF"/>
+                <input wicket:id="rg" type="text" placeholder="RG" class="form-control"/>
+                <input wicket:id="razaoSocial" type="text" class="form-control" placeholder="Razao Social"/>
+                <input wicket:id="cnpj" type="text" class="form-control" placeholder="CNPJ"/>
+                <input wicket:id="inscricaoEstadual" type="text" placeholder="Inscricao Estadual" class="form-control"/>
+                
+                <input wicket:id="email" type="text" placeholder="E-mail" class="form-control"/>
+                <br/>
+                <label for="dataNascimento">Data de Nascimento</label>
+                <input wicket:id="dataNascimento" style="display:table-cell;" type="date" class="form-control"/>
+                <div class="form-group form-check">
+                    <label class="form-check-label" for="exampleCheck1">Ativo?</label>
+                    <input wicket:id="ativo" type="checkbox" class="form-check-input" id="exampleCheck1">
+                </div>
+                <input wicket:id="botaoSubmit" class="btn btn-lg btn-success btn-block" type="button" value="Atualizar"/>
+                <input wicket:id="botaoVoltar" class="btn btn-lg btn-danger btn-block" type="button" value="Voltar"/>
+            </div>
+        </form>
+    </wicket:extend>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <wicket:panel>
+        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Tem certeza que deseja deletar esse Endereco?</div>
+        <form wicket:id="formDelete" id="form">
+            <button  wicket:id="botaoDeletar" type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Sim</button>
+            <button  wicket:id="botaoCancelar" type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>Nao</button>
+        </form>
+    </wicket:panel>
+</body>
+</html>

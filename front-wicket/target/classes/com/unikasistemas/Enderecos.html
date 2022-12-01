@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <wicket:extend>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 wicket:id="eLabel"></h1>
+
+                    <br />
+                    <div class="table-responsive" wicket:id="divEnderecos">
+                        <table id="mytable2" class="table table-bordered table-striped">
+                            <thead>
+                                <th>Rua</th>
+                                <th>Numero</th>
+                                <th>CEP</th>
+                                <th>Bairro</th>
+                                <th>Telefone</th>
+                                <th>Cidade</th>
+                                <th>Estado</th>
+                                <th>Principal</th>
+                                <th>Editar</th>
+                                <th>Deletar</th>
+                            </thead>
+                            <tbody>
+                                <tr wicket:id="enderecos">
+                                    <td wicket:id="endereco">Rua</td>
+                                    <td wicket:id="numero">Numero</td>
+                                    <td wicket:id="cep">CEP</td>
+                                    <td wicket:id="bairro">Bairro</td>
+                                    <td wicket:id="telefone">Telefone</td>
+                                    <td wicket:id="cidade">Cidade</td>
+                                    <td wicket:id="estado">Estado</td>
+                                    <td wicket:id="principal">Principal</td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="#" wicket:id="linkEditar"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Deletar"><a href="#" wicket:id="linkDeletar"><span class="glyphicon glyphicon-trash"></span></a></p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div wicket:id="navigator"></div>
+                        <div wicket:id="modalWindow"></div> 
+                    </div>
+                    <br />
+                    <br />
+                    <form wicket:id="formAdicionar">
+                        <input wicket:id="botaoAdicionar" class="btn btn-lg btn-success btn-block" type="button" value="Adicionar Endereço" id="botao"/>
+                        <br />
+                        <wicket:link>
+                            <a href="ListaMonitoradores.html" class="btn btn-lg btn-danger btn-block" id="botao">Voltar</a>
+                        </wicket:link>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </wicket:extend>
+</body>
+</html>

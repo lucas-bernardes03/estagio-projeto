@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>>
+</head>
+<body>
+    <wicket:extend>
+        <form wicket:id="formPesquisa">
+            <div class="input-search" id="input-search">
+                <select class="ddown" id="ddown" wicket:id="ddown" style="margin-left: 15px">
+                </select>
+
+                <button wicket:id="upload" class="btn btn-warning" style="margin-left: 10px" type="button" title="UPLOAD"><i class="glyphicon glyphicon-upload"></i></button>
+                <a wicket:id="excelDd" class="btn btn-success" style="margin-left: 5px" title="EXCEL" type="button"><i class="glyphicon glyphicon-list-alt"></i></a>
+                <a wicket:id="pdfDd" class="btn btn-danger" style="margin-left: 5px" title="PDF" type="button"><i class="glyphicon glyphicon-file"></i></a>
+
+                <input id="search" type="text" class="form-control" placeholder="Busca" wicket:id="barraBusca">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" wicket:id="botaoPesquisa">Buscar</button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+
+        <br />
+
+        <div class="tableData table-responsive" wicket:id="divF" style="width: 98%; margin: auto">
+            <table id="tableF" class="table table-bordered table-striped">
+                <thead >
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>RG</th>
+                    <th>Data Nascimento</th>
+                    <th>E-mail</th>
+                    <th>Ativo</th>
+                    <th>Endereços</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
+                    <th>XLS</th>
+                </thead>
+                <tbody>
+                    <tr wicket:id="listagemF">
+                        <td wicket:id="nome">Nome</td>
+                        <td wicket:id="cpf">CPF</td>
+                        <td wicket:id="rg">RG</td>
+                        <td wicket:id="dataNascimento">DataNascimento</td>
+                        <td wicket:id="email">E-mail</td>
+                        <td wicket:id="ativo">Ativo</td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Enderecos"><a href="#" wicket:id="linkEnderecos"><span class="glyphicon glyphicon-home"></span></a></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="#" wicket:id="linkEditar"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Deletar"><a href="#" wicket:id="linkDeletar"><span class="glyphicon glyphicon-trash"></span></a></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="XLS"><a href="#" wicket:id="linkDD"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div wicket:id="navigatorF" style="text-align: center"></div>
+            <div wicket:id="modalF"></div>
+        </div>
+
+        <div class="tableData table-responsive" wicket:id="divJ" style="width: 98%; margin: auto">
+            <table id="tableJ" class="table table-bordered table-striped">
+                <thead >
+                <th>Razão Social</th>
+                <th>CNPJ</th>
+                <th>Inscrição Estadual</th>
+                <th>E-mail</th>
+                <th>Ativo</th>
+                <th>Endereços</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+                <th>XLS</th>
+                </thead>
+                <tbody>
+                <tr wicket:id="listagemJ">
+                    <td wicket:id="razaoSocial">Razão Social</td>
+                    <td wicket:id="cnpj">CNPJ</td>
+                    <td wicket:id="inscricaoEstadual">Inscrição Estadual</td>
+                    <td wicket:id="email">E-mail</td>
+                    <td wicket:id="ativo">Ativo</td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Enderecos"><a href="#" wicket:id="linkEnderecos"><span class="glyphicon glyphicon-home"></span></a></p></td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Editar"><a href="#" wicket:id="linkEditar"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Deletar"><a href="#" wicket:id="linkDeletar"><span class="glyphicon glyphicon-trash"></span></a></p></td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="XLS"><a href="#" wicket:id="linkDD"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>
+                </tr>
+                </tbody>
+            </table>
+            <div wicket:id="navigatorJ" style="text-align: center"></div>
+            <div wicket:id="modalJ"></div>
+        </div>
+
+
+    </wicket:extend>
+</body>
+</html>

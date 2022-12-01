@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <wicket:extend>
+        <h1 wicket:id="lNEndereco"></h1>
+        <br />
+        <div style="color:red" wicket:id="feedbackError"></div>
+            <form wicket:id="formAddEndereco" name="formAddEndereco" id="form">
+                <div class="input-group" id="input-group-end">
+                    <input wicket:id="endereco" type="text" class="form-control" placeholder="Rua" aria-describedby="basic-addon1">
+                    <input wicket:id="numero" type="text" class="form-control" placeholder="Numero"/>
+                    <input wicket:id="cep" type="text" class="form-control" placeholder="CEP"/>
+                    <input wicket:id="bairro" type="text" class="form-control" placeholder="Bairro"/>
+                    <input wicket:id="telefone" type="text" placeholder="Telefone" class="form-control"/>
+                    <input wicket:id="cidade" type="text" placeholder="Cidade" class="form-control"/>
+                    <input wicket:id="estado" type="text" placeholder="Estado" class="form-control"/>
+                    <wicket:container wicket:id="ativo">
+                        <label for="">Tipo do Endereco</label>
+                        <br />
+                        <label><input wicket:id="principal" type="radio">Principal</label>
+                        <br />
+                        <label><input wicket:id="secundario" type="radio">Secundario</label>
+                    </wicket:container>
+                </div> 
+                <br />
+                <input wicket:id="botaoSalvar" class="btn btn-lg btn-success btn-block" type="submit" value="Salvar" id="botao-end"/>
+                <br />
+                <input wicket:id="botaoVoltar" class="btn btn-lg btn-danger btn-block" type="button" value="Voltar" id="botao-voltar"/>
+            </form>
+    </wicket:extend>
+</body>
+</html>

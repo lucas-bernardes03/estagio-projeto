@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <wicket:extend>
+        <div wicket:id="feedback"></div>
+
+        <form wicket:id="form">
+            <h2>Selecione o arquivo</h2>
+            <input wicket:id="fileUploadField" type="file" style="margin: auto; margin-top: 20px">
+            <input class="btn btn-success" type="submit" value="Upload" style="margin-top: 20px">
+        </form>
+
+        <div wicket:id="content" class="tableData table-responsive" style="margin: auto; margin-top: 20px">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>Tipo</th>
+                    <th>Nome/Razão Social</th>
+                    <th>CPF/CNPJ</th>
+                    <th>RG/Inscrição</th>
+                </thead>
+                <tbody>
+                    <tr wicket:id="lista">
+                        <td wicket:id="tipo"></td>
+                        <td wicket:id="nomeRazao"></td>
+                        <td wicket:id="cpfCnpj"></td>
+                        <td wicket:id="rgIns"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </wicket:extend>
+</body>
+</html>

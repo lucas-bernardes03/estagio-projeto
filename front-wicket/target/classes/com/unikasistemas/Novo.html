@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <wicket:extend>
+        <h1 wicket:id="novo"></h1>
+        <div style="color:red" wicket:id="feedbackError"></div>
+        <div wicket:id="divC">
+            <div wicket:id="modalWindow"></div>
+        </div>
+        <form wicket:id="formularioNovo" name="formularionovo" id="form">
+            <div class="btn-group" role="group" aria-label="...">
+                <button wicket:id="botaoFisica" type="button" class="btn btn-default">Pessoa Fisica</button>
+                <button wicket:id="botaoJuridica" type="button" class="btn btn-default">Pessoa Juridica</button>
+            </div>
+            <br />
+            <br />
+            <div class="input-group" id="input-group">
+                <input wicket:id="nome" type="text" class="form-control" placeholder="Nome Completo" aria-describedby="basic-addon1">
+                <input wicket:id="cpf" type="text" class="form-control" placeholder="CPF"/>
+                <input wicket:id="rg" type="text" placeholder="RG" class="form-control"/>
+                <input wicket:id="razaoSocial" type="text" class="form-control" placeholder="Razão Social"/>
+                <input wicket:id="cnpj" type="text" class="form-control" placeholder="CNPJ"/>
+                <input wicket:id="inscricaoEstadual" type="text" placeholder="Inscrição Estadual" class="form-control"/>
+                <input wicket:id="email" type="text" placeholder="E-mail" class="form-control"/>
+                <br/>
+                <label for="dataNascimento" wicket:id="dataLabel"></label>
+                <input wicket:id="dataNascimento" style="display:table-cell;" type="date" class="form-control"/>
+                <br/>
+                <div class="form-group form-check">
+                    <label class="form-check-label" for="exampleCheck1" wicket:id="ativoLabel"></label>
+                    <input wicket:id="ativo" type="checkbox" class="form-check-input" id="exampleCheck1">
+                </div>
+                <input wicket:id="botaoSubmit" class="btn btn-lg btn-success btn-block" type="submit" value="Registrar"/>
+            </div>
+        </form>
+    </wicket:extend>
+</body>
+</html>
