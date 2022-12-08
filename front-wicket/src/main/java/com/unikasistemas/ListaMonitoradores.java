@@ -172,9 +172,6 @@ public class ListaMonitoradores extends BasePage{
         Form<String> form = new Form<>("formPesquisa");
         add(form);
 
-        final TextField<String> searchBar = new TextField<>("barraBusca", Model.of(""));
-        searchBar.add(StringValidator.maximumLength(30));
-
         IModel<File> excelFile = new AbstractReadOnlyModel<File>() {
             @Override
             public File getObject() {
@@ -203,37 +200,10 @@ public class ListaMonitoradores extends BasePage{
             }
         };
 
-
-        form.add(searchBar, dExcel, dPdf, uploadButton);
-
-        List<String> tipos = Arrays.asList("Física", "Jurídica");
-        DropDownChoice<String> dropDown = new DropDownChoice<>("ddown", new Model<>(), tipos);
-        dropDown.setNullValid(false);
-
-        dropDown.add(new AjaxFormComponentUpdatingBehavior("change") {
-            @Override
-            protected void onUpdate(AjaxRequestTarget target) {
-                if(dropDown.getModelObject().equals("Física")){
-                    List<Monitorador> lista = servicoM.listarTodos().stream().filter(m -> m.getTipo().equals("Física")).collect(Collectors.toList());
-                    listagemF.setList(lista);
-
-                    containerF.setVisible(true);
-                    containerJ.setVisible(false);
-
-                    target.add(containerF, containerJ, dropDown);
-                }
-                else{
-                    List<Monitorador> lista = servicoM.listarTodos().stream().filter(m -> m.getTipo().equals("Jurídica")).collect(Collectors.toList());
-                    listagemJ.setList(lista);
-
-                    containerF.setVisible(false);
-                    containerJ.setVisible(true);
-
-                    target.add(containerF, containerJ, dropDown);
-                }
-            }
-        });
-
+        final TextField<String> searchBar = new TextField<>("barraBusca", Model.of(""));
+        searchBar.add(StringValidator.maximumLength(30));
+        searchBar.setOutputMarkupId(true);
+        searchBar.setVisible(false);
         AjaxButton botaoPesquisa = new AjaxButton("botaoPesquisa",form) {
             @Override
             public void onSubmit(AjaxRequestTarget target, Form<?> form){
@@ -264,7 +234,46 @@ public class ListaMonitoradores extends BasePage{
             }
         };
 
-        form.add(dropDown,botaoPesquisa);
+        botaoPesquisa.setOutputMarkupId(true);
+        botaoPesquisa.setVisible(false);
+
+        form.add(searchBar, dExcel, dPdf, uploadButton, botaoPesquisa);
+
+
+        List<String> tipos = Arrays.asList("Física", "Jurídica");
+        DropDownChoice<String> dropDown = new DropDownChoice<>("ddown", new Model<>(), tipos);
+        dropDown.setNullValid(false);
+
+        dropDown.add(new AjaxFormComponentUpdatingBehavior("change") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                searchBar.setVisible(true);
+                botaoPesquisa.setVisible(true);
+
+                target.add(form);
+
+                if(dropDown.getModelObject().equals("Física")){
+                    List<Monitorador> lista = servicoM.listarTodos().stream().filter(m -> m.getTipo().equals("Física")).collect(Collectors.toList());
+                    listagemF.setList(lista);
+
+                    containerF.setVisible(true);
+                    containerJ.setVisible(false);
+
+                    target.add(containerF, containerJ, dropDown);
+                }
+                else{
+                    List<Monitorador> lista = servicoM.listarTodos().stream().filter(m -> m.getTipo().equals("Jurídica")).collect(Collectors.toList());
+                    listagemJ.setList(lista);
+
+                    containerF.setVisible(false);
+                    containerJ.setVisible(true);
+
+                    target.add(containerF, containerJ, dropDown);
+                }
+            }
+        });
+
+        form.add(dropDown);
 
         containerF.add(listagemF);
         containerJ.add(listagemJ);

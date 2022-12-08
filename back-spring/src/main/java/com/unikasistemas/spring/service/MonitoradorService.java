@@ -188,7 +188,7 @@ public class MonitoradorService {
     public Resource exportModelo() {
         try {
             String filepath = "src/main/resources";
-            Path file = Paths.get(filepath).resolve("PlanilhaCadastro.xlsx");
+            Path file = Paths.get(filepath).resolve("PlanilhaCadastro.xls");
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) return resource;

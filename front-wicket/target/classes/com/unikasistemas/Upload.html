@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
     <wicket:extend>
-        <div wicket:id="feedback"></div>
+        <h2>Upload Excel</h2>
+        <div wicket:id="errorFb" style="color: red"></div>
+        <div wicket:id="warningFb" style="color: darkorange"></div>
 
         <form wicket:id="form">
-            <h2>Selecione o arquivo</h2>
-            <input wicket:id="fileUploadField" type="file" style="margin: auto; margin-top: 20px">
-            <input class="btn btn-success" type="submit" value="Upload" style="margin-top: 20px">
+            <br/>
+            <label>Utilize o Modelo: </label>
+            <a wicket:id="dlink" class="btn btn-success" ><i class="glyphicon glyphicon-file"></i></a>
+            <br/>
+            <div style="border: thin dashed #888888; width: fit-content; margin: 20px auto auto; padding: 5px">
+                <input wicket:id="fileUploadField" type="file" style="margin: 20px auto auto;">
+                <input class="btn btn-success" type="submit" value="Upload" style="margin-top: 20px">
+            </div>
         </form>
 
-        <div wicket:id="content" class="tableData table-responsive" style="margin: auto; margin-top: 20px">
+        <div wicket:id="content" class="tableData table-responsive" style="margin: 20px auto auto;">
             <table class="table table-bordered table-striped">
                 <thead>
                     <th>Tipo</th>
                     <th>Nome/Razão Social</th>
                     <th>CPF/CNPJ</th>
                     <th>RG/Inscrição</th>
+                    <th>Endereço</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th>Telefone</th>
+                    <th>Campos Inválidos</th>
                 </thead>
                 <tbody>
                     <tr wicket:id="lista">
@@ -28,10 +41,21 @@
                         <td wicket:id="nomeRazao"></td>
                         <td wicket:id="cpfCnpj"></td>
                         <td wicket:id="rgIns"></td>
+                        <td wicket:id="end"></td>
+                        <td wicket:id="bairro"></td>
+                        <td wicket:id="cidade"></td>
+                        <td wicket:id="estado"></td>
+                        <td wicket:id="telefone"></td>
+                        <td wicket:id="invalidos"></td>
                     </tr>
                 </tbody>
             </table>
+            <div wicket:id="modalWindow"></div>
         </div>
+
+        <form wicket:id="fsalvar">
+            <button wicket:id="salvar" class="btn btn-success" type="submit" style="margin: 20px auto auto">Adicionar Monitoradores</button>
+        </form>
 
     </wicket:extend>
 </body>

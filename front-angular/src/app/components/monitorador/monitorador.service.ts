@@ -234,10 +234,6 @@ export class MonitoradorService {
     else return /^\d{12}$/.test(mon.inscricaoEstadual!)
   }
 
-  // public validataExcelEndereco(end: Enderecos): boolean {
-  //   return /^\d{1,5}$/.test(end.numero!) && /^\d{8}$/.test(end.cep!) && /^.{13,14}$/.test(end.telefone!)
-  // }
-
   private static formatPhone(phone:number):string {
     return phone.toString().replace(/^(\d{0,2})(\d{0,9})$/, '($1) $2')
   }

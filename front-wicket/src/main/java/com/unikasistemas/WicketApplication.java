@@ -19,14 +19,13 @@ public class WicketApplication extends WebApplication{
 
 	@Override
 	public Class<? extends WebPage> getHomePage(){
-		return HomePage.class;
+		return ListaMonitoradores.class;
 	}
 
 	@Override
 	public void init(){
 		super.init();
 
-		// instancia as configuracoes do bootstrap
 		BootstrapSettings settings = new BootstrapSettings();
 		Bootstrap.install(this, settings);
 	}
