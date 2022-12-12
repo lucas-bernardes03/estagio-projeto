@@ -10,11 +10,6 @@ import {saveAs} from "file-saver";
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
-
-  cadastroVal: boolean = true
-  registroVal: boolean = true
-  nomeVal: boolean = true
-
   monitoradores: Monitorador[] = []
   monitoradoresVal: Monitorador[] = []
   displayedColumns = ['tipo', 'nomeRazao', 'cpfCnpj', 'rgInscricao', 'email', 'endereco', 'telefone']
@@ -51,14 +46,23 @@ export class UploadComponent implements OnInit {
   private readFile(file: File): void {
     this.monitoradorService.readExcel(file).subscribe(m => {
       m.forEach(mon =>{
-        this.cadastroVal = this.monitoradorService.validateCadastro(mon)
-        this.registroVal = this.monitoradorService.validateRegistro(mon)
-        this.nomeVal = this.monitoradorService.validateNome(mon)
         this.monitoradores.push(mon)
 
-        if(!this.cadastroVal || !this.registroVal || !this.nomeVal) this.monitoradorService.showMessage("Monitoradores com dados incorretos não serão adicionados!", true)
+        if(!this.cadastroVal(mon) || !this.registroVal(mon) || !this.nomeVal(mon)) this.monitoradorService.showMessage("Monitoradores com dados incorretos não serão adicionados!", true)
         else this.monitoradoresVal.push(mon)
       })
     })
+  }
+
+  cadastroVal(m: Monitorador): boolean{
+    return this.monitoradorService.validateCadastro(m)
+  }
+
+  registroVal(m: Monitorador): boolean{
+    return this.monitoradorService.validateRegistro(m)
+  }
+
+  nomeVal(m: Monitorador): boolean{
+    return this.monitoradorService.validateNome(m)
   }
 }

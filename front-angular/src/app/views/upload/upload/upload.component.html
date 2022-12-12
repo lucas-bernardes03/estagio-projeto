@@ -25,17 +25,17 @@
 
         <ng-container matColumnDef="nomeRazao">
           <th mat-header-cell *matHeaderCellDef>Nome/Razão</th>
-          <td [ngStyle]="{'color': nomeVal ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.nome:row.razaoSocial}}</td>
+          <td [ngStyle]="{'color': nomeVal(row) ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.nome:row.razaoSocial}}</td>
         </ng-container>
 
         <ng-container matColumnDef="cpfCnpj">
           <th mat-header-cell *matHeaderCellDef>CPF/CNPJ</th>
-          <td [ngStyle]="{'color': cadastroVal ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.cpf:row.cnpj}}</td>
+          <td [ngStyle]="{'color': cadastroVal(row) ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.cpf:row.cnpj}}</td>
         </ng-container>
 
         <ng-container matColumnDef="rgInscricao">
           <th mat-header-cell *matHeaderCellDef>RG/Inscrição</th>
-          <td [ngStyle]="{'color': registroVal ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.rg:row.inscricaoEstadual}}</td>
+          <td [ngStyle]="{'color': registroVal(row) ? 'white':'red'}" mat-cell *matCellDef="let row">{{row.tipo == 'Física' ? row.rg:row.inscricaoEstadual}}</td>
         </ng-container>
 
 

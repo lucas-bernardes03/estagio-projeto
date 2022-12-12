@@ -176,7 +176,7 @@ export class MonitoradorService {
   }
 
   setFormFValidators(formF: FormGroup): void{
-    formF.controls['nome'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(30), Validators.required])
+    formF.controls['nome'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(50), Validators.required])
     formF.controls['cpf'].setValidators([Validators.pattern('^[0-9]{11}$'), Validators.required])
     formF.controls['rg'].setValidators([Validators.pattern('^[0-9]{7}$'), Validators.required])
     formF.controls['dataNascimento'].setValidators([Validators.required])
@@ -188,7 +188,7 @@ export class MonitoradorService {
   }
 
   setFormJValidators(formJ: FormGroup): void{
-    formJ.controls['razaoSocial'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(30), Validators.required])
+    formJ.controls['razaoSocial'].setValidators([Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ ]*$'), Validators.maxLength(50), Validators.required])
     formJ.controls['cnpj'].setValidators([Validators.pattern('^[0-9]{14}$'), Validators.required])
     formJ.controls['inscricaoEstadual'].setValidators([Validators.pattern('^[0-9]{12}$'), Validators.required])
 

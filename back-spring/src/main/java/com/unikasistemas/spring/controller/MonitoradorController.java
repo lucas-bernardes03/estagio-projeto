@@ -91,11 +91,14 @@ public class MonitoradorController {
         List<Monitorador> mons = new ArrayList<>();
         
         for(Monitorador m : monitoradores){
-            Monitorador mSalvo = service.insertMonitorador(m);
-            m.getEnderecos().forEach(endereco -> endereco.setMonitorador(mSalvo));
-            m.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
-            mons.add(mSalvo);
+            if(!service.checkIguais(m)){
+                Monitorador mSalvo = service.insertMonitorador(m);
+                m.getEnderecos().forEach(endereco -> endereco.setMonitorador(mSalvo));
+                m.getEnderecos().forEach(endereco -> enderecoService.insertEndereco(endereco));
+                mons.add(mSalvo);
+            }
         }
+
         return ResponseEntity.ok(mons);
     }
 
