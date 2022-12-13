@@ -59,6 +59,7 @@ public class NovoEndereco extends BasePage{
         group.setLabel(Model.of("Tipo de Endereco")).setRequired(true);
 
         final FeedbackPanel error = new FeedbackPanel("feedbackError", new ErrorLevelFeedbackMessageFilter(FeedbackMessage.ERROR));
+        error.setOutputMarkupId(true);
         add(error);
 
         AjaxButton botaoSubmit = new AjaxButton("botaoSubmit", form) {

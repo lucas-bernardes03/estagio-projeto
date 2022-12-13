@@ -91,6 +91,7 @@ public class Editar extends BasePage{
         inputAtivo.setLabel(Model.of("Ativo")).setRequired(true);
 
         FeedbackPanel error = new FeedbackPanel("feedbackError", new ErrorLevelFeedbackMessageFilter(FeedbackMessage.ERROR));
+        error.setOutputMarkupId(true);
         add(error);
 
         AjaxButton botaoSubmit = new AjaxButton("botaoSubmit", form) {
